@@ -36,10 +36,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode.zPosition = Layer.player.rawValue
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
     func playMusic() {
         
         let url = Bundle.main.url(forResource: "", withExtension: "")!
