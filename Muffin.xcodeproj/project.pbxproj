@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F676857230C2391008671F0 /* OrbEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F676856230C2391008671F0 /* OrbEntity.swift */; };
 		1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4088E2305A2CD006331CC /* AppDelegate.swift */; };
 		1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE408982305A2CD006331CC /* Main.storyboard */; };
 		1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089B2305A2CF006331CC /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F676856230C2391008671F0 /* OrbEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbEntity.swift; sourceTree = "<group>"; };
 		1FE4088B2305A2CD006331CC /* Muffin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Muffin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE4088E2305A2CD006331CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FE408992305A2CD006331CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				562FF461230AE68B00D0838B /* PlayerEntity.swift */,
+				1F676856230C2391008671F0 /* OrbEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				562FF488230AE68B00D0838B /* GameScene.swift in Sources */,
 				562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */,
 				562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */,
+				1F676857230C2391008671F0 /* OrbEntity.swift in Sources */,
 				1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */,
 				562FF489230AE68B00D0838B /* GameViewController.swift in Sources */,
 				562FF487230AE68B00D0838B /* PlayerEntity.swift in Sources */,
