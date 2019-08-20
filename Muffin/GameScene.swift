@@ -36,6 +36,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode.zPosition = Layer.player.rawValue
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.location(in: self.view)
+        print(location.x)
+        if (location.x < ((frame.width)/2)) {
+            print("esquerda")
+            //chamar a heldToTheLeft
+        }else {
+            print("direita")
+            //chamar a heldToTheRight
+        }
+    }
+    
     func playMusic() {
         
         let url = Bundle.main.url(forResource: "", withExtension: "")!
