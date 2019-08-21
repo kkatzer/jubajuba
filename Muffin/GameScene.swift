@@ -11,12 +11,18 @@ import GameplayKit
 import AVFoundation
 
 enum Layer: CGFloat {
+    case distance
     case background
     case player
     case foreground
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var deltaTime: TimeInterval = 0
+    var lastUpdateTime: TimeInterval = 0
+    
+    let velocityX: CGFloat = 200
     
     var player: PlayerEntity!
     
@@ -36,6 +42,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode.zPosition = Layer.player.rawValue
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.location(in: self.view)
+        
+        let moveComponent = player.movementComponent
+        moveComponent!.moveEnabled = true
+        
+        if location.x < frame.size.width/2 {
+            // left
+            moveComponent?.setVelocity(-self.velocityX)
+        } else {
+            // right
+            moveComponent?.setVelocity(self.velocityX)
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let moveComponent = player.movementComponent
+        moveComponent!.moveEnabled = false
+    }
+    
     func playMusic() {
         
         let url = Bundle.main.url(forResource: "", withExtension: "")!
@@ -48,5 +75,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         musicPlayer.numberOfLoops = -1
         musicPlayer.prepareToPlay()
         musicPlayer.play()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime == 0 {
+            lastUpdateTime = currentTime
+        }
+        
+        deltaTime = currentTime - lastUpdateTime
+        lastUpdateTime = currentTime
+        
+        player.update(deltaTime: deltaTime)
     }
 }
