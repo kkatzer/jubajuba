@@ -10,19 +10,33 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+enum Type: Int {
+    case joy = 1
+    case sadness = 2
+    case anger = 3
+
+    static let allValues = [joy, sadness, anger]
+}
+
 class OrbEntity: GKEntity {
     
     var spriteComponent: SpriteComponent!
-    var movementComponent: MovementComponent!
+    var orbComponent: OrbComponent!
     
-    init(node: SKSpriteNode) {
+    let type: Type!
+    let player: PlayerEntity!
+    
+    init(node: SKSpriteNode, type: Type, player: PlayerEntity) {
+        self.type = type
+        self.player = player
+        
         super.init()
         
         spriteComponent = SpriteComponent(entity: self, node: node)
         addComponent(spriteComponent)
         
-        movementComponent = MovementComponent(entity: self)
-        addComponent(movementComponent)
+        orbComponent = OrbComponent(entity: self, type: type)
+        addComponent(orbComponent)
     }
     
     required init?(coder aDecoder: NSCoder) {

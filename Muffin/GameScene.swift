@@ -19,6 +19,7 @@ enum Layer: CGFloat {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var player: PlayerEntity!
+    var joy: OrbEntity!
     
     private var musicPlayer: AVAudioPlayer!
     
@@ -27,6 +28,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         
+        joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
+        
+        joy.orbComponent.idleAnimation()
         
         //playMusic()
     }
