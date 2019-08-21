@@ -11,12 +11,18 @@ import GameplayKit
 import AVFoundation
 
 enum Layer: CGFloat {
+    case distance
     case background
     case player
     case foreground
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var deltaTime: TimeInterval = 0
+    var lastUpdateTime: TimeInterval = 0
+    
+    let velocityX: CGFloat = 200
     
     var player: PlayerEntity!
     
@@ -61,5 +67,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         musicPlayer.numberOfLoops = -1
         musicPlayer.prepareToPlay()
         musicPlayer.play()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime == 0 {
+            lastUpdateTime = currentTime
+        }
+        
+        deltaTime = currentTime - lastUpdateTime
+        lastUpdateTime = currentTime
+        
+        player.update(deltaTime: deltaTime)
     }
 }
