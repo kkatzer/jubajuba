@@ -28,14 +28,12 @@
 		562FF492230AE68B00D0838B /* Empurra.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF46E230AE68B00D0838B /* Empurra.png */; };
 		562FF493230AE68B00D0838B /* Quebra@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF46F230AE68B00D0838B /* Quebra@2x.png */; };
 		562FF494230AE68B00D0838B /* chao felicidade@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF470230AE68B00D0838B /* chao felicidade@3x.png */; };
-		562FF495230AE68B00D0838B /* personagem .png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF471230AE68B00D0838B /* personagem .png */; };
 		562FF496230AE68B00D0838B /* chao - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF472230AE68B00D0838B /* chao - tristeza.png */; };
 		562FF497230AE68B00D0838B /* chao felicidade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF473230AE68B00D0838B /* chao felicidade@2x.png */; };
 		562FF498230AE68B00D0838B /* Quebra@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF474230AE68B00D0838B /* Quebra@3x.png */; };
 		562FF499230AE68B00D0838B /* chao felicidade.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF475230AE68B00D0838B /* chao felicidade.png */; };
 		562FF49A230AE68B00D0838B /* Quebra.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF476230AE68B00D0838B /* Quebra.png */; };
 		562FF49B230AE68B00D0838B /* ilha - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF477230AE68B00D0838B /* ilha - tristeza.png */; };
-		562FF49C230AE68B00D0838B /* personagem @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF478230AE68B00D0838B /* personagem @2x.png */; };
 		562FF49D230AE68B00D0838B /* arvores@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF479230AE68B00D0838B /* arvores@2x.png */; };
 		562FF49E230AE68B00D0838B /* arvores@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF47A230AE68B00D0838B /* arvores@3x.png */; };
 		562FF49F230AE68B00D0838B /* personagem @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF47B230AE68B00D0838B /* personagem @3x.png */; };
@@ -47,6 +45,7 @@
 		562FF4A5230AE68B00D0838B /* tela@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF481230AE68B00D0838B /* tela@2x.png */; };
 		562FF4A6230AE68B00D0838B /* ilha - tristeza@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF482230AE68B00D0838B /* ilha - tristeza@3x.png */; };
 		562FF4A7230AE68B00D0838B /* chao - tristeza@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF483230AE68B00D0838B /* chao - tristeza@2x.png */; };
+		56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56741CFF230D89F6000393A5 /* CGPointExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,14 +72,12 @@
 		562FF46E230AE68B00D0838B /* Empurra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Empurra.png; sourceTree = "<group>"; };
 		562FF46F230AE68B00D0838B /* Quebra@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Quebra@2x.png"; sourceTree = "<group>"; };
 		562FF470230AE68B00D0838B /* chao felicidade@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao felicidade@3x.png"; sourceTree = "<group>"; };
-		562FF471230AE68B00D0838B /* personagem .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personagem .png"; sourceTree = "<group>"; };
 		562FF472230AE68B00D0838B /* chao - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza.png"; sourceTree = "<group>"; };
 		562FF473230AE68B00D0838B /* chao felicidade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao felicidade@2x.png"; sourceTree = "<group>"; };
 		562FF474230AE68B00D0838B /* Quebra@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Quebra@3x.png"; sourceTree = "<group>"; };
 		562FF475230AE68B00D0838B /* chao felicidade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao felicidade.png"; sourceTree = "<group>"; };
 		562FF476230AE68B00D0838B /* Quebra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Quebra.png; sourceTree = "<group>"; };
 		562FF477230AE68B00D0838B /* ilha - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilha - tristeza.png"; sourceTree = "<group>"; };
-		562FF478230AE68B00D0838B /* personagem @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personagem @2x.png"; sourceTree = "<group>"; };
 		562FF479230AE68B00D0838B /* arvores@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arvores@2x.png"; sourceTree = "<group>"; };
 		562FF47A230AE68B00D0838B /* arvores@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arvores@3x.png"; sourceTree = "<group>"; };
 		562FF47B230AE68B00D0838B /* personagem @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personagem @3x.png"; sourceTree = "<group>"; };
@@ -92,6 +89,7 @@
 		562FF481230AE68B00D0838B /* tela@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tela@2x.png"; sourceTree = "<group>"; };
 		562FF482230AE68B00D0838B /* ilha - tristeza@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilha - tristeza@3x.png"; sourceTree = "<group>"; };
 		562FF483230AE68B00D0838B /* chao - tristeza@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza@2x.png"; sourceTree = "<group>"; };
+		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +133,7 @@
 				1FE4089B2305A2CF006331CC /* Assets.xcassets */,
 				1FE4089D2305A2CF006331CC /* LaunchScreen.storyboard */,
 				1FE408A02305A2CF006331CC /* Info.plist */,
+				56741CFF230D89F6000393A5 /* CGPointExtensions.swift */,
 				562FF465230AE68B00D0838B /* Resources */,
 			);
 			path = Muffin;
@@ -186,14 +185,12 @@
 				562FF46E230AE68B00D0838B /* Empurra.png */,
 				562FF46F230AE68B00D0838B /* Quebra@2x.png */,
 				562FF470230AE68B00D0838B /* chao felicidade@3x.png */,
-				562FF471230AE68B00D0838B /* personagem .png */,
 				562FF472230AE68B00D0838B /* chao - tristeza.png */,
 				562FF473230AE68B00D0838B /* chao felicidade@2x.png */,
 				562FF474230AE68B00D0838B /* Quebra@3x.png */,
 				562FF475230AE68B00D0838B /* chao felicidade.png */,
 				562FF476230AE68B00D0838B /* Quebra.png */,
 				562FF477230AE68B00D0838B /* ilha - tristeza.png */,
-				562FF478230AE68B00D0838B /* personagem @2x.png */,
 				562FF479230AE68B00D0838B /* arvores@2x.png */,
 				562FF47A230AE68B00D0838B /* arvores@3x.png */,
 				562FF47B230AE68B00D0838B /* personagem @3x.png */,
@@ -272,7 +269,6 @@
 				562FF496230AE68B00D0838B /* chao - tristeza.png in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				562FF492230AE68B00D0838B /* Empurra.png in Resources */,
-				562FF495230AE68B00D0838B /* personagem .png in Resources */,
 				562FF48F230AE68B00D0838B /* Empurra@2x.png in Resources */,
 				1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */,
 				562FF48A230AE68B00D0838B /* chao - raiva.png in Resources */,
@@ -282,7 +278,6 @@
 				562FF4A3230AE68B00D0838B /* tela.png in Resources */,
 				562FF49A230AE68B00D0838B /* Quebra.png in Resources */,
 				562FF4A5230AE68B00D0838B /* tela@2x.png in Resources */,
-				562FF49C230AE68B00D0838B /* personagem @2x.png in Resources */,
 				562FF49E230AE68B00D0838B /* arvores@3x.png in Resources */,
 				562FF48B230AE68B00D0838B /* chao - raiva@2x.png in Resources */,
 				562FF49B230AE68B00D0838B /* ilha - tristeza.png in Resources */,
@@ -314,6 +309,7 @@
 				562FF488230AE68B00D0838B /* GameScene.swift in Sources */,
 				562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */,
 				562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */,
+				56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */,
 				1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */,
 				562FF489230AE68B00D0838B /* GameViewController.swift in Sources */,
 				562FF487230AE68B00D0838B /* PlayerEntity.swift in Sources */,

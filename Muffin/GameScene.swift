@@ -45,14 +45,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let location = touch.location(in: self.view)
-        print(location.x)
-        if (location.x < ((frame.width)/2)) {
-            print("esquerda")
-            //chamar a heldToTheLeft
-        }else {
-            print("direita")
-            //chamar a heldToTheRight
+        
+        let moveComponent = player.movementComponent
+        moveComponent?.moveEnabled = true
+        
+        if location.x < frame.size.width/2 {
+            // left
+            moveComponent?.setVelocity(-self.velocityX)
+        } else {
+            // right
+            moveComponent?.setVelocity(self.velocityX)
         }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let moveComponent = player.movementComponent
+        moveComponent?.moveEnabled = false
     }
     
     func playMusic() {
