@@ -33,7 +33,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         
-        
         //playMusic()
     }
     
@@ -42,25 +41,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode.zPosition = Layer.player.rawValue
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
-        let location = touch.location(in: self.view)
-        
+    func touchDown(atPoint pos : CGPoint) {
         let moveComponent = player.movementComponent
-        moveComponent?.moveEnabled = true
         
-        if location.x < frame.size.width/2 {
+        if pos.x < (self.camera?.position.x)! {
             // left
-            moveComponent?.setVelocity(-self.velocityX)
+            if moveComponent!.moveRight {
+                moveComponent?.jump()
+            } else {
+                moveComponent?.moveToTheLeft(true)
+            }
         } else {
             // right
-            moveComponent?.setVelocity(self.velocityX)
+            if moveComponent!.moveLeft {
+                moveComponent?.jump()
+            } else {
+                moveComponent!.moveToTheRight(true)
+            }
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func touchUp(atPoint pos : CGPoint) {
         let moveComponent = player.movementComponent
-        moveComponent?.moveEnabled = false
+        
+        if pos.x < (self.camera?.position.x)! {
+            // left
+            if moveComponent!.moveLeft {
+                moveComponent!.moveToTheLeft(false)
+            } else if moveComponent!.moveRight {
+                moveComponent!.moveToTheRight(false)
+            }
+        } else {
+            // right
+            if moveComponent!.moveRight {
+                moveComponent!.moveToTheRight(false)
+            } else if moveComponent!.moveLeft {
+                moveComponent!.moveToTheLeft(false)
+            }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for t in touches { self.touchDown(atPoint: t.location(in: self))}
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for t in touches { self.touchUp(atPoint: t.location(in: self))}
     }
     
     func playMusic() {
@@ -86,5 +114,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lastUpdateTime = currentTime
         
         player.update(deltaTime: deltaTime)
+        camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
     }
 }
