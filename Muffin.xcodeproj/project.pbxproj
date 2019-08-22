@@ -90,7 +90,7 @@
 		562FF481230AE68B00D0838B /* tela@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tela@2x.png"; sourceTree = "<group>"; };
 		562FF482230AE68B00D0838B /* ilha - tristeza@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilha - tristeza@3x.png"; sourceTree = "<group>"; };
 		562FF483230AE68B00D0838B /* chao - tristeza@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza@2x.png"; sourceTree = "<group>"; };
-		5642ADF9230F00B50065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Personagem.png; path = ../../../../../../Downloads/Personagem.png; sourceTree = "<group>"; };
+		5642ADF9230F00B50065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
 		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
