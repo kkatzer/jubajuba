@@ -15,7 +15,9 @@ class OrbComponent: GKComponent {
     let spriteComponent: SpriteComponent
     let type: Type
     let player: PlayerEntity
+    
     var timer: Timer?
+    var positionNegative: Bool = true
     
     init(entity: OrbEntity, type: Type) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
@@ -29,23 +31,45 @@ class OrbComponent: GKComponent {
     }
     
     func idleAnimation() {
-        if type == .joy {
-            timer = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(joy), userInfo: nil, repeats: true)
+        switch type {
+        case .joy:
+            timer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(joy), userInfo: nil, repeats: true)
+        case .anger:
+            timer = Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(anger), userInfo: nil, repeats: true)
+        case .sadness:
+            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(sadness), userInfo: nil, repeats: true)
         }
     }
     
     @objc func joy() {
-        let rightAction = SKAction.moveBy(x: 100.0, y: 10.0, duration: 2.0)
-        rightAction.timingMode = .easeInEaseOut
-        let leftAction = SKAction.moveBy(x: -100.0, y: -10.0, duration: 2.0)
-        leftAction.timingMode = .easeInEaseOut
-        let moveAction = SKAction.sequence([rightAction, leftAction])
-        let upAction = SKAction.moveBy(x: 0, y: 20, duration: 1.0)
+        //If orb is on the right, goes to the left, and vice-versa
+        let position = positionNegative ? CGPoint(x: player.spriteComponent.node.position.x + CGFloat.random(in: 35.00...80.00), y: player.spriteComponent.node.position.y + CGFloat.random(in: 90.00...110.00)) : CGPoint(x: player.spriteComponent.node.position.x - CGFloat.random(in: 35.00...80.00), y: player.spriteComponent.node.position.y + CGFloat.random(in: 90.00...110.00))
+        positionNegative = !positionNegative
+        let moveAction = SKAction.move(to: position, duration: 1.5)
+        moveAction.timingMode = .easeInEaseOut
+        let random = CGFloat.random(in: 20.0...40.0)
+        let upAction = SKAction.moveBy(x: 0, y: random, duration: 0.75)
         upAction.timingMode = .easeOut
-        let downAction = SKAction.moveBy(x: 0, y: -20, duration: 1.0)
+        let downAction = SKAction.moveBy(x: 0, y: random, duration: 0.75)
         downAction.timingMode = .easeIn
-        let jumpAction = SKAction.sequence([upAction, downAction, downAction, upAction])
+        let jumpAction = SKAction.sequence([upAction, downAction])
         spriteComponent.node.run(moveAction)
         spriteComponent.node.run(jumpAction)
+    }
+    
+    @objc func anger() {
+        //If orb is on the right, goes to the left, and vice-versa
+        let position = positionNegative ? CGPoint(x: player.spriteComponent.node.position.x + CGFloat.random(in: 50.00...100.00), y: player.spriteComponent.node.position.y + CGFloat.random(in: 70.00...130.00)) : CGPoint(x: player.spriteComponent.node.position.x - CGFloat.random(in: 50.00...100.00), y: player.spriteComponent.node.position.y + CGFloat.random(in: 70.00...130.00))
+        positionNegative = !positionNegative
+        
+        let moveAction = SKAction.move(to: position, duration: 0.15)
+        moveAction.timingMode = .easeInEaseOut
+        
+        spriteComponent.node.run(moveAction)
+    }
+    
+    @objc func sadness() {
+        let moveAction = SKAction.move(to: CGPoint(x: player.spriteComponent.node.position.x - 50.0, y: player.spriteComponent.node.position.y + CGFloat.random(in: 65.0...100.0)), duration: 2.0)
+        spriteComponent.node.run(moveAction)
     }
 }

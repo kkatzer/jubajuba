@@ -19,7 +19,6 @@ enum Type: Int {
 }
 
 class OrbEntity: GKEntity {
-    
     var spriteComponent: SpriteComponent!
     var orbComponent: OrbComponent!
     

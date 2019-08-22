@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F26B7CA230D7348001BBDCE /* OrbComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26B7C9230D7348001BBDCE /* OrbComponent.swift */; };
-		1F676857230C2391008671F0 /* OrbEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F676856230C2391008671F0 /* OrbEntity.swift */; };
 		1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4088E2305A2CD006331CC /* AppDelegate.swift */; };
 		1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE408982305A2CD006331CC /* Main.storyboard */; };
 		1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089B2305A2CF006331CC /* Assets.xcassets */; };
 		1FE4089F2305A2CF006331CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089D2305A2CF006331CC /* LaunchScreen.storyboard */; };
+		1FEE6457230EB73F0082DFB0 /* OrbEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F676856230C2391008671F0 /* OrbEntity.swift */; };
+		1FEE6458230EB7420082DFB0 /* OrbComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26B7C9230D7348001BBDCE /* OrbComponent.swift */; };
 		562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45C230AE68B00D0838B /* SpriteComponent.swift */; };
 		562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45D230AE68B00D0838B /* MovementComponent.swift */; };
 		562FF486230AE68B00D0838B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 562FF45F230AE68B00D0838B /* GameScene.sks */; };
@@ -312,8 +312,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FEE6458230EB7420082DFB0 /* OrbComponent.swift in Sources */,
 				562FF488230AE68B00D0838B /* GameScene.swift in Sources */,
 				562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */,
+				1FEE6457230EB73F0082DFB0 /* OrbEntity.swift in Sources */,
 				562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */,
 				56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */,
 				1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */,
