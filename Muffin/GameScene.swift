@@ -22,6 +22,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var deltaTime: TimeInterval = 0
     var lastUpdateTime: TimeInterval = 0
     
+    var deltaStamp: TimeInterval = 0
+    
     let velocityX: CGFloat = 200
     
     var player: PlayerEntity!
@@ -37,24 +39,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setUpPlayer() {
-        let playerNode = player.spriteComponent.node
-        playerNode.zPosition = Layer.player.rawValue
+        let node = player.spriteComponent.node
+        node.zPosition = Layer.player.rawValue
+        node.physicsBody?.restitution = 0.0
+    }
+    
+    func setUpGround() {
+        // layer player
+        // restitution 0
     }
     
     func touchDown(atPoint pos : CGPoint) {
         let moveComponent = player.movementComponent
+        let node = player.spriteComponent.node
         
         if pos.x < (self.camera?.position.x)! {
             // left
             if moveComponent!.moveRight {
-                moveComponent?.jump()
+                if node.physicsBody?.allContactedBodies() != nil {
+                    moveComponent?.jump()
+                }
             } else {
                 moveComponent?.moveToTheLeft(true)
             }
         } else {
             // right
             if moveComponent!.moveLeft {
-                moveComponent?.jump()
+                if node.physicsBody?.allContactedBodies() != nil {
+                    moveComponent?.jump()
+                }
             } else {
                 moveComponent!.moveToTheRight(true)
             }
@@ -63,6 +76,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func touchUp(atPoint pos : CGPoint) {
         let moveComponent = player.movementComponent
+        let node = player.spriteComponent.node
+        let contactedBodies = node.physicsBody?.allContactedBodies()
+        
+        print(deltaStamp)
+        if deltaStamp < 0.05 && contactedBodies?.count != 0 {
+            print("oi")
+            moveComponent?.jump()
+        }
         
         if pos.x < (self.camera?.position.x)! {
             // left
@@ -83,12 +104,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self))}
+        for t in touches {
+            deltaStamp = t.timestamp
+            print(t.timestamp)
+            self.touchDown(atPoint: t.location(in: self))
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        for t in touches { self.touchUp(atPoint: t.location(in: self))}
+        for t in touches {
+            deltaStamp = t.timestamp - deltaStamp
+            print(t.timestamp)
+            self.touchUp(atPoint: t.location(in: self))
+        }
     }
     
     func playMusic() {

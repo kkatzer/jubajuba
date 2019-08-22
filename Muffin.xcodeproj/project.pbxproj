@@ -45,7 +45,7 @@
 		562FF4A5230AE68B00D0838B /* tela@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF481230AE68B00D0838B /* tela@2x.png */; };
 		562FF4A6230AE68B00D0838B /* ilha - tristeza@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF482230AE68B00D0838B /* ilha - tristeza@3x.png */; };
 		562FF4A7230AE68B00D0838B /* chao - tristeza@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF483230AE68B00D0838B /* chao - tristeza@2x.png */; };
-		5642ADFA230F00B50065FBC0 /* Personagem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642ADF9230F00B50065FBC0 /* Personagem.png */; };
+		5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642ADFB230F1AFF0065FBC0 /* Personagem.png */; };
 		56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56741CFF230D89F6000393A5 /* CGPointExtensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,7 +90,7 @@
 		562FF481230AE68B00D0838B /* tela@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tela@2x.png"; sourceTree = "<group>"; };
 		562FF482230AE68B00D0838B /* ilha - tristeza@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilha - tristeza@3x.png"; sourceTree = "<group>"; };
 		562FF483230AE68B00D0838B /* chao - tristeza@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza@2x.png"; sourceTree = "<group>"; };
-		5642ADF9230F00B50065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
+		5642ADFB230F1AFF0065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
 		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -176,7 +176,7 @@
 		562FF465230AE68B00D0838B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5642ADF9230F00B50065FBC0 /* Personagem.png */,
+				5642ADFB230F1AFF0065FBC0 /* Personagem.png */,
 				562FF466230AE68B00D0838B /* chao - raiva.png */,
 				562FF467230AE68B00D0838B /* chao - raiva@2x.png */,
 				562FF468230AE68B00D0838B /* caverna - raiva@3x.png */,
@@ -269,7 +269,7 @@
 			files = (
 				562FF498230AE68B00D0838B /* Quebra@3x.png in Resources */,
 				562FF491230AE68B00D0838B /* chao - raiva@3x.png in Resources */,
-				5642ADFA230F00B50065FBC0 /* Personagem.png in Resources */,
+				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
 				562FF496230AE68B00D0838B /* chao - tristeza.png in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				562FF492230AE68B00D0838B /* Empurra.png in Resources */,
