@@ -22,6 +22,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var deltaTime: TimeInterval = 0
     var lastUpdateTime: TimeInterval = 0
     
+    var deltaStamp: TimeInterval = 0
+    
     let velocityX: CGFloat = 200
     
     var player: PlayerEntity!
@@ -43,34 +45,89 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
         sadness.orbComponent.idleAnimation()
         
-        
         //playMusic()
     }
     
     func setUpPlayer() {
-        let playerNode = player.spriteComponent.node
-        playerNode.zPosition = Layer.player.rawValue
+        let node = player.spriteComponent.node
+        node.zPosition = Layer.player.rawValue
+        node.physicsBody?.restitution = 0.0
+    }
+    
+    func setUpGround() {
+        // layer player
+        // restitution 0
+    }
+    
+    func touchDown(atPoint pos : CGPoint) {
+        let moveComponent = player.movementComponent
+        let node = player.spriteComponent.node
+        
+        if pos.x < (self.camera?.position.x)! {
+            // left
+            if moveComponent!.moveRight {
+                if node.physicsBody?.allContactedBodies() != nil {
+                    moveComponent?.jump()
+                }
+            } else {
+                moveComponent?.moveToTheLeft(true)
+            }
+        } else {
+            // right
+            if moveComponent!.moveLeft {
+                if node.physicsBody?.allContactedBodies() != nil {
+                    moveComponent?.jump()
+                }
+            } else {
+                moveComponent!.moveToTheRight(true)
+            }
+        }
+    }
+    
+    func touchUp(atPoint pos : CGPoint) {
+        let moveComponent = player.movementComponent
+        let node = player.spriteComponent.node
+        let contactedBodies = node.physicsBody?.allContactedBodies()
+        
+        print(deltaStamp)
+        if deltaStamp < 0.05 && contactedBodies?.count != 0 {
+            print("oi")
+            moveComponent?.jump()
+        }
+        
+        if pos.x < (self.camera?.position.x)! {
+            // left
+            if moveComponent!.moveLeft {
+                moveComponent!.moveToTheLeft(false)
+            } else if moveComponent!.moveRight {
+                moveComponent!.moveToTheRight(false)
+            }
+        } else {
+            // right
+            if moveComponent!.moveRight {
+                moveComponent!.moveToTheRight(false)
+            } else if moveComponent!.moveLeft {
+                moveComponent!.moveToTheLeft(false)
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first!
-        let location = touch.location(in: self.view)
         
-        let moveComponent = player.movementComponent
-        moveComponent?.moveEnabled = true
-        
-        if location.x < frame.size.width/2 {
-            // left
-            moveComponent?.setVelocity(-self.velocityX)
-        } else {
-            // right
-            moveComponent?.setVelocity(self.velocityX)
+        for t in touches {
+            deltaStamp = t.timestamp
+            print(t.timestamp)
+            self.touchDown(atPoint: t.location(in: self))
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let moveComponent = player.movementComponent
-        moveComponent?.moveEnabled = false
+        
+        for t in touches {
+            deltaStamp = t.timestamp - deltaStamp
+            print(t.timestamp)
+            self.touchUp(atPoint: t.location(in: self))
+        }
     }
     
     func playMusic() {
@@ -96,5 +153,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lastUpdateTime = currentTime
         
         player.update(deltaTime: deltaTime)
+        camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
     }
 }
