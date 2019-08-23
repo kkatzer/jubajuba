@@ -27,6 +27,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let velocityX: CGFloat = 200
     
     var player: PlayerEntity!
+    var joy: OrbEntity!
+    var anger: OrbEntity!
+    var sadness: OrbEntity!
     
     private var musicPlayer: AVAudioPlayer!
     
@@ -34,6 +37,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
+        
+        joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
+        joy.orbComponent.idleAnimation()
+        anger = OrbEntity(node: self.childNode(withName: "anger") as! SKSpriteNode, type: .anger, player: player)
+        anger.orbComponent.idleAnimation()
+        sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
+        sadness.orbComponent.idleAnimation()
         
         //playMusic()
     }
