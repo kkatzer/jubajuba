@@ -11,13 +11,15 @@ import SpriteKit
 import GameplayKit
 
 class MovementComponent: GKComponent {
-
+    
     let spriteComponent: SpriteComponent
     
-    var moveEnabled: Bool = false
+    var moveRight: Bool = false
+    var moveLeft: Bool = false
     
-    var velocity: CGPoint!
-    let gravity: CGFloat = -1500
+    private var force = 200
+    private var maxVelocity: CGFloat = 500
+    private var jumpVelocity: CGFloat = 500
     
     init(entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
@@ -28,18 +30,31 @@ class MovementComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setVelocity(_ x: CGFloat) {
-        velocity = CGPoint(x: x, y: 0)
+    func moveToTheLeft(_ move: Bool) {
+        moveLeft = move
     }
     
-    func applyMovement(_ seconds: TimeInterval) {
-        let spriteNode = spriteComponent.node
-        spriteNode.position += velocity * CGFloat(seconds)
+    func moveToTheRight(_ move: Bool) {
+        moveRight = move
+    }
+    
+    func jump() {
+        spriteComponent.node.physicsBody?.velocity.dy = jumpVelocity
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        if moveEnabled {
-            applyMovement(seconds)
+        let nodeBody = spriteComponent.node.physicsBody
+        
+        if (nodeBody?.velocity.dx)! > maxVelocity {
+            nodeBody?.velocity.dx = maxVelocity
+        } else if (nodeBody?.velocity.dx)! < -maxVelocity {
+            nodeBody?.velocity.dx = -maxVelocity
+        }
+        
+        if moveRight {
+            nodeBody!.applyForce(CGVector(dx: force, dy: 0))
+        } else if moveLeft {
+            nodeBody!.applyForce(CGVector(dx: -force, dy: 0))
         }
     }
 }
