@@ -21,7 +21,7 @@
 		562FF489230AE68B00D0838B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF464230AE68B00D0838B /* GameViewController.swift */; };
 		562FF48A230AE68B00D0838B /* chao - raiva.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF466230AE68B00D0838B /* chao - raiva.png */; };
 		562FF48B230AE68B00D0838B /* chao - raiva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF467230AE68B00D0838B /* chao - raiva@2x.png */; };
-		562FF48C230AE68B00D0838B /* caverna - raiva.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF468230AE68B00D0838B /* caverna - raiva.png */; };
+		562FF48C230AE68B00D0838B /* cave.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF468230AE68B00D0838B /* cave.png */; };
 		562FF48E230AE68B00D0838B /* Empurra@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF46A230AE68B00D0838B /* Empurra@3x.png */; };
 		562FF48F230AE68B00D0838B /* Empurra@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF46B230AE68B00D0838B /* Empurra@2x.png */; };
 		562FF491230AE68B00D0838B /* chao - raiva@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF46D230AE68B00D0838B /* chao - raiva@3x.png */; };
@@ -39,12 +39,21 @@
 		562FF4A3230AE68B00D0838B /* tela.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF47F230AE68B00D0838B /* tela.png */; };
 		562FF4A4230AE68B00D0838B /* tela@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF480230AE68B00D0838B /* tela@3x.png */; };
 		562FF4A5230AE68B00D0838B /* tela@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF481230AE68B00D0838B /* tela@2x.png */; };
-		562FF4A6230AE68B00D0838B /* ilha - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF482230AE68B00D0838B /* ilha - tristeza.png */; };
+		562FF4A6230AE68B00D0838B /* isle.png in Resources */ = {isa = PBXBuildFile; fileRef = 562FF482230AE68B00D0838B /* isle.png */; };
 		5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642ADFB230F1AFF0065FBC0 /* Personagem.png */; };
 		566F8D252316CB94000E4D34 /* ground2.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F8D232316CB94000E4D34 /* ground2.png */; };
 		566F8D262316CB94000E4D34 /* ground1.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F8D242316CB94000E4D34 /* ground1.png */; };
-		566F8D2C2316D292000E4D34 /* chao - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F8D2B2316D292000E4D34 /* chao - tristeza.png */; };
+		566F8D2C2316D292000E4D34 /* ground3.png in Resources */ = {isa = PBXBuildFile; fileRef = 566F8D2B2316D292000E4D34 /* ground3.png */; };
 		56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56741CFF230D89F6000393A5 /* CGPointExtensions.swift */; };
+		569753B323171AC000FE4457 /* ilha - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753AA23171ABF00FE4457 /* ilha - tristeza.png */; };
+		569753B423171AC000FE4457 /* ilha - tristeza@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753AB23171ABF00FE4457 /* ilha - tristeza@2x.png */; };
+		569753B523171AC000FE4457 /* caverna - raiva.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753AC23171ABF00FE4457 /* caverna - raiva.png */; };
+		569753B623171AC000FE4457 /* ilha - tristeza@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753AD23171ABF00FE4457 /* ilha - tristeza@3x.png */; };
+		569753B723171AC000FE4457 /* chao - tristeza@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753AE23171ABF00FE4457 /* chao - tristeza@2x.png */; };
+		569753B823171AC000FE4457 /* caverna - raiva@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753AF23171ABF00FE4457 /* caverna - raiva@3x.png */; };
+		569753B923171AC000FE4457 /* chao - tristeza@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B023171ABF00FE4457 /* chao - tristeza@3x.png */; };
+		569753BA23171AC000FE4457 /* chao - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B123171AC000FE4457 /* chao - tristeza.png */; };
+		569753BB23171AC000FE4457 /* caverna - raiva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B223171AC000FE4457 /* caverna - raiva@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,7 +73,7 @@
 		562FF464230AE68B00D0838B /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		562FF466230AE68B00D0838B /* chao - raiva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - raiva.png"; sourceTree = "<group>"; };
 		562FF467230AE68B00D0838B /* chao - raiva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - raiva@2x.png"; sourceTree = "<group>"; };
-		562FF468230AE68B00D0838B /* caverna - raiva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caverna - raiva.png"; sourceTree = "<group>"; };
+		562FF468230AE68B00D0838B /* cave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cave.png; sourceTree = "<group>"; };
 		562FF46A230AE68B00D0838B /* Empurra@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Empurra@3x.png"; sourceTree = "<group>"; };
 		562FF46B230AE68B00D0838B /* Empurra@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Empurra@2x.png"; sourceTree = "<group>"; };
 		562FF46D230AE68B00D0838B /* chao - raiva@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - raiva@3x.png"; sourceTree = "<group>"; };
@@ -82,12 +91,21 @@
 		562FF47F230AE68B00D0838B /* tela.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tela.png; sourceTree = "<group>"; };
 		562FF480230AE68B00D0838B /* tela@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tela@3x.png"; sourceTree = "<group>"; };
 		562FF481230AE68B00D0838B /* tela@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tela@2x.png"; sourceTree = "<group>"; };
-		562FF482230AE68B00D0838B /* ilha - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilha - tristeza.png"; sourceTree = "<group>"; };
+		562FF482230AE68B00D0838B /* isle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isle.png; sourceTree = "<group>"; };
 		5642ADFB230F1AFF0065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
 		566F8D232316CB94000E4D34 /* ground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground2.png; sourceTree = "<group>"; };
 		566F8D242316CB94000E4D34 /* ground1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground1.png; sourceTree = "<group>"; };
-		566F8D2B2316D292000E4D34 /* chao - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza.png"; sourceTree = "<group>"; };
+		566F8D2B2316D292000E4D34 /* ground3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground3.png; sourceTree = "<group>"; };
 		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
+		569753AA23171ABF00FE4457 /* ilha - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ilha - tristeza.png"; path = "../../../../../../Downloads/ilha - tristeza.png"; sourceTree = "<group>"; };
+		569753AB23171ABF00FE4457 /* ilha - tristeza@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilha - tristeza@2x.png"; sourceTree = "<group>"; };
+		569753AC23171ABF00FE4457 /* caverna - raiva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caverna - raiva.png"; sourceTree = "<group>"; };
+		569753AD23171ABF00FE4457 /* ilha - tristeza@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilha - tristeza@3x.png"; sourceTree = "<group>"; };
+		569753AE23171ABF00FE4457 /* chao - tristeza@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza@2x.png"; sourceTree = "<group>"; };
+		569753AF23171ABF00FE4457 /* caverna - raiva@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caverna - raiva@3x.png"; sourceTree = "<group>"; };
+		569753B023171ABF00FE4457 /* chao - tristeza@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza@3x.png"; sourceTree = "<group>"; };
+		569753B123171AC000FE4457 /* chao - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza.png"; sourceTree = "<group>"; };
+		569753B223171AC000FE4457 /* caverna - raiva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caverna - raiva@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,29 +194,38 @@
 			children = (
 				566F8D242316CB94000E4D34 /* ground1.png */,
 				566F8D232316CB94000E4D34 /* ground2.png */,
-				566F8D2B2316D292000E4D34 /* chao - tristeza.png */,
+				566F8D2B2316D292000E4D34 /* ground3.png */,
+				562FF468230AE68B00D0838B /* cave.png */,
 				5642ADFB230F1AFF0065FBC0 /* Personagem.png */,
+				562FF47B230AE68B00D0838B /* personagem @3x.png */,
 				562FF466230AE68B00D0838B /* chao - raiva.png */,
 				562FF467230AE68B00D0838B /* chao - raiva@2x.png */,
-				562FF468230AE68B00D0838B /* caverna - raiva.png */,
-				562FF46A230AE68B00D0838B /* Empurra@3x.png */,
-				562FF46B230AE68B00D0838B /* Empurra@2x.png */,
 				562FF46D230AE68B00D0838B /* chao - raiva@3x.png */,
 				562FF46E230AE68B00D0838B /* Empurra.png */,
+				562FF46B230AE68B00D0838B /* Empurra@2x.png */,
+				562FF46A230AE68B00D0838B /* Empurra@3x.png */,
+				562FF476230AE68B00D0838B /* Quebra.png */,
 				562FF46F230AE68B00D0838B /* Quebra@2x.png */,
-				562FF470230AE68B00D0838B /* chao felicidade@3x.png */,
-				562FF473230AE68B00D0838B /* chao felicidade@2x.png */,
 				562FF474230AE68B00D0838B /* Quebra@3x.png */,
 				562FF475230AE68B00D0838B /* chao felicidade.png */,
-				562FF476230AE68B00D0838B /* Quebra.png */,
+				562FF470230AE68B00D0838B /* chao felicidade@3x.png */,
+				562FF473230AE68B00D0838B /* chao felicidade@2x.png */,
+				562FF47C230AE68B00D0838B /* arvores.png */,
 				562FF479230AE68B00D0838B /* arvores@2x.png */,
 				562FF47A230AE68B00D0838B /* arvores@3x.png */,
-				562FF47B230AE68B00D0838B /* personagem @3x.png */,
-				562FF47C230AE68B00D0838B /* arvores.png */,
 				562FF47F230AE68B00D0838B /* tela.png */,
 				562FF480230AE68B00D0838B /* tela@3x.png */,
 				562FF481230AE68B00D0838B /* tela@2x.png */,
-				562FF482230AE68B00D0838B /* ilha - tristeza.png */,
+				569753AC23171ABF00FE4457 /* caverna - raiva.png */,
+				569753B223171AC000FE4457 /* caverna - raiva@2x.png */,
+				569753AF23171ABF00FE4457 /* caverna - raiva@3x.png */,
+				569753B123171AC000FE4457 /* chao - tristeza.png */,
+				569753AE23171ABF00FE4457 /* chao - tristeza@2x.png */,
+				569753B023171ABF00FE4457 /* chao - tristeza@3x.png */,
+				569753AA23171ABF00FE4457 /* ilha - tristeza.png */,
+				569753AB23171ABF00FE4457 /* ilha - tristeza@2x.png */,
+				569753AD23171ABF00FE4457 /* ilha - tristeza@3x.png */,
+				562FF482230AE68B00D0838B /* isle.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -262,27 +289,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				562FF498230AE68B00D0838B /* Quebra@3x.png in Resources */,
+				569753B323171AC000FE4457 /* ilha - tristeza.png in Resources */,
 				562FF491230AE68B00D0838B /* chao - raiva@3x.png in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
 				566F8D252316CB94000E4D34 /* ground2.png in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
+				569753B523171AC000FE4457 /* caverna - raiva.png in Resources */,
 				562FF492230AE68B00D0838B /* Empurra.png in Resources */,
 				562FF48F230AE68B00D0838B /* Empurra@2x.png in Resources */,
 				1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */,
+				569753B923171AC000FE4457 /* chao - tristeza@3x.png in Resources */,
 				562FF48A230AE68B00D0838B /* chao - raiva.png in Resources */,
 				562FF4A4230AE68B00D0838B /* tela@3x.png in Resources */,
-				566F8D2C2316D292000E4D34 /* chao - tristeza.png in Resources */,
+				566F8D2C2316D292000E4D34 /* ground3.png in Resources */,
 				562FF49F230AE68B00D0838B /* personagem @3x.png in Resources */,
 				562FF4A3230AE68B00D0838B /* tela.png in Resources */,
 				562FF49A230AE68B00D0838B /* Quebra.png in Resources */,
+				569753BB23171AC000FE4457 /* caverna - raiva@2x.png in Resources */,
 				562FF4A5230AE68B00D0838B /* tela@2x.png in Resources */,
 				562FF49E230AE68B00D0838B /* arvores@3x.png in Resources */,
 				562FF48B230AE68B00D0838B /* chao - raiva@2x.png in Resources */,
 				562FF49D230AE68B00D0838B /* arvores@2x.png in Resources */,
-				562FF48C230AE68B00D0838B /* caverna - raiva.png in Resources */,
-				562FF4A6230AE68B00D0838B /* ilha - tristeza.png in Resources */,
+				562FF48C230AE68B00D0838B /* cave.png in Resources */,
+				569753B623171AC000FE4457 /* ilha - tristeza@3x.png in Resources */,
+				562FF4A6230AE68B00D0838B /* isle.png in Resources */,
+				569753B723171AC000FE4457 /* chao - tristeza@2x.png in Resources */,
+				569753BA23171AC000FE4457 /* chao - tristeza.png in Resources */,
 				566F8D262316CB94000E4D34 /* ground1.png in Resources */,
+				569753B823171AC000FE4457 /* caverna - raiva@3x.png in Resources */,
 				562FF499230AE68B00D0838B /* chao felicidade.png in Resources */,
+				569753B423171AC000FE4457 /* ilha - tristeza@2x.png in Resources */,
 				562FF493230AE68B00D0838B /* Quebra@2x.png in Resources */,
 				562FF4A0230AE68B00D0838B /* arvores.png in Resources */,
 				562FF494230AE68B00D0838B /* chao felicidade@3x.png in Resources */,
