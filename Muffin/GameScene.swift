@@ -40,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let swipeSideRec = UISwipeGestureRecognizer()
     
     var player: PlayerEntity!
-    var ground: SKSpriteNode!
+    var ground: SKNode!
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
@@ -48,41 +48,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var musicPlayer: AVAudioPlayer!
     
     override func didMove(to view: SKView) {
-        
-        tapRec.addTarget(self, action: #selector(jump))
-        self.view!.addGestureRecognizer(tapRec)
-        
-        longPressRec.addTarget(self, action: #selector(walk))
-        longPressRec.minimumPressDuration = 0.1
-        self.view!.addGestureRecognizer(longPressRec)
-        
-        swipeUpRec.addTarget(self, action: #selector(jumpUp))
-        swipeUpRec.direction = .up
-        self.view!.addGestureRecognizer(swipeUpRec)
-        
-        swipeDownRec.addTarget(self, action: #selector(sink))
-        swipeDownRec.direction = .down
-        self.view!.addGestureRecognizer(swipeDownRec)
-        
         physicsWorld.contactDelegate = self
         
-        player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
+        setUpGestureRecognizers()
         setUpPlayer()
-        ground = self.childNode(withName: "ground") as? SKSpriteNode
         setUpGround()
-        
-        joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
-        joy.orbComponent.idleAnimation()
-        anger = OrbEntity(node: self.childNode(withName: "anger") as! SKSpriteNode, type: .anger, player: player)
-        anger.orbComponent.idleAnimation()
-        sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
-        sadness.orbComponent.idleAnimation()
+        setUpOrbs()
     
         //playMusic()
     }
     
     @objc func jump() {
-        player.movementComponent?.jump()
+        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
+            player.movementComponent?.jump()
+        }
     }
     
     @objc func walk(sender: UITapGestureRecognizer) {
@@ -104,16 +83,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func jumpUp() {
-        player.movementComponent?.joyJump()
-        self.physicsWorld.gravity = CGVector(dx: 0, dy: -5)
-        
+        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
+            player.movementComponent?.joyJump()
+            self.physicsWorld.gravity = CGVector(dx: 0, dy: -7)
+        }
     }
     
     @objc func sink() {
         print("sink")
     }
     
+    func setUpGestureRecognizers() {
+        tapRec.addTarget(self, action: #selector(jump))
+        self.view!.addGestureRecognizer(tapRec)
+        
+        longPressRec.addTarget(self, action: #selector(walk))
+        longPressRec.minimumPressDuration = 0.1
+        self.view!.addGestureRecognizer(longPressRec)
+        
+        swipeUpRec.addTarget(self, action: #selector(jumpUp))
+        swipeUpRec.direction = .up
+        self.view!.addGestureRecognizer(swipeUpRec)
+        
+        swipeDownRec.addTarget(self, action: #selector(sink))
+        swipeDownRec.direction = .down
+        self.view!.addGestureRecognizer(swipeDownRec)
+    }
+    
     func setUpPlayer() {
+        player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         let node = player.spriteComponent.node
         node.zPosition = Layer.player.rawValue
         node.physicsBody?.restitution = 0.0
@@ -122,10 +120,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setUpGround() {
-        ground.zPosition = Layer.player.rawValue
-        ground.physicsBody?.restitution = 0.0
-        ground.physicsBody?.categoryBitMask = PhysicsCategory.Ground
-        ground.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        ground = self.childNode(withName: "ground")
+        
+        ground.enumerateChildNodes(withName: "ground") { (node, stop) in
+            let ground = node as! SKSpriteNode
+            ground.zPosition = Layer.player.rawValue
+            if ground.texture == nil {
+                ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
+            } else {
+                ground.physicsBody = SKPhysicsBody(texture: ground.texture!, size: ground.texture!.size())
+            }
+            
+            let body = ground.physicsBody
+            body?.restitution = 0.0
+            body?.categoryBitMask = PhysicsCategory.Ground
+            body?.contactTestBitMask = PhysicsCategory.Player
+            body?.affectedByGravity = false
+            body?.allowsRotation = false
+            body?.isDynamic = true
+            body?.pinned = true
+        }
+    }
+    
+    func setUpOrbs() {
+        joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
+        joy.orbComponent.idleAnimation()
+        anger = OrbEntity(node: self.childNode(withName: "anger") as! SKSpriteNode, type: .anger, player: player)
+        anger.orbComponent.idleAnimation()
+        sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
+        sadness.orbComponent.idleAnimation()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
