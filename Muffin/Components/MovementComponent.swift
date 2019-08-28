@@ -20,6 +20,7 @@ class MovementComponent: GKComponent {
     private var force = 200
     private var maxVelocity: CGFloat = 500
     private var jumpVelocity: CGFloat = 500
+    private var joyJumpVelocity: CGFloat = 1000
     
     init(entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
@@ -40,6 +41,11 @@ class MovementComponent: GKComponent {
     
     func jump() {
         spriteComponent.node.physicsBody?.velocity.dy = jumpVelocity
+    }
+    
+    func joyJump() {
+        spriteComponent.node.physicsBody?.velocity.dy = joyJumpVelocity
+
     }
     
     override func update(deltaTime seconds: TimeInterval) {

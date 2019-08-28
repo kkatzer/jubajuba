@@ -45,6 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view!.addGestureRecognizer(tapRec)
         
         longPressRec.addTarget(self, action: #selector(walk))
+        longPressRec.minimumPressDuration = 0.1
         self.view!.addGestureRecognizer(longPressRec)
         
         swipeUpRec.addTarget(self, action: #selector(jumpUp))
@@ -92,7 +93,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func jumpUp() {
-        print("joy")
+        player.movementComponent?.joyJump()
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: -5)
     }
     
     @objc func sink() {
