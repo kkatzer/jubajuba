@@ -17,6 +17,13 @@ enum Layer: CGFloat {
     case foreground
 }
 
+struct PhysicsCategory {
+    static let None: UInt32 = 0
+    static let Player: UInt32 = 0b1
+//    static let Obstacle: UInt32 = 0b10
+    static let Ground: UInt32 = 0b100
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var deltaTime: TimeInterval = 0
@@ -33,6 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let swipeSideRec = UISwipeGestureRecognizer()
     
     var player: PlayerEntity!
+    var ground: SKSpriteNode!
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
@@ -59,6 +67,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
+        setUpPlayer()
+        ground = self.childNode(withName: "ground") as? SKSpriteNode
+        setUpGround()
         
         joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
         joy.orbComponent.idleAnimation()
@@ -66,7 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         anger.orbComponent.idleAnimation()
         sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
         sadness.orbComponent.idleAnimation()
-        
+    
         //playMusic()
     }
     
@@ -95,6 +106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func jumpUp() {
         player.movementComponent?.joyJump()
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -5)
+        
     }
     
     @objc func sink() {
@@ -105,12 +117,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let node = player.spriteComponent.node
         node.zPosition = Layer.player.rawValue
         node.physicsBody?.restitution = 0.0
+        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
     }
     
     func setUpGround() {
-        // layer player
-        // restitution 0
+        ground.zPosition = Layer.player.rawValue
+        ground.physicsBody?.restitution = 0.0
+        ground.physicsBody?.categoryBitMask = PhysicsCategory.Ground
+        ground.physicsBody?.contactTestBitMask = PhysicsCategory.Player
     }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
+        
+        if other.categoryBitMask == PhysicsCategory.Ground {
+            if self.physicsWorld.gravity != CGVector(dx: 0, dy: -9.8) {
+                self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+            }
+        }
+    }
+    
     
 //    func touchDown(atPoint pos : CGPoint) {
 //        let moveComponent = player.movementComponent
@@ -201,7 +228,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if lastUpdateTime == 0 {
             lastUpdateTime = currentTime
         }
-        
         
         deltaTime = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
