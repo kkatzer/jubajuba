@@ -30,7 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let longPressRec = UILongPressGestureRecognizer()
     let swipeUpRec = UISwipeGestureRecognizer()
     let swipeDownRec = UISwipeGestureRecognizer()
-    let swipeSideRec = UISwipeGestureRecognizer()
+    let swipeLeftRec = UISwipeGestureRecognizer()
+    let swipeRightRec = UISwipeGestureRecognizer()
     
     var player: PlayerEntity!
     var joy: OrbEntity!
@@ -54,6 +55,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         swipeDownRec.addTarget(self, action: #selector(sink))
         swipeDownRec.direction = .down
         self.view!.addGestureRecognizer(swipeDownRec)
+        
+        swipeLeftRec.addTarget(self, action: #selector(leftDash))
+        swipeLeftRec.direction = .left
+        self.view!.addGestureRecognizer(swipeLeftRec)
+        
+        swipeRightRec.addTarget(self, action: #selector(rightDash))
+        swipeRightRec.direction = .right
+        self.view!.addGestureRecognizer(swipeRightRec)
         
         physicsWorld.contactDelegate = self
         
@@ -97,6 +106,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func sink() {
         print("sink")
+    }
+    
+    @objc func leftDash() {
+        player.movementComponent?.dash(left: true)
+    }
+    
+    @objc func rightDash() {
+        player.movementComponent?.dash(left: false)
     }
     
     func setUpPlayer() {
