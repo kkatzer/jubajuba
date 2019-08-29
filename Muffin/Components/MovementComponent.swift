@@ -20,6 +20,7 @@ class MovementComponent: GKComponent {
     private var force = 200
     private var maxVelocity: CGFloat = 500
     private var jumpVelocity: CGFloat = 500
+    private var sinkVelocity: CGFloat = -1000
     private var joyJumpVelocity: CGFloat = 1000
     
     init(entity: GKEntity) {
@@ -46,6 +47,10 @@ class MovementComponent: GKComponent {
     func joyJump() {
         spriteComponent.node.physicsBody?.velocity.dy = joyJumpVelocity
 
+    }
+    
+    func sadSink(){
+        spriteComponent.node.physicsBody?.velocity.dy = sinkVelocity
     }
     
     override func update(deltaTime seconds: TimeInterval) {

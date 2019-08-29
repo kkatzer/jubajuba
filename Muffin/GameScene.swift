@@ -90,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func sink() {
-        print("sink")
+        player.movementComponent?.sadSink()
     }
     
     func setUpGestureRecognizers() {
