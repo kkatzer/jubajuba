@@ -21,7 +21,8 @@ struct PhysicsCategory {
     static let None: UInt32 = 0
     static let Player: UInt32 = 0b1
 //    static let Obstacle: UInt32 = 0b10
-    static let Ground: UInt32 = 0b100
+    static let Ground: UInt32 = 0b11
+    static let Rock: UInt32 = 0b100
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -45,6 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
+    var rock: RockEntity!
     
     private var musicPlayer: AVAudioPlayer!
     
@@ -55,6 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setUpPlayer()
         setUpGround()
         setUpOrbs()
+        setUpRock()
     
         //playMusic()
     }
@@ -100,6 +103,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func rightDash() {
         player.movementComponent?.dash(left: false)
+    }
+    
     func setUpGestureRecognizers() {
         tapRec.addTarget(self, action: #selector(jump))
         self.view!.addGestureRecognizer(tapRec)
@@ -115,15 +120,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         swipeDownRec.addTarget(self, action: #selector(sink))
         swipeDownRec.direction = .down
         self.view!.addGestureRecognizer(swipeDownRec)
+        
+        swipeLeftRec.addTarget(self, action: #selector(leftDash))
+        swipeLeftRec.direction = .left
+        self.view!.addGestureRecognizer(swipeLeftRec)
+        
+        swipeRightRec.addTarget(self, action: #selector(rightDash))
+        swipeRightRec.direction = .right
+        self.view!.addGestureRecognizer(swipeRightRec)
     }
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
-        let node = player.spriteComponent.node
-        node.zPosition = Layer.player.rawValue
-        node.physicsBody?.restitution = 0.0
-        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
-        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
+        
     }
     
     func setUpGround() {
@@ -158,13 +167,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sadness.orbComponent.idleAnimation()
     }
     
+    func setUpRock() {
+        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, breakable: true)
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
+        var player: SKPhysicsBody = contact.bodyA
+        var other: SKPhysicsBody = contact.bodyA
+        if contact.bodyA.categoryBitMask == PhysicsCategory.Player {
+            player = contact.bodyA
+            other = contact.bodyB
+        } else if contact.bodyB.categoryBitMask == PhysicsCategory.Player {
+            player = contact.bodyB
+            other = contact.bodyA
+        } else {
+            return
+        }
         
         if other.categoryBitMask == PhysicsCategory.Ground {
             if self.physicsWorld.gravity != CGVector(dx: 0, dy: -9.8) {
                 self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
             }
+        }
+        
+        if other.categoryBitMask == PhysicsCategory.Rock {
+            print("Rock bottom!")
         }
     }
     
