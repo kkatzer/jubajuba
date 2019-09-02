@@ -113,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         let node = player.spriteComponent.node
-        node.zPosition = Layer.player.rawValue
+        //node.zPosition = Layer.player.rawValue
         node.physicsBody?.restitution = 0.0
         node.physicsBody?.categoryBitMask = PhysicsCategory.Player
         node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
@@ -124,7 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         ground.enumerateChildNodes(withName: "ground") { (node, stop) in
             let ground = node as! SKSpriteNode
-            ground.zPosition = Layer.player.rawValue
+            //ground.zPosition = Layer.player.rawValue
             if ground.texture == nil {
                 ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
             } else {
