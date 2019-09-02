@@ -24,7 +24,7 @@ struct PhysicsCategory {
     static let Ground: UInt32 = 0b100
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     var deltaTime: TimeInterval = 0
     var lastUpdateTime: TimeInterval = 0
@@ -38,6 +38,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let swipeUpRec = UISwipeGestureRecognizer()
     let swipeDownRec = UISwipeGestureRecognizer()
     let swipeSideRec = UISwipeGestureRecognizer()
+
+    var zoomOutAction = SKAction()
+    var zoomInAction = SKAction()
     
     var player: PlayerEntity!
     var ground: SKNode!
@@ -45,6 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
+
     
     private var musicPlayer: AVAudioPlayer!
     
@@ -70,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveComponent = player.movementComponent
         let pos = sender.location(in: self.view!)
         
-        if pos.x < (self.view!.frame.width / 2) {
+        if pos.x < self.view!.frame.width/2 {
             // left
             moveComponent?.moveToTheLeft(true)
         } else {
@@ -79,8 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if sender.state == .ended {
-            moveComponent?.moveToTheLeft(false)
-            moveComponent?.moveToTheRight(false)
+            player.movementComponent.stop()
         }
     }
     
@@ -88,6 +91,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
             player.movementComponent?.joyJump()
             self.physicsWorld.gravity = CGVector(dx: 0, dy: -7)
+            zoom()
+            
+        }
+    }
+    
+    func zoom() {
+        if (camera?.position.x)! > CGFloat(90) {
+            zoomOutAction = SKAction.scale(to: 1.8, duration: 1)
+            zoomOutAction.timingMode = .easeInEaseOut
+            zoomInAction = SKAction.scale(to: 1, duration: 1)
+            zoomInAction.timingMode = .easeInEaseOut
+            camera?.run(SKAction.sequence([zoomOutAction, zoomInAction]))
         }
     }
     
@@ -95,25 +110,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.movementComponent?.sadSink()
     }
     
-    func underWater(){
-        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
-            print("dentro da agua")
-        }
+    func underWater() {
+//        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
+            player.spriteComponent.node.physicsBody?.linearDamping = 1
+            self.physicsWorld.gravity = CGVector(dx: 0, dy: 1.0)
+//        }
     }
     
     func setUpGestureRecognizers() {
         tapRec.addTarget(self, action: #selector(jump))
+        tapRec.delegate = self
         self.view!.addGestureRecognizer(tapRec)
         
         longPressRec.addTarget(self, action: #selector(walk))
+        longPressRec.delegate = self
         longPressRec.minimumPressDuration = 0.1
+        
         self.view!.addGestureRecognizer(longPressRec)
         
         swipeUpRec.addTarget(self, action: #selector(jumpUp))
+        swipeUpRec.delegate = self
         swipeUpRec.direction = .up
         self.view!.addGestureRecognizer(swipeUpRec)
         
         swipeDownRec.addTarget(self, action: #selector(sink))
+        swipeDownRec.delegate = self
         swipeDownRec.direction = .down
         self.view!.addGestureRecognizer(swipeDownRec)
     }
@@ -122,28 +143,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         water = self.childNode(withName: "water") as? SKSpriteNode
         
         
-            if water.texture == nil {
-                water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
-            } else {
-                water.physicsBody = SKPhysicsBody(texture: water.texture!, size: water.texture!.size())
-            }
+        if water.texture == nil {
+            water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
+        }else {
+            water.physicsBody = SKPhysicsBody(texture: water.texture!, size: water.texture!.size())
+        }
             
-            let bodyWater = water.physicsBody
-            bodyWater?.restitution = 0.0
-            bodyWater?.categoryBitMask = PhysicsCategory.Water
-            bodyWater?.contactTestBitMask = PhysicsCategory.Player
-            bodyWater?.collisionBitMask = PhysicsCategory.Player
-            bodyWater?.affectedByGravity = false
-            bodyWater?.allowsRotation = false
-            bodyWater?.isDynamic = true
-            bodyWater?.pinned = true
-        
+        let bodyWater = water.physicsBody
+        bodyWater?.restitution = 0.0
+        bodyWater?.categoryBitMask = PhysicsCategory.Water
+        bodyWater?.contactTestBitMask = PhysicsCategory.Player
+        bodyWater?.collisionBitMask = PhysicsCategory.Player
+        bodyWater?.affectedByGravity = false
+        bodyWater?.allowsRotation = false
+        bodyWater?.isDynamic = true
+        bodyWater?.pinned = true
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer.location(ofTouch: 0, in: self.view) == otherGestureRecognizer.location(ofTouch: 0, in: self.view) {
+            return false
+        }
+        if gestureRecognizer is UILongPressGestureRecognizer || otherGestureRecognizer is UILongPressGestureRecognizer {
+//            if gestureRecognizer is UITapGestureRecognizer || otherGestureRecognizer is UITapGestureRecognizer {
+//                
+//            }
+            return true
+        }
+        return false
     }
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         let node = player.spriteComponent.node
-        node.zPosition = Layer.player.rawValue
+        //node.zPosition = Layer.player.rawValue
         node.physicsBody?.restitution = 0.0
         node.physicsBody?.categoryBitMask = PhysicsCategory.Player
         node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground | PhysicsCategory.Water
@@ -155,7 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         ground.enumerateChildNodes(withName: "ground") { (node, stop) in
             let ground = node as! SKSpriteNode
-            ground.zPosition = Layer.player.rawValue
+            //ground.zPosition = Layer.player.rawValue
             if ground.texture == nil {
                 ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
             } else {
@@ -191,11 +224,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         } else if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
+            print("entrou no else if")
             underWater()
             
         }
     }
     
+    func didEnd(_ contact: SKPhysicsContact) {
+        let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
+        
+        if other.categoryBitMask != PhysicsCategory.Ground{
+            print("acabou o contato")
+            player.spriteComponent.node.physicsBody?.linearDamping = 0
+            self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+        }
+        
+    
+    }
     
 //    func touchDown(atPoint pos : CGPoint) {
 //        let moveComponent = player.movementComponent
@@ -292,6 +337,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.update(deltaTime: deltaTime)
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        if (camera?.position.x)! < CGFloat(61.7) {
+            camera?.position.x = CGFloat(61.7)
+        }
     }
     
 }
