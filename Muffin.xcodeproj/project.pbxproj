@@ -139,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
-				562FF463230AE68B00D0838B /* Game States */,
+				562FF463230AE68B00D0838B /* Player States */,
 				562FF45B230AE68B00D0838B /* Components */,
 				562FF460230AE68B00D0838B /* Entities */,
 				562FF462230AE68B00D0838B /* GameScene.swift */,
@@ -182,11 +182,11 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		562FF463230AE68B00D0838B /* Game States */ = {
+		562FF463230AE68B00D0838B /* Player States */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "Game States";
+			path = "Player States";
 			sourceTree = "<group>";
 		};
 		562FF465230AE68B00D0838B /* Resources */ = {
@@ -491,7 +491,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = 5MSP4455P9;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -509,7 +509,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = 5MSP4455P9;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
