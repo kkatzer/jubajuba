@@ -169,7 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
-				562FF463230AE68B00D0838B /* Game States */,
+				562FF463230AE68B00D0838B /* Player States */,
 				562FF45B230AE68B00D0838B /* Components */,
 				562FF460230AE68B00D0838B /* Entities */,
 				562FF462230AE68B00D0838B /* GameScene.swift */,
@@ -212,11 +212,11 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		562FF463230AE68B00D0838B /* Game States */ = {
+		562FF463230AE68B00D0838B /* Player States */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "Game States";
+			path = "Player States";
 			sourceTree = "<group>";
 		};
 		562FF465230AE68B00D0838B /* Resources */ = {

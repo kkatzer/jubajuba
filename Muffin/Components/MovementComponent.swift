@@ -13,6 +13,7 @@ import GameplayKit
 class MovementComponent: GKComponent {
     
     let spriteComponent: SpriteComponent
+    let nodeBody: SKPhysicsBody
     
     var moveRight: Bool = false
     var moveLeft: Bool = false
@@ -21,9 +22,11 @@ class MovementComponent: GKComponent {
     private var maxVelocity: CGFloat = 500
     private var jumpVelocity: CGFloat = 500
     private var joyJumpVelocity: CGFloat = 1000
+    private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
     init(entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
+        self.nodeBody = spriteComponent.node.physicsBody!
         super.init()
     }
     
@@ -40,27 +43,32 @@ class MovementComponent: GKComponent {
     }
     
     func jump() {
-        spriteComponent.node.physicsBody?.velocity.dy = jumpVelocity
+        nodeBody.velocity.dy = jumpVelocity
     }
     
     func joyJump() {
-        spriteComponent.node.physicsBody?.velocity.dy = joyJumpVelocity
+        nodeBody.velocity.dy = joyJumpVelocity
 
     }
     
+    func stop() {
+        moveToTheLeft(false)
+        moveToTheRight(false)
+        nodeBody.velocity.dx /= slowStopMultiplier
+    }
+    
     override func update(deltaTime seconds: TimeInterval) {
-        let nodeBody = spriteComponent.node.physicsBody
         
-        if (nodeBody?.velocity.dx)! > maxVelocity {
-            nodeBody?.velocity.dx = maxVelocity
-        } else if (nodeBody?.velocity.dx)! < -maxVelocity {
-            nodeBody?.velocity.dx = -maxVelocity
+        if (nodeBody.velocity.dx) > maxVelocity {
+            nodeBody.velocity.dx = maxVelocity
+        } else if (nodeBody.velocity.dx) < -maxVelocity {
+            nodeBody.velocity.dx = -maxVelocity
         }
         
         if moveRight {
-            nodeBody!.applyForce(CGVector(dx: force, dy: 0))
+            nodeBody.applyForce(CGVector(dx: force, dy: 0))
         } else if moveLeft {
-            nodeBody!.applyForce(CGVector(dx: -force, dy: 0))
+            nodeBody.applyForce(CGVector(dx: -force, dy: 0))
         }
     }
 }
