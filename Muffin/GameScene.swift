@@ -20,7 +20,7 @@ enum Layer: CGFloat {
 struct PhysicsCategory {
     static let None: UInt32 = 0
     static let Player: UInt32 = 0b1
-//    static let Obstacle: UInt32 = 0b10
+    static let Water: UInt32 = 0b10
     static let Ground: UInt32 = 0b100
 }
 
@@ -41,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var player: PlayerEntity!
     var ground: SKNode!
+    var water: SKSpriteNode!
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
@@ -54,6 +55,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setUpPlayer()
         setUpGround()
         setUpOrbs()
+        setUpWater()
     
         //playMusic()
     }
@@ -93,6 +95,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.movementComponent?.sadSink()
     }
     
+    func underWater(){
+        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
+            print("dentro da agua")
+        }
+    }
+    
     func setUpGestureRecognizers() {
         tapRec.addTarget(self, action: #selector(jump))
         self.view!.addGestureRecognizer(tapRec)
@@ -110,13 +118,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view!.addGestureRecognizer(swipeDownRec)
     }
     
+    func setUpWater() {
+        water = self.childNode(withName: "water") as? SKSpriteNode
+        
+        
+            if water.texture == nil {
+                water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
+            } else {
+                water.physicsBody = SKPhysicsBody(texture: water.texture!, size: water.texture!.size())
+            }
+            
+            let bodyWater = water.physicsBody
+            bodyWater?.restitution = 0.0
+            bodyWater?.categoryBitMask = PhysicsCategory.Water
+            bodyWater?.contactTestBitMask = PhysicsCategory.Player
+            bodyWater?.collisionBitMask = PhysicsCategory.Player
+            bodyWater?.affectedByGravity = false
+            bodyWater?.allowsRotation = false
+            bodyWater?.isDynamic = true
+            bodyWater?.pinned = true
+        
+    }
+    
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         let node = player.spriteComponent.node
         node.zPosition = Layer.player.rawValue
         node.physicsBody?.restitution = 0.0
         node.physicsBody?.categoryBitMask = PhysicsCategory.Player
-        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground | PhysicsCategory.Water
+        node.physicsBody?.collisionBitMask = PhysicsCategory.Ground
     }
     
     func setUpGround() {
@@ -158,6 +189,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.physicsWorld.gravity != CGVector(dx: 0, dy: -9.8) {
                 self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
             }
+        } else if other.categoryBitMask == PhysicsCategory.Water {
+            // entrou na agua
+            underWater()
+            
         }
     }
     
