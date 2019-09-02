@@ -154,8 +154,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             body?.contactTestBitMask = PhysicsCategory.Player
             body?.affectedByGravity = false
             body?.allowsRotation = false
-            body?.isDynamic = true
-            body?.pinned = true
+            body?.isDynamic = false
+            body?.pinned = false
         }
     }
     
