@@ -25,7 +25,7 @@ struct PhysicsCategory {
     static let Rock: UInt32 = 0b100
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     var deltaTime: TimeInterval = 0
     var lastUpdateTime: TimeInterval = 0
@@ -72,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveComponent = player.movementComponent
         let pos = sender.location(in: self.view!)
         
-        if pos.x < (self.view!.frame.width / 2) {
+        if pos.x < self.view!.frame.width/2 {
             // left
             moveComponent?.moveToTheLeft(true)
         } else {
@@ -81,8 +81,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if sender.state == .ended {
-            moveComponent?.moveToTheLeft(false)
-            moveComponent?.moveToTheRight(false)
+            player.movementComponent.stop()
         }
     }
     
@@ -107,17 +106,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setUpGestureRecognizers() {
         tapRec.addTarget(self, action: #selector(jump))
+        tapRec.delegate = self
         self.view!.addGestureRecognizer(tapRec)
         
         longPressRec.addTarget(self, action: #selector(walk))
+        longPressRec.delegate = self
         longPressRec.minimumPressDuration = 0.1
+        
         self.view!.addGestureRecognizer(longPressRec)
         
         swipeUpRec.addTarget(self, action: #selector(jumpUp))
+        swipeUpRec.delegate = self
         swipeUpRec.direction = .up
         self.view!.addGestureRecognizer(swipeUpRec)
         
         swipeDownRec.addTarget(self, action: #selector(sink))
+        swipeDownRec.delegate = self
         swipeDownRec.direction = .down
         self.view!.addGestureRecognizer(swipeDownRec)
         
@@ -128,6 +132,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         swipeRightRec.addTarget(self, action: #selector(rightDash))
         swipeRightRec.direction = .right
         self.view!.addGestureRecognizer(swipeRightRec)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer.location(ofTouch: 0, in: self.view) == otherGestureRecognizer.location(ofTouch: 0, in: self.view) {
+            return false
+        }
+        if gestureRecognizer is UILongPressGestureRecognizer || otherGestureRecognizer is UILongPressGestureRecognizer {
+//            if gestureRecognizer is UITapGestureRecognizer || otherGestureRecognizer is UITapGestureRecognizer {
+//                
+//            }
+            return true
+        }
+        return false
     }
     
     func setUpPlayer() {
@@ -194,7 +211,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("Rock bottom!")
         }
     }
-    
     
 //    func touchDown(atPoint pos : CGPoint) {
 //        let moveComponent = player.movementComponent
