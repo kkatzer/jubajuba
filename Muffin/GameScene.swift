@@ -149,7 +149,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
-        
+        let node = player.spriteComponent.node
+        //node.zPosition = Layer.player.rawValue
+        node.physicsBody?.restitution = 0.0
+        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
     }
     
     func setUpGround() {
@@ -157,7 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         ground.enumerateChildNodes(withName: "ground") { (node, stop) in
             let ground = node as! SKSpriteNode
-            ground.zPosition = Layer.player.rawValue
+            //ground.zPosition = Layer.player.rawValue
             if ground.texture == nil {
                 ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
             } else {
@@ -170,8 +174,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             body?.contactTestBitMask = PhysicsCategory.Player
             body?.affectedByGravity = false
             body?.allowsRotation = false
-            body?.isDynamic = true
-            body?.pinned = true
+            body?.isDynamic = false
+            body?.pinned = false
         }
     }
     

@@ -56,6 +56,21 @@
 		569753B923171AC000FE4457 /* chao - tristeza@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B023171ABF00FE4457 /* chao - tristeza@3x.png */; };
 		569753BA23171AC000FE4457 /* chao - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B123171AC000FE4457 /* chao - tristeza.png */; };
 		569753BB23171AC000FE4457 /* caverna - raiva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B223171AC000FE4457 /* caverna - raiva@2x.png */; };
+		64F873CF231C8E1F00CDBC86 /* GroundJoy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873CE231C8E1F00CDBC86 /* GroundJoy1.png */; };
+		64F873D1231C8EF200CDBC86 /* GroundJoy2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873D0231C8EF200CDBC86 /* GroundJoy2.png */; };
+		64F873D3231C90C300CDBC86 /* JoyGround1_Z-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873D2231C90C200CDBC86 /* JoyGround1_Z-1.png */; };
+		64F873D5231C924200CDBC86 /* JoyGround2_Z-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873D4231C924200CDBC86 /* JoyGround2_Z-1.png */; };
+		64F873D7231C924A00CDBC86 /* JoyGround3_Z-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873D6231C924A00CDBC86 /* JoyGround3_Z-1.png */; };
+		64F873E1231C974000CDBC86 /* PortalLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873E0231C974000CDBC86 /* PortalLeft.png */; };
+		64F873E3231C9BE100CDBC86 /* PortalRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873E2231C9BE000CDBC86 /* PortalRight.png */; };
+		64F873E5231C9E3B00CDBC86 /* Trees.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873E4231C9E3B00CDBC86 /* Trees.png */; };
+		64F873E7231CA16E00CDBC86 /* Mushroom_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873E6231CA16D00CDBC86 /* Mushroom_1.png */; };
+		64F873E9231CA4B300CDBC86 /* Mountain.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873E8231CA4B100CDBC86 /* Mountain.png */; };
+		64F873EB231CA61200CDBC86 /* River.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873EA231CA61200CDBC86 /* River.png */; };
+		64F873EE231CA73D00CDBC86 /* Mushroom_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873EC231CA73A00CDBC86 /* Mushroom_2.png */; };
+		64F873EF231CA73D00CDBC86 /* Mushroom_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873ED231CA73D00CDBC86 /* Mushroom_3.png */; };
+		64F873F1231CA74500CDBC86 /* Tree.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873F0231CA74400CDBC86 /* Tree.png */; };
+		64F873F3231CAC8200CDBC86 /* River_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873F2231CAC8100CDBC86 /* River_1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +125,21 @@
 		569753B023171ABF00FE4457 /* chao - tristeza@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza@3x.png"; sourceTree = "<group>"; };
 		569753B123171AC000FE4457 /* chao - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza.png"; sourceTree = "<group>"; };
 		569753B223171AC000FE4457 /* caverna - raiva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caverna - raiva@2x.png"; sourceTree = "<group>"; };
+		64F873CE231C8E1F00CDBC86 /* GroundJoy1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroundJoy1.png; sourceTree = "<group>"; };
+		64F873D0231C8EF200CDBC86 /* GroundJoy2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroundJoy2.png; sourceTree = "<group>"; };
+		64F873D2231C90C200CDBC86 /* JoyGround1_Z-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JoyGround1_Z-1.png"; sourceTree = "<group>"; };
+		64F873D4231C924200CDBC86 /* JoyGround2_Z-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JoyGround2_Z-1.png"; sourceTree = "<group>"; };
+		64F873D6231C924A00CDBC86 /* JoyGround3_Z-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JoyGround3_Z-1.png"; sourceTree = "<group>"; };
+		64F873E0231C974000CDBC86 /* PortalLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PortalLeft.png; sourceTree = "<group>"; };
+		64F873E2231C9BE000CDBC86 /* PortalRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PortalRight.png; sourceTree = "<group>"; };
+		64F873E4231C9E3B00CDBC86 /* Trees.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Trees.png; sourceTree = "<group>"; };
+		64F873E6231CA16D00CDBC86 /* Mushroom_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom_1.png; sourceTree = "<group>"; };
+		64F873E8231CA4B100CDBC86 /* Mountain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mountain.png; sourceTree = "<group>"; };
+		64F873EA231CA61200CDBC86 /* River.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = River.png; sourceTree = "<group>"; };
+		64F873EC231CA73A00CDBC86 /* Mushroom_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom_2.png; sourceTree = "<group>"; };
+		64F873ED231CA73D00CDBC86 /* Mushroom_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom_3.png; sourceTree = "<group>"; };
+		64F873F0231CA74400CDBC86 /* Tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tree.png; sourceTree = "<group>"; };
+		64F873F2231CAC8100CDBC86 /* River_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = River_1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +228,21 @@
 		562FF465230AE68B00D0838B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				64F873F2231CAC8100CDBC86 /* River_1.png */,
+				64F873EA231CA61200CDBC86 /* River.png */,
+				64F873E8231CA4B100CDBC86 /* Mountain.png */,
+				64F873E6231CA16D00CDBC86 /* Mushroom_1.png */,
+				64F873EC231CA73A00CDBC86 /* Mushroom_2.png */,
+				64F873F0231CA74400CDBC86 /* Tree.png */,
+				64F873ED231CA73D00CDBC86 /* Mushroom_3.png */,
+				64F873E4231C9E3B00CDBC86 /* Trees.png */,
+				64F873E2231C9BE000CDBC86 /* PortalRight.png */,
+				64F873E0231C974000CDBC86 /* PortalLeft.png */,
+				64F873D2231C90C200CDBC86 /* JoyGround1_Z-1.png */,
+				64F873D4231C924200CDBC86 /* JoyGround2_Z-1.png */,
+				64F873D6231C924A00CDBC86 /* JoyGround3_Z-1.png */,
+				64F873D0231C8EF200CDBC86 /* GroundJoy2.png */,
+				64F873CE231C8E1F00CDBC86 /* GroundJoy1.png */,
 				566F8D242316CB94000E4D34 /* ground1.png */,
 				566F8D232316CB94000E4D34 /* ground2.png */,
 				566F8D2B2316D292000E4D34 /* ground3.png */,
@@ -297,38 +342,53 @@
 				562FF498230AE68B00D0838B /* Quebra@3x.png in Resources */,
 				562FF491230AE68B00D0838B /* chao - raiva@3x.png in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
+				64F873D5231C924200CDBC86 /* JoyGround2_Z-1.png in Resources */,
 				566F8D252316CB94000E4D34 /* ground2.png in Resources */,
+				64F873EF231CA73D00CDBC86 /* Mushroom_3.png in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				569753B523171AC000FE4457 /* caverna - raiva.png in Resources */,
 				562FF492230AE68B00D0838B /* Empurra.png in Resources */,
+				64F873E3231C9BE100CDBC86 /* PortalRight.png in Resources */,
 				562FF48F230AE68B00D0838B /* Empurra@2x.png in Resources */,
 				1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */,
 				569753B923171AC000FE4457 /* chao - tristeza@3x.png in Resources */,
 				562FF48A230AE68B00D0838B /* chao - raiva.png in Resources */,
 				562FF4A4230AE68B00D0838B /* tela@3x.png in Resources */,
+				64F873D3231C90C300CDBC86 /* JoyGround1_Z-1.png in Resources */,
 				566F8D2C2316D292000E4D34 /* ground3.png in Resources */,
 				562FF49F230AE68B00D0838B /* personagem @3x.png in Resources */,
+				64F873E7231CA16E00CDBC86 /* Mushroom_1.png in Resources */,
 				562FF4A3230AE68B00D0838B /* tela.png in Resources */,
 				562FF49A230AE68B00D0838B /* Quebra.png in Resources */,
 				569753BB23171AC000FE4457 /* caverna - raiva@2x.png in Resources */,
+				64F873D7231C924A00CDBC86 /* JoyGround3_Z-1.png in Resources */,
 				562FF4A5230AE68B00D0838B /* tela@2x.png in Resources */,
 				562FF49E230AE68B00D0838B /* arvores@3x.png in Resources */,
+				64F873F3231CAC8200CDBC86 /* River_1.png in Resources */,
 				562FF48B230AE68B00D0838B /* chao - raiva@2x.png in Resources */,
+				64F873D1231C8EF200CDBC86 /* GroundJoy2.png in Resources */,
+				64F873E9231CA4B300CDBC86 /* Mountain.png in Resources */,
 				562FF49D230AE68B00D0838B /* arvores@2x.png in Resources */,
+				64F873EE231CA73D00CDBC86 /* Mushroom_2.png in Resources */,
 				562FF48C230AE68B00D0838B /* cave.png in Resources */,
 				569753B623171AC000FE4457 /* ilha - tristeza@3x.png in Resources */,
 				563C841C2317338D00AFFD74 /* ilha - tristeza.png in Resources */,
 				562FF4A6230AE68B00D0838B /* isle.png in Resources */,
+				64F873CF231C8E1F00CDBC86 /* GroundJoy1.png in Resources */,
 				569753B723171AC000FE4457 /* chao - tristeza@2x.png in Resources */,
 				569753BA23171AC000FE4457 /* chao - tristeza.png in Resources */,
+				64F873E5231C9E3B00CDBC86 /* Trees.png in Resources */,
 				566F8D262316CB94000E4D34 /* ground1.png in Resources */,
 				569753B823171AC000FE4457 /* caverna - raiva@3x.png in Resources */,
 				562FF499230AE68B00D0838B /* chao felicidade.png in Resources */,
 				569753B423171AC000FE4457 /* ilha - tristeza@2x.png in Resources */,
+				64F873EB231CA61200CDBC86 /* River.png in Resources */,
+				64F873F1231CA74500CDBC86 /* Tree.png in Resources */,
 				562FF493230AE68B00D0838B /* Quebra@2x.png in Resources */,
 				562FF4A0230AE68B00D0838B /* arvores.png in Resources */,
 				562FF494230AE68B00D0838B /* chao felicidade@3x.png in Resources */,
 				1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */,
+				64F873E1231C974000CDBC86 /* PortalLeft.png in Resources */,
 				562FF497230AE68B00D0838B /* chao felicidade@2x.png in Resources */,
 				562FF48E230AE68B00D0838B /* Empurra@3x.png in Resources */,
 				1FE4089F2305A2CF006331CC /* LaunchScreen.storyboard in Resources */,
