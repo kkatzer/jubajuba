@@ -24,7 +24,11 @@ class JoyGlidingState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         scene.physicsWorld.gravity.dy = -7
+        scene.tapRec.isEnabled = false
         scene.longPressRec.isEnabled = true
+        scene.swipeUpRec.isEnabled = false
+        scene.swipeDownRec.isEnabled = false
+        scene.swipeSideRec.isEnabled = false
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

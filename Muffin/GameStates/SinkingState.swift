@@ -1,8 +1,8 @@
 //
-//  IdleStates.swift
+//  EnterWaterState.swift
 //  Muffin
 //
-//  Created by Vinícius Binder on 03/09/19.
+//  Created by Vinícius Binder on 04/09/19.
 //  Copyright © 2019 Juba-Juba. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class PlayingState: GKState {
+class SinkingState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
@@ -23,15 +23,15 @@ class PlayingState: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        scene.physicsWorld.gravity.dy = -9.8
-        scene.tapRec.isEnabled = true
+        scene.tapRec.isEnabled = false
         scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = true
         scene.swipeDownRec.isEnabled = true
         scene.swipeSideRec.isEnabled = true
+        // things supposed to happen
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == JoyGoingUpState.self)
+        return (stateClass == FloatingUpState.self) || (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self)
     }
 }

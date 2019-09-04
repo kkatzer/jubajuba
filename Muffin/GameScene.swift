@@ -50,7 +50,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         PlayingState(scene: self, player: self.player),
         JoyGoingUpState(scene: self, player: self.player),
-        JoyGlidingState(scene: self, player: self.player)
+        JoyGlidingState(scene: self, player: self.player),
+        BoostingDownState(scene: self, player: self.player),
+        SinkingState(scene: self, player: self.player),
+        FloatingUpState(scene: self, player: self.player),
+        WaterJoyState(scene: self, player: self.player),
+        WaterSadState(scene: self, player: self.player),
+        WaterDashState(scene: self, player: self.player),
+        DashingState(scene: self, player: self.player)
         ])
     
     override func didMove(to view: SKView) {
@@ -90,7 +97,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func jumpUp() {
-        print("oi");
         if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
             stateMachine.enter(JoyGoingUpState.self)
         }
@@ -208,11 +214,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         player.update(deltaTime: deltaTime)
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         
-        if stateMachine.currentState is JoyGoingUpState {
-            if player.spriteComponent.node.physicsBody!.velocity.dy < 0 {
-                stateMachine.enter(JoyGlidingState.self)
-            }
-        }
+        stateMachine.update(deltaTime: deltaTime)
     }
     
 }
