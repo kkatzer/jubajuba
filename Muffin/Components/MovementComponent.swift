@@ -49,7 +49,6 @@ class MovementComponent: GKComponent {
     
     func joyJump() {
         nodeBody.velocity.dy = joyJumpVelocity
-
     }
     
     func dash(left: Bool) {

@@ -51,6 +51,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private var musicPlayer: AVAudioPlayer!
     
+    lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
+        PlayingState(scene: self, player: self.player),
+        JoyGoingUpState(scene: self, player: self.player),
+        JoyGlidingState(scene: self, player: self.player),
+        BoostingDownState(scene: self, player: self.player),
+        SinkingState(scene: self, player: self.player),
+        FloatingUpState(scene: self, player: self.player),
+        WaterJoyState(scene: self, player: self.player),
+        WaterSadState(scene: self, player: self.player),
+        WaterDashState(scene: self, player: self.player),
+        DashingState(scene: self, player: self.player)
+        ])
+    
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         
@@ -59,6 +72,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpGround()
         setUpOrbs()
         setUpRock()
+        
+        stateMachine.enter(PlayingState.self)
     
         //playMusic()
     }
@@ -88,8 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     @objc func jumpUp() {
         if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
-            player.movementComponent?.joyJump()
-            self.physicsWorld.gravity = CGVector(dx: 0, dy: -7)
+            stateMachine.enter(JoyGoingUpState.self)
         }
     }
     
@@ -140,9 +154,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             return false
         }
         if gestureRecognizer is UILongPressGestureRecognizer || otherGestureRecognizer is UILongPressGestureRecognizer {
-//            if gestureRecognizer is UITapGestureRecognizer || otherGestureRecognizer is UITapGestureRecognizer {
-//                
-//            }
             return true
         }
         return false
@@ -150,6 +161,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
+        let node = player.spriteComponent.node
+        node.zPosition = Layer.player.rawValue
+        node.physicsBody?.restitution = 0.0
+        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
     }
     
     func setUpGround() {
@@ -200,8 +216,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if other.categoryBitMask == PhysicsCategory.Ground {
-            if self.physicsWorld.gravity != CGVector(dx: 0, dy: -9.8) {
-                self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+            if stateMachine.currentState is JoyGlidingState {
+                stateMachine.enter(PlayingState.self)
             }
         }
         
@@ -209,77 +225,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             rock.breakComponent.breakRock()
         }
     }
-    
-//    func touchDown(atPoint pos : CGPoint) {
-//        let moveComponent = player.movementComponent
-//        let node = player.spriteComponent.node
-//
-//        if pos.x < (self.camera?.position.x)! {
-//            // left
-//            if moveComponent!.moveRight {
-//                if node.physicsBody?.allContactedBodies() != nil {
-//                    moveComponent?.jump()
-//                }
-//            } else {
-//                moveComponent?.moveToTheLeft(true)
-//            }
-//        } else {
-//            // right
-//            if moveComponent!.moveLeft {
-//                if node.physicsBody?.allContactedBodies() != nil {
-//                    moveComponent?.jump()
-//                }
-//            } else {
-//                moveComponent!.moveToTheRight(true)
-//            }
-//        }
-//    }
-//    
-//    func touchUp(atPoint pos : CGPoint) {
-//        let moveComponent = player.movementComponent
-//        let node = player.spriteComponent.node
-//        let contactedBodies = node.physicsBody?.allContactedBodies()
-//
-//        print(deltaStamp)
-//        if deltaStamp < 0.05 && contactedBodies?.count != 0 {
-//            print("oi")
-//            moveComponent?.jump()
-//        }
-//
-//        if pos.x < (self.camera?.position.x)! {
-//            // left
-//            if moveComponent!.moveLeft {
-//                moveComponent!.moveToTheLeft(false)
-//            } else if moveComponent!.moveRight {
-//                moveComponent!.moveToTheRight(false)
-//            }
-//        } else {
-//            // right
-//            if moveComponent!.moveRight {
-//                moveComponent!.moveToTheRight(false)
-//            } else if moveComponent!.moveLeft {
-//                moveComponent!.moveToTheLeft(false)
-//            }
-//        }
-//    }
-//
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//
-//        for t in touches {
-//            deltaStamp = t.timestamp
-//            print(t.timestamp)
-//            self.touchDown(atPoint: t.location(in: self))
-//        }
-//    }
-//
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//
-//        for t in touches {
-//            deltaStamp = t.timestamp - deltaStamp
-//            print(t.timestamp)
-//            self.touchUp(atPoint: t.location(in: self))
-//        }
-//    }
     
     func playMusic() {
         
@@ -305,6 +250,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         player.update(deltaTime: deltaTime)
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        
+        stateMachine.update(deltaTime: deltaTime)
     }
     
 }

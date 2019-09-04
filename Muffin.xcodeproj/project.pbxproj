@@ -15,6 +15,16 @@
 		1FE4089F2305A2CF006331CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089D2305A2CF006331CC /* LaunchScreen.storyboard */; };
 		1FEE6457230EB73F0082DFB0 /* OrbEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F676856230C2391008671F0 /* OrbEntity.swift */; };
 		1FEE6458230EB7420082DFB0 /* OrbComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26B7C9230D7348001BBDCE /* OrbComponent.swift */; };
+		560C1C64231E89B3002B820A /* PlayingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C1C63231E89B3002B820A /* PlayingState.swift */; };
+		560C1C66231E9133002B820A /* JoyGoingUpState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C1C65231E9133002B820A /* JoyGoingUpState.swift */; };
+		560C1C68231E916F002B820A /* JoyGlidingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C1C67231E916F002B820A /* JoyGlidingState.swift */; };
+		561920CA231FDACF00E86F44 /* BoostingDownState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920C9231FDACF00E86F44 /* BoostingDownState.swift */; };
+		561920CC231FE3AF00E86F44 /* SinkingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920CB231FE3AF00E86F44 /* SinkingState.swift */; };
+		561920CE231FE56700E86F44 /* FloatingUpState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920CD231FE56700E86F44 /* FloatingUpState.swift */; };
+		561920D0231FE72400E86F44 /* WaterJoyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920CF231FE72400E86F44 /* WaterJoyState.swift */; };
+		561920D2231FE74400E86F44 /* WaterSadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D1231FE74400E86F44 /* WaterSadState.swift */; };
+		561920D4231FE77200E86F44 /* WaterDashState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D3231FE77200E86F44 /* WaterDashState.swift */; };
+		561920D6231FE79000E86F44 /* DashingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D5231FE79000E86F44 /* DashingState.swift */; };
 		562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45C230AE68B00D0838B /* SpriteComponent.swift */; };
 		562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45D230AE68B00D0838B /* MovementComponent.swift */; };
 		562FF486230AE68B00D0838B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 562FF45F230AE68B00D0838B /* GameScene.sks */; };
@@ -84,6 +94,16 @@
 		1FE4089B2305A2CF006331CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FE4089E2305A2CF006331CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FE408A02305A2CF006331CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		560C1C63231E89B3002B820A /* PlayingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingState.swift; sourceTree = "<group>"; };
+		560C1C65231E9133002B820A /* JoyGoingUpState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyGoingUpState.swift; sourceTree = "<group>"; };
+		560C1C67231E916F002B820A /* JoyGlidingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyGlidingState.swift; sourceTree = "<group>"; };
+		561920C9231FDACF00E86F44 /* BoostingDownState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostingDownState.swift; sourceTree = "<group>"; };
+		561920CB231FE3AF00E86F44 /* SinkingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkingState.swift; sourceTree = "<group>"; };
+		561920CD231FE56700E86F44 /* FloatingUpState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingUpState.swift; sourceTree = "<group>"; };
+		561920CF231FE72400E86F44 /* WaterJoyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterJoyState.swift; sourceTree = "<group>"; };
+		561920D1231FE74400E86F44 /* WaterSadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterSadState.swift; sourceTree = "<group>"; };
+		561920D3231FE77200E86F44 /* WaterDashState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDashState.swift; sourceTree = "<group>"; };
+		561920D5231FE79000E86F44 /* DashingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashingState.swift; sourceTree = "<group>"; };
 		562FF45C230AE68B00D0838B /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		562FF45D230AE68B00D0838B /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		562FF45F230AE68B00D0838B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -173,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
-				562FF463230AE68B00D0838B /* Player States */,
+				560C1C62231E8990002B820A /* GameStates */,
 				562FF45B230AE68B00D0838B /* Components */,
 				562FF460230AE68B00D0838B /* Entities */,
 				562FF462230AE68B00D0838B /* GameScene.swift */,
@@ -187,6 +207,23 @@
 				562FF465230AE68B00D0838B /* Resources */,
 			);
 			path = Muffin;
+			sourceTree = "<group>";
+		};
+		560C1C62231E8990002B820A /* GameStates */ = {
+			isa = PBXGroup;
+			children = (
+				560C1C63231E89B3002B820A /* PlayingState.swift */,
+				560C1C65231E9133002B820A /* JoyGoingUpState.swift */,
+				560C1C67231E916F002B820A /* JoyGlidingState.swift */,
+				561920C9231FDACF00E86F44 /* BoostingDownState.swift */,
+				561920CB231FE3AF00E86F44 /* SinkingState.swift */,
+				561920CD231FE56700E86F44 /* FloatingUpState.swift */,
+				561920CF231FE72400E86F44 /* WaterJoyState.swift */,
+				561920D1231FE74400E86F44 /* WaterSadState.swift */,
+				561920D3231FE77200E86F44 /* WaterDashState.swift */,
+				561920D5231FE79000E86F44 /* DashingState.swift */,
+			);
+			path = GameStates;
 			sourceTree = "<group>";
 		};
 		562FF45B230AE68B00D0838B /* Components */ = {
@@ -216,13 +253,6 @@
 				1F676856230C2391008671F0 /* OrbEntity.swift */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		562FF463230AE68B00D0838B /* Player States */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Player States";
 			sourceTree = "<group>";
 		};
 		562FF465230AE68B00D0838B /* Resources */ = {
@@ -403,16 +433,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FEE6458230EB7420082DFB0 /* OrbComponent.swift in Sources */,
+				560C1C68231E916F002B820A /* JoyGlidingState.swift in Sources */,
 				562FF488230AE68B00D0838B /* GameScene.swift in Sources */,
 				562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */,
 				1F59B26623181400004A56BC /* BreakComponent.swift in Sources */,
+				561920D0231FE72400E86F44 /* WaterJoyState.swift in Sources */,
+				561920D6231FE79000E86F44 /* DashingState.swift in Sources */,
+				561920CC231FE3AF00E86F44 /* SinkingState.swift in Sources */,
 				1FEE6457230EB73F0082DFB0 /* OrbEntity.swift in Sources */,
+				561920D4231FE77200E86F44 /* WaterDashState.swift in Sources */,
 				562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */,
 				1F59B2642318134C004A56BC /* RockEntity.swift in Sources */,
 				56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */,
+				561920D2231FE74400E86F44 /* WaterSadState.swift in Sources */,
+				560C1C66231E9133002B820A /* JoyGoingUpState.swift in Sources */,
 				1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */,
+				561920CA231FDACF00E86F44 /* BoostingDownState.swift in Sources */,
 				562FF489230AE68B00D0838B /* GameViewController.swift in Sources */,
 				562FF487230AE68B00D0838B /* PlayerEntity.swift in Sources */,
+				560C1C64231E89B3002B820A /* PlayingState.swift in Sources */,
+				561920CE231FE56700E86F44 /* FloatingUpState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
