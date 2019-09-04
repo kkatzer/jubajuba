@@ -34,4 +34,8 @@ class DashingState: GKState {
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == PlayingState.self)
     }
+    
+    override func update(deltaTime seconds: TimeInterval) {
+        
+    }
 }

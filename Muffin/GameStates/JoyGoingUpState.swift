@@ -23,12 +23,13 @@ class JoyGoingUpState: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        scene.physicsWorld.gravity.dy = -9.8
         scene.tapRec.isEnabled = false
-        scene.longPressRec.isEnabled = false
+        scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
         scene.swipeSideRec.isEnabled = true
+        
+        scene.physicsWorld.gravity.dy = -9.8
         move.joyJump()
     }
     
@@ -37,7 +38,6 @@ class JoyGoingUpState: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        print("oi");
         if node.physicsBody!.velocity.dy < 0 {
             scene.stateMachine.enter(JoyGlidingState.self)
         }
