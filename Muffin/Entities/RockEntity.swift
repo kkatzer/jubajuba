@@ -37,12 +37,14 @@ class RockEntity: GKEntity {
     func setUpPhysics() {
         self.spriteComponent.node.zPosition = Layer.player.rawValue
         let body = self.spriteComponent.node.physicsBody
-        body?.restitution = 0.0
+        body?.restitution = 0.2
         body?.categoryBitMask = PhysicsCategory.Rock
         body?.contactTestBitMask = PhysicsCategory.Player
-        body?.affectedByGravity = false
-        body?.allowsRotation = false
-        body?.isDynamic = true
-        body?.pinned = false
+        if (!breakable) {
+            body?.affectedByGravity = true
+            body?.allowsRotation = false
+            body?.isDynamic = true
+            body?.pinned = false
+        }
     }
 }

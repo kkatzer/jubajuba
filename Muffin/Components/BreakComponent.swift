@@ -24,4 +24,10 @@ class BreakComponent: GKComponent {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func breakRock() {
+        if (breakable) {
+            spriteComponent.node.removeFromParent()
+        }
+    }
 }

@@ -47,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var anger: OrbEntity!
     var sadness: OrbEntity!
     var rock: RockEntity!
+    var moveRock: RockEntity!
     
     private var musicPlayer: AVAudioPlayer!
     
@@ -149,11 +150,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
-        let node = player.spriteComponent.node
-        //node.zPosition = Layer.player.rawValue
-        node.physicsBody?.restitution = 0.0
-        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
-        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
     }
     
     func setUpGround() {
@@ -190,16 +186,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpRock() {
         rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, breakable: true)
+        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, breakable: false)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        var player: SKPhysicsBody = contact.bodyA
         var other: SKPhysicsBody = contact.bodyA
         if contact.bodyA.categoryBitMask == PhysicsCategory.Player {
-            player = contact.bodyA
             other = contact.bodyB
         } else if contact.bodyB.categoryBitMask == PhysicsCategory.Player {
-            player = contact.bodyB
             other = contact.bodyA
         } else {
             return
@@ -212,7 +206,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if other.categoryBitMask == PhysicsCategory.Rock {
-            print("Rock bottom!")
+            rock.breakComponent.breakRock()
         }
     }
     

@@ -80,12 +80,11 @@ class MovementComponent: GKComponent {
         
         
         
-        if -maxVelocity ... maxVelocity ~= (nodeBody?.velocity.dx)! {
+        if -maxVelocity ... maxVelocity ~= nodeBody.velocity.dx {
             if moveRight {
-                nodeBody!.applyForce(CGVector(dx: force, dy: 0))
+                nodeBody.applyForce(CGVector(dx: force, dy: 0))
             } else if moveLeft {
-                nodeBody!.applyForce(CGVector(dx: -force, dy: 0))
-            }
+                nodeBody.applyForce(CGVector(dx: -force, dy: 0))
             }
         }
     }
