@@ -31,6 +31,7 @@ class JoyGoingUpState: GKState {
         
         scene.physicsWorld.gravity.dy = -9.8
         move.joyJump()
+        scene.zoom()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

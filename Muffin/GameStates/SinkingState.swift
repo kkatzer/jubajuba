@@ -28,7 +28,10 @@ class SinkingState: GKState {
         scene.swipeUpRec.isEnabled = true
         scene.swipeDownRec.isEnabled = true
         scene.swipeSideRec.isEnabled = true
-        // things supposed to happen
+        
+        node.physicsBody?.linearDamping = 1
+        scene.physicsWorld.gravity.dy = 1
+        print("entrou no sinking")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -36,6 +39,8 @@ class SinkingState: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        
+        if node.physicsBody!.velocity.dy >= 0 {
+            scene.stateMachine.enter(FloatingUpState.self)
+        }
     }
 }

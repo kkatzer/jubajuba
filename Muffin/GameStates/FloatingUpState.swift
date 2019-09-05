@@ -24,15 +24,18 @@ class FloatingUpState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         scene.tapRec.isEnabled = false
-        scene.longPressRec.isEnabled = false
+        scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = true
         scene.swipeDownRec.isEnabled = true
         scene.swipeSideRec.isEnabled = true
-        // things supposed to happen
+        
+        node.physicsBody?.linearDamping = 1
+        scene.physicsWorld.gravity.dy = 1
+        print("entrou no floating")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == SinkingState.self) || (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self)
+        return (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self) || (stateClass == PlayingState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

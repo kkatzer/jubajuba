@@ -15,6 +15,8 @@ class BoostingDownState: GKState {
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
     
+    let sinkVelocity: CGFloat = -1000
+    
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
@@ -28,6 +30,11 @@ class BoostingDownState: GKState {
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
         scene.swipeSideRec.isEnabled = true
+        
+        scene.physicsWorld.gravity.dy = -9.8
+        node.physicsBody?.velocity.dy = sinkVelocity
+        print("entrou no boosting, pulo fora da agua")
+        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

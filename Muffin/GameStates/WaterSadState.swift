@@ -32,7 +32,7 @@ class WaterSadState: GKState {
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == FloatingUpState.self) || (stateClass == PlayingState.self)
+        return (stateClass == FloatingUpState.self) // || (stateClass == PlayingState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

@@ -51,9 +51,9 @@ class MovementComponent: GKComponent {
         nodeBody.velocity.dy = joyJumpVelocity
     }
     
-    func sadSink(){
-        spriteComponent.node.physicsBody?.velocity.dy = sinkVelocity
-    }
+//    func sadSink(){
+//        spriteComponent.node.physicsBody?.velocity.dy = sinkVelocity
+//    }
     
     func stop() {
         moveToTheLeft(false)

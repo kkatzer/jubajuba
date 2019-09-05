@@ -14,6 +14,7 @@ enum Layer: CGFloat {
     case distance
     case background
     case player
+    case orbs
     case foreground
 }
 
@@ -105,7 +106,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     @objc func jumpUp() {
         if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
             stateMachine.enter(JoyGoingUpState.self)
-            zoom()
         }
     }
     
@@ -120,14 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func sink() {
-        player.movementComponent?.sadSink()
-    }
-    
-    func underWater() {
-//        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
-            player.spriteComponent.node.physicsBody?.linearDamping = 1
-            self.physicsWorld.gravity = CGVector(dx: 0, dy: 1.0)
-//        }
+        stateMachine.enter(BoostingDownState.self)
     }
     
     func setUpGestureRecognizers() {
@@ -152,27 +145,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         self.view!.addGestureRecognizer(swipeDownRec)
     }
     
-    func setUpWater() {
-        water = self.childNode(withName: "water") as? SKSpriteNode
-        
-        
-        if water.texture == nil {
-            water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
-        }else {
-            water.physicsBody = SKPhysicsBody(texture: water.texture!, size: water.texture!.size())
-        }
-            
-        let bodyWater = water.physicsBody
-        bodyWater?.restitution = 0.0
-        bodyWater?.categoryBitMask = PhysicsCategory.Water
-        bodyWater?.contactTestBitMask = PhysicsCategory.Player
-        bodyWater?.collisionBitMask = PhysicsCategory.Player
-        bodyWater?.affectedByGravity = false
-        bodyWater?.allowsRotation = false
-        bodyWater?.isDynamic = true
-        bodyWater?.pinned = true
-    }
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer.location(ofTouch: 0, in: self.view) == otherGestureRecognizer.location(ofTouch: 0, in: self.view) {
             return false
@@ -195,6 +167,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpGround() {
         ground = self.childNode(withName: "ground")
+        ground.zPosition = Layer.player.rawValue
         
         ground.enumerateChildNodes(withName: "ground") { (node, stop) in
             let ground = node as! SKSpriteNode
@@ -219,37 +192,61 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpOrbs() {
         joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
         joy.orbComponent.idleAnimation()
+        joy.spriteComponent.node.zPosition = Layer.orbs.rawValue
         anger = OrbEntity(node: self.childNode(withName: "anger") as! SKSpriteNode, type: .anger, player: player)
         anger.orbComponent.idleAnimation()
+        anger.spriteComponent.node.zPosition = Layer.orbs.rawValue
         sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
         sadness.orbComponent.idleAnimation()
+        sadness.spriteComponent.node.zPosition = Layer.orbs.rawValue
+    }
+    
+    func setUpWater() {
+        water = self.childNode(withName: "water") as? SKSpriteNode
+        water.zPosition = Layer.background.rawValue
+        
+        if water.texture == nil {
+            water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
+        } else {
+            water.physicsBody = SKPhysicsBody(texture: water.texture!, size: water.texture!.size())
+        }
+        
+        let bodyWater = water.physicsBody
+        bodyWater?.restitution = 0.0
+        bodyWater?.categoryBitMask = PhysicsCategory.Water
+        bodyWater?.contactTestBitMask = PhysicsCategory.Player
+        bodyWater?.collisionBitMask = PhysicsCategory.Player
+        bodyWater?.affectedByGravity = false
+        bodyWater?.allowsRotation = false
+        bodyWater?.isDynamic = true
+        bodyWater?.pinned = true
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
         
         if other.categoryBitMask == PhysicsCategory.Ground {
-            if stateMachine.currentState is JoyGlidingState {
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState {
                 stateMachine.enter(PlayingState.self)
             }
+            
         } else if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
             print("entrou no else if")
-            underWater()
+            stateMachine.enter(SinkingState.self)
             
         }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
-        
-        if other.categoryBitMask != PhysicsCategory.Ground{
-            print("acabou o contato")
-            player.spriteComponent.node.physicsBody?.linearDamping = 0
-            self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+
+        if other.categoryBitMask == PhysicsCategory.Water {
+            if stateMachine.currentState is FloatingUpState {
+                print("acabou o contato")
+                stateMachine.enter(PlayingState.self)
+            }
         }
-        
-    
     }
     
     func playMusic() {
@@ -275,6 +272,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         lastUpdateTime = currentTime
         
         player.update(deltaTime: deltaTime)
+        
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         if (camera?.position.x)! < CGFloat(61.7) {
             camera?.position.x = CGFloat(61.7)
