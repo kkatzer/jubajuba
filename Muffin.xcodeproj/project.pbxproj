@@ -64,6 +64,18 @@
 		569753B923171AC000FE4457 /* chao - tristeza@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B023171ABF00FE4457 /* chao - tristeza@3x.png */; };
 		569753BA23171AC000FE4457 /* chao - tristeza.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B123171AC000FE4457 /* chao - tristeza.png */; };
 		569753BB23171AC000FE4457 /* caverna - raiva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 569753B223171AC000FE4457 /* caverna - raiva@2x.png */; };
+		6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6CF232031E0005DF78B /* GettingUp.atlas */; };
+		6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D0232031E0005DF78B /* SwimmingStart.atlas */; };
+		6412B6DC232031E1005DF78B /* Walk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D1232031E1005DF78B /* Walk.atlas */; };
+		6412B6DD232031E1005DF78B /* Fall.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D2232031E1005DF78B /* Fall.atlas */; };
+		6412B6DE232031E1005DF78B /* Floating.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D3232031E1005DF78B /* Floating.atlas */; };
+		6412B6DF232031E2005DF78B /* Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D4232031E1005DF78B /* Jump.atlas */; };
+		6412B6E0232031E2005DF78B /* Swimming.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D5232031E1005DF78B /* Swimming.atlas */; };
+		6412B6E1232031E2005DF78B /* Fly.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D6232031E1005DF78B /* Fly.atlas */; };
+		6412B6E2232031E2005DF78B /* Heavy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D7232031E1005DF78B /* Heavy.atlas */; };
+		6412B6E3232031E2005DF78B /* Dash.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D8232031E1005DF78B /* Dash.atlas */; };
+		6412B6E4232031E2005DF78B /* Falling.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D9232031E1005DF78B /* Falling.atlas */; };
+		6412B6E723203225005DF78B /* AssetsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6412B6E623203225005DF78B /* AssetsUtil.swift */; };
 		64F873CF231C8E1F00CDBC86 /* GroundJoy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873CE231C8E1F00CDBC86 /* GroundJoy1.png */; };
 		64F873D1231C8EF200CDBC86 /* GroundJoy2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873D0231C8EF200CDBC86 /* GroundJoy2.png */; };
 		64F873D3231C90C300CDBC86 /* JoyGround1_Z-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F873D2231C90C200CDBC86 /* JoyGround1_Z-1.png */; };
@@ -141,6 +153,18 @@
 		569753B023171ABF00FE4457 /* chao - tristeza@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza@3x.png"; sourceTree = "<group>"; };
 		569753B123171AC000FE4457 /* chao - tristeza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chao - tristeza.png"; sourceTree = "<group>"; };
 		569753B223171AC000FE4457 /* caverna - raiva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "caverna - raiva@2x.png"; sourceTree = "<group>"; };
+		6412B6CF232031E0005DF78B /* GettingUp.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GettingUp.atlas; sourceTree = "<group>"; };
+		6412B6D0232031E0005DF78B /* SwimmingStart.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SwimmingStart.atlas; sourceTree = "<group>"; };
+		6412B6D1232031E1005DF78B /* Walk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Walk.atlas; sourceTree = "<group>"; };
+		6412B6D2232031E1005DF78B /* Fall.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Fall.atlas; sourceTree = "<group>"; };
+		6412B6D3232031E1005DF78B /* Floating.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Floating.atlas; sourceTree = "<group>"; };
+		6412B6D4232031E1005DF78B /* Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jump.atlas; sourceTree = "<group>"; };
+		6412B6D5232031E1005DF78B /* Swimming.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Swimming.atlas; sourceTree = "<group>"; };
+		6412B6D6232031E1005DF78B /* Fly.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Fly.atlas; sourceTree = "<group>"; };
+		6412B6D7232031E1005DF78B /* Heavy.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Heavy.atlas; sourceTree = "<group>"; };
+		6412B6D8232031E1005DF78B /* Dash.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Dash.atlas; sourceTree = "<group>"; };
+		6412B6D9232031E1005DF78B /* Falling.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Falling.atlas; sourceTree = "<group>"; };
+		6412B6E623203225005DF78B /* AssetsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsUtil.swift; sourceTree = "<group>"; };
 		64F873CE231C8E1F00CDBC86 /* GroundJoy1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroundJoy1.png; sourceTree = "<group>"; };
 		64F873D0231C8EF200CDBC86 /* GroundJoy2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroundJoy2.png; sourceTree = "<group>"; };
 		64F873D2231C90C200CDBC86 /* JoyGround1_Z-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "JoyGround1_Z-1.png"; sourceTree = "<group>"; };
@@ -188,6 +212,8 @@
 		1FE4088D2305A2CD006331CC /* Muffin */ = {
 			isa = PBXGroup;
 			children = (
+				6412B6E5232031EF005DF78B /* Util */,
+				6412B6CE232031D4005DF78B /* Sprites */,
 				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
 				560C1C62231E8990002B820A /* GameStates */,
 				562FF45B230AE68B00D0838B /* Components */,
@@ -305,6 +331,32 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		6412B6CE232031D4005DF78B /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				6412B6D8232031E1005DF78B /* Dash.atlas */,
+				6412B6D2232031E1005DF78B /* Fall.atlas */,
+				6412B6D9232031E1005DF78B /* Falling.atlas */,
+				6412B6D3232031E1005DF78B /* Floating.atlas */,
+				6412B6D6232031E1005DF78B /* Fly.atlas */,
+				6412B6CF232031E0005DF78B /* GettingUp.atlas */,
+				6412B6D7232031E1005DF78B /* Heavy.atlas */,
+				6412B6D4232031E1005DF78B /* Jump.atlas */,
+				6412B6D5232031E1005DF78B /* Swimming.atlas */,
+				6412B6D0232031E0005DF78B /* SwimmingStart.atlas */,
+				6412B6D1232031E1005DF78B /* Walk.atlas */,
+			);
+			path = Sprites;
+			sourceTree = "<group>";
+		};
+		6412B6E5232031EF005DF78B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				6412B6E623203225005DF78B /* AssetsUtil.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -363,15 +415,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6412B6E3232031E2005DF78B /* Dash.atlas in Resources */,
 				562FF498230AE68B00D0838B /* Quebra@3x.png in Resources */,
+				6412B6E1232031E2005DF78B /* Fly.atlas in Resources */,
 				562FF491230AE68B00D0838B /* chao - raiva@3x.png in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
 				64F873D5231C924200CDBC86 /* JoyGround2_Z-1.png in Resources */,
+				6412B6DC232031E1005DF78B /* Walk.atlas in Resources */,
 				566F8D252316CB94000E4D34 /* ground2.png in Resources */,
 				64F873EF231CA73D00CDBC86 /* Mushroom_3.png in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				569753B523171AC000FE4457 /* caverna - raiva.png in Resources */,
 				562FF492230AE68B00D0838B /* Empurra.png in Resources */,
+				6412B6E2232031E2005DF78B /* Heavy.atlas in Resources */,
+				6412B6E4232031E2005DF78B /* Falling.atlas in Resources */,
+				6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */,
+				6412B6DD232031E1005DF78B /* Fall.atlas in Resources */,
 				64F873E3231C9BE100CDBC86 /* PortalRight.png in Resources */,
 				562FF48F230AE68B00D0838B /* Empurra@2x.png in Resources */,
 				1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */,
@@ -396,6 +455,7 @@
 				64F873EE231CA73D00CDBC86 /* Mushroom_2.png in Resources */,
 				562FF48C230AE68B00D0838B /* cave.png in Resources */,
 				569753B623171AC000FE4457 /* ilha - tristeza@3x.png in Resources */,
+				6412B6E0232031E2005DF78B /* Swimming.atlas in Resources */,
 				563C841C2317338D00AFFD74 /* ilha - tristeza.png in Resources */,
 				562FF4A6230AE68B00D0838B /* isle.png in Resources */,
 				64F873CF231C8E1F00CDBC86 /* GroundJoy1.png in Resources */,
@@ -406,9 +466,12 @@
 				569753B823171AC000FE4457 /* caverna - raiva@3x.png in Resources */,
 				562FF499230AE68B00D0838B /* chao felicidade.png in Resources */,
 				569753B423171AC000FE4457 /* ilha - tristeza@2x.png in Resources */,
+				6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */,
+				6412B6DE232031E1005DF78B /* Floating.atlas in Resources */,
 				64F873EB231CA61200CDBC86 /* River.png in Resources */,
 				64F873F1231CA74500CDBC86 /* Tree.png in Resources */,
 				562FF493230AE68B00D0838B /* Quebra@2x.png in Resources */,
+				6412B6DF232031E2005DF78B /* Jump.atlas in Resources */,
 				562FF4A0230AE68B00D0838B /* arvores.png in Resources */,
 				562FF494230AE68B00D0838B /* chao felicidade@3x.png in Resources */,
 				1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */,
@@ -438,6 +501,7 @@
 				562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */,
 				56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */,
 				561920D2231FE74400E86F44 /* WaterSadState.swift in Sources */,
+				6412B6E723203225005DF78B /* AssetsUtil.swift in Sources */,
 				560C1C66231E9133002B820A /* JoyGoingUpState.swift in Sources */,
 				1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */,
 				561920CA231FDACF00E86F44 /* BoostingDownState.swift in Sources */,
