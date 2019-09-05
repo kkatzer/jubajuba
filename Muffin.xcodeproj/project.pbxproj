@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F55A71D2321468E0087BE2F /* Sadness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A71C2321468E0087BE2F /* Sadness.wav */; };
+		1F55A71F232146930087BE2F /* Menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A71E232146930087BE2F /* Menu.wav */; };
+		1F55A7212321469A0087BE2F /* Happiness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A7202321469A0087BE2F /* Happiness.wav */; };
+		1F55A7232321469F0087BE2F /* Anger.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A7222321469F0087BE2F /* Anger.wav */; };
 		1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4088E2305A2CD006331CC /* AppDelegate.swift */; };
 		1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE408982305A2CD006331CC /* Main.storyboard */; };
 		1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089B2305A2CF006331CC /* Assets.xcassets */; };
@@ -83,6 +87,10 @@
 
 /* Begin PBXFileReference section */
 		1F26B7C9230D7348001BBDCE /* OrbComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbComponent.swift; sourceTree = "<group>"; };
+		1F55A71C2321468E0087BE2F /* Sadness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sadness.wav; sourceTree = "<group>"; };
+		1F55A71E232146930087BE2F /* Menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Menu.wav; sourceTree = "<group>"; };
+		1F55A7202321469A0087BE2F /* Happiness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Happiness.wav; sourceTree = "<group>"; };
+		1F55A7222321469F0087BE2F /* Anger.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Anger.wav; sourceTree = "<group>"; };
 		1F676856230C2391008671F0 /* OrbEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbEntity.swift; sourceTree = "<group>"; };
 		1FE4088B2305A2CD006331CC /* Muffin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Muffin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE4088E2305A2CD006331CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +177,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F55A71A232146740087BE2F /* SFX */ = {
+			isa = PBXGroup;
+			children = (
+				1F55A71B232146820087BE2F /* Music */,
+			);
+			path = SFX;
+			sourceTree = "<group>";
+		};
+		1F55A71B232146820087BE2F /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				1F55A71C2321468E0087BE2F /* Sadness.wav */,
+				1F55A71E232146930087BE2F /* Menu.wav */,
+				1F55A7202321469A0087BE2F /* Happiness.wav */,
+				1F55A7222321469F0087BE2F /* Anger.wav */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
 		1FE408822305A2CD006331CC = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +279,7 @@
 		562FF465230AE68B00D0838B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F55A71A232146740087BE2F /* SFX */,
 				64F873F2231CAC8100CDBC86 /* River_1.png */,
 				64F873EA231CA61200CDBC86 /* River.png */,
 				64F873E8231CA4B100CDBC86 /* Mountain.png */,
@@ -368,8 +396,10 @@
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
 				64F873D5231C924200CDBC86 /* JoyGround2_Z-1.png in Resources */,
 				566F8D252316CB94000E4D34 /* ground2.png in Resources */,
+				1F55A7232321469F0087BE2F /* Anger.wav in Resources */,
 				64F873EF231CA73D00CDBC86 /* Mushroom_3.png in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
+				1F55A71D2321468E0087BE2F /* Sadness.wav in Resources */,
 				569753B523171AC000FE4457 /* caverna - raiva.png in Resources */,
 				562FF492230AE68B00D0838B /* Empurra.png in Resources */,
 				64F873E3231C9BE100CDBC86 /* PortalRight.png in Resources */,
@@ -415,6 +445,8 @@
 				64F873E1231C974000CDBC86 /* PortalLeft.png in Resources */,
 				562FF497230AE68B00D0838B /* chao felicidade@2x.png in Resources */,
 				562FF48E230AE68B00D0838B /* Empurra@3x.png in Resources */,
+				1F55A7212321469A0087BE2F /* Happiness.wav in Resources */,
+				1F55A71F232146930087BE2F /* Menu.wav in Resources */,
 				1FE4089F2305A2CF006331CC /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
