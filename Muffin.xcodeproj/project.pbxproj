@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D49E38723214E06009AE94E /* FloatingOnlyState.swift */; };
 		1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4088E2305A2CD006331CC /* AppDelegate.swift */; };
 		1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE408982305A2CD006331CC /* Main.storyboard */; };
 		1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089B2305A2CF006331CC /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D49E38723214E06009AE94E /* FloatingOnlyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingOnlyState.swift; sourceTree = "<group>"; };
 		1F26B7C9230D7348001BBDCE /* OrbComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbComponent.swift; sourceTree = "<group>"; };
 		1F676856230C2391008671F0 /* OrbEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbEntity.swift; sourceTree = "<group>"; };
 		1FE4088B2305A2CD006331CC /* Muffin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Muffin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +216,7 @@
 				561920C9231FDACF00E86F44 /* BoostingDownState.swift */,
 				561920CB231FE3AF00E86F44 /* SinkingState.swift */,
 				561920CD231FE56700E86F44 /* FloatingUpState.swift */,
+				0D49E38723214E06009AE94E /* FloatingOnlyState.swift */,
 				561920CF231FE72400E86F44 /* WaterJoyState.swift */,
 				561920D1231FE74400E86F44 /* WaterSadState.swift */,
 				561920D3231FE77200E86F44 /* WaterDashState.swift */,
@@ -443,6 +446,7 @@
 				561920CA231FDACF00E86F44 /* BoostingDownState.swift in Sources */,
 				562FF489230AE68B00D0838B /* GameViewController.swift in Sources */,
 				562FF487230AE68B00D0838B /* PlayerEntity.swift in Sources */,
+				0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */,
 				560C1C64231E89B3002B820A /* PlayingState.swift in Sources */,
 				561920CE231FE56700E86F44 /* FloatingUpState.swift in Sources */,
 			);

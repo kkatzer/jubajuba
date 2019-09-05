@@ -12,8 +12,8 @@ import GameplayKit
 
 class MovementComponent: GKComponent {
     
-    let spriteComponent: SpriteComponent
-    let nodeBody: SKPhysicsBody
+    var spriteComponent: SpriteComponent!
+    var nodeBody: SKPhysicsBody!
     
     var moveRight: Bool = false
     var moveLeft: Bool = false
@@ -25,10 +25,14 @@ class MovementComponent: GKComponent {
     private var joyJumpVelocity: CGFloat = 1000
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
-    init(entity: GKEntity) {
+    func setUp(_ entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
         self.nodeBody = spriteComponent.node.physicsBody!
+    }
+    
+    init(entity: GKEntity) {
         super.init()
+        setUp(entity)
     }
     
     required init?(coder aDecoder: NSCoder) {

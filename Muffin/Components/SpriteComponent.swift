@@ -22,4 +22,16 @@ class SpriteComponent: GKComponent {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setUpPlayerProperties() {
+        node.zPosition = Layer.player.rawValue
+        node.physicsBody?.isDynamic = true
+        node.physicsBody?.allowsRotation = false
+        node.physicsBody?.pinned = false
+        node.physicsBody?.affectedByGravity = true
+        node.physicsBody?.restitution = 0.0
+        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground | PhysicsCategory.Water
+        node.physicsBody?.collisionBitMask = PhysicsCategory.Ground
+    }
 }

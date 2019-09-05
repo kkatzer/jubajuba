@@ -1,8 +1,8 @@
 //
-//  JoyGlidingState.swift
+//  FloatingOnlyState.swift
 //  Muffin
 //
-//  Created by Vinícius Binder on 03/09/19.
+//  Created by Eduarda Mello on 05/09/19.
 //  Copyright © 2019 Juba-Juba. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class JoyGlidingState: GKState {
+class FloatingOnlyState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
@@ -25,15 +25,19 @@ class JoyGlidingState: GKState {
     override func didEnter(from previousState: GKState?) {
         scene.tapRec.isEnabled = false
         scene.longPressRec.isEnabled = true
-        scene.swipeUpRec.isEnabled = false
-        scene.swipeDownRec.isEnabled = false
-        scene.swipeSideRec.isEnabled = false
+        scene.swipeUpRec.isEnabled = true
+        scene.swipeDownRec.isEnabled = true
+        scene.swipeSideRec.isEnabled = true
         
-        scene.physicsWorld.gravity.dy = -7
+        node.physicsBody!.linearDamping = 0
+        node.physicsBody!.velocity.dy = 0
+        scene.physicsWorld.gravity.dy = 0
+        
+        print("entrou no only")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == PlayingState.self) || (stateClass == SinkingState.self)
+        return (stateClass == JoyGoingUpState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self) || (stateClass == PlayingState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

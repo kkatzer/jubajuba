@@ -60,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         BoostingDownState(scene: self, player: self.player),
         SinkingState(scene: self, player: self.player),
         FloatingUpState(scene: self, player: self.player),
+        FloatingOnlyState(scene: self, player: self.player),
         WaterJoyState(scene: self, player: self.player),
         WaterSadState(scene: self, player: self.player),
         WaterDashState(scene: self, player: self.player),
@@ -157,12 +158,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
-        let node = player.spriteComponent.node
-        node.zPosition = Layer.player.rawValue
-        node.physicsBody?.restitution = 0.0
-        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
-        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground | PhysicsCategory.Water
-        node.physicsBody?.collisionBitMask = PhysicsCategory.Ground
+        player.spriteComponent.setUpPlayerProperties()
     }
     
     func setUpGround() {
@@ -226,15 +222,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
         
         if other.categoryBitMask == PhysicsCategory.Ground {
-            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState {
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState || stateMachine.currentState is FloatingOnlyState {
                 stateMachine.enter(PlayingState.self)
             }
-            
-        } else if other.categoryBitMask == PhysicsCategory.Water {
+        }
+        
+        if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
-            print("entrou no else if")
-            stateMachine.enter(SinkingState.self)
-            
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState {
+                print("entrou no else if")
+                stateMachine.enter(SinkingState.self)
+            }
         }
     }
     
@@ -244,7 +242,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if other.categoryBitMask == PhysicsCategory.Water {
             if stateMachine.currentState is FloatingUpState {
                 print("acabou o contato")
-                stateMachine.enter(PlayingState.self)
+                stateMachine.enter(FloatingOnlyState.self)
             }
         }
     }

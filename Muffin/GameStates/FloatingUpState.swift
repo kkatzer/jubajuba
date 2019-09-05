@@ -14,11 +14,13 @@ class FloatingUpState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
+    unowned let player: PlayerEntity
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
         self.move = player.movementComponent
+        self.player = player
         super.init()
     }
     
@@ -29,13 +31,16 @@ class FloatingUpState: GKState {
         scene.swipeDownRec.isEnabled = true
         scene.swipeSideRec.isEnabled = true
         
-        node.physicsBody?.linearDamping = 1
-        scene.physicsWorld.gravity.dy = 1
+        
+//        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: 0.25 * node.size.height), center: CGPoint(x: 0, y: 20))
+//        player.spriteComponent.setUpPlayerProperties()
+//        move.setUp(player)
+        
         print("entrou no floating")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self) || (stateClass == PlayingState.self)
+        return (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self) || (stateClass == FloatingOnlyState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

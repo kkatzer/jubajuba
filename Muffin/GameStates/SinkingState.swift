@@ -29,8 +29,9 @@ class SinkingState: GKState {
         scene.swipeDownRec.isEnabled = true
         scene.swipeSideRec.isEnabled = true
         
-        node.physicsBody?.linearDamping = 1
         scene.physicsWorld.gravity.dy = 1
+        node.physicsBody?.linearDamping = 1
+        
         print("entrou no sinking")
     }
     

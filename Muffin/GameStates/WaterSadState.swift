@@ -29,6 +29,7 @@ class WaterSadState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeSideRec.isEnabled = true
         // things supposed to happen
+//        scene.setUpPlayer()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

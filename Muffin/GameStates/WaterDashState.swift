@@ -29,6 +29,7 @@ class WaterDashState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeSideRec.isEnabled = false
         // things supposed to happen
+//        scene.setUpPlayer()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
