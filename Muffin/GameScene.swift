@@ -112,11 +112,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func leftDash() {
-        player.movementComponent?.dash(left: true)
+        stateMachine.state(forClass: DashingState.self)!.left = true
+        stateMachine.enter(DashingState.self)
     }
     
     @objc func rightDash() {
-        player.movementComponent?.dash(left: false)
+        stateMachine.state(forClass: DashingState.self)!.left = false
+        stateMachine.enter(DashingState.self)
     }
     
     func setUpGestureRecognizers() {
@@ -201,8 +203,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func setUpRock() {
-        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, breakable: true)
-        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, breakable: false)
+        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
+        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {

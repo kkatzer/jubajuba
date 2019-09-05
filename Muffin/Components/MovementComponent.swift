@@ -53,9 +53,16 @@ class MovementComponent: GKComponent {
     
     func dash(left: Bool) {
         if (left) {
-            spriteComponent.node.physicsBody?.velocity.dx = -dashImpulse
+            self.nodeBody.velocity.dx = -dashImpulse
         } else {
-            spriteComponent.node.physicsBody?.velocity.dx = dashImpulse
+            self.nodeBody.velocity.dx = dashImpulse
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if self.nodeBody.velocity.dx > 500 {
+                self.nodeBody.velocity.dx = 500
+            } else if self.nodeBody.velocity.dx < -500 {
+                self.nodeBody.velocity.dx = -500
+            }
         }
     }
     func stop() {

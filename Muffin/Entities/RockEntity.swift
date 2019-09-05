@@ -15,8 +15,10 @@ class RockEntity: GKEntity {
     var breakComponent: BreakComponent!
     
     let breakable: Bool!
+    let scene: GameScene!
     
-    init(node: SKSpriteNode, breakable: Bool) {
+    init(node: SKSpriteNode, scene: GameScene, breakable: Bool) {
+        self.scene = scene
         self.breakable = breakable
         
         super.init()
@@ -24,7 +26,7 @@ class RockEntity: GKEntity {
         spriteComponent = SpriteComponent(entity: self, node: node)
         addComponent(spriteComponent)
         
-        breakComponent = BreakComponent(entity: self, breakable: breakable)
+        breakComponent = BreakComponent(entity: self, scene: scene, breakable: breakable)
         addComponent(breakComponent)
         
         setUpPhysics()

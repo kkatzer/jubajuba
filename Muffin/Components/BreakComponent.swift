@@ -14,10 +14,12 @@ class BreakComponent: GKComponent {
     
     let spriteComponent: SpriteComponent
     let breakable: Bool
+    let scene: GameScene!
     
-    init(entity: RockEntity, breakable: Bool) {
+    init(entity: RockEntity, scene: GameScene, breakable: Bool) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
         self.breakable = breakable
+        self.scene = scene
         super.init()
     }
     
@@ -26,7 +28,7 @@ class BreakComponent: GKComponent {
     }
     
     func breakRock() {
-        if (breakable) {
+        if (breakable && scene.stateMachine.currentState is DashingState) {
             spriteComponent.node.removeFromParent()
         }
     }
