@@ -45,7 +45,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var anger: OrbEntity!
     var sadness: OrbEntity!
     
-    private var musicPlayer: AVAudioPlayer!
+    private var joyPlayer: AVAudioPlayer!
+    private var sadnessPlayer: AVAudioPlayer!
+    private var angerPlayer: AVAudioPlayer!
+    
+    private var region: Type? {
+        didSet {
+            switch region {
+            case .joy?:
+                if sadnessPlayer.isPlaying {
+                    sadnessPlayer.setVolume(0, fadeDuration: 1.0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.sadnessPlayer.stop()
+                    }
+                }
+                joyPlayer.play()
+                joyPlayer.setVolume(2.5, fadeDuration: 2.0)
+            case .sadness?:
+                if joyPlayer.isPlaying {
+                    joyPlayer.setVolume(0, fadeDuration: 2.0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.joyPlayer.stop()
+                    }
+                } else if angerPlayer.isPlaying {
+                    angerPlayer.setVolume(0, fadeDuration: 1.0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.angerPlayer.stop()
+                    }
+                }
+                sadnessPlayer.play()
+                sadnessPlayer.setVolume(2.5, fadeDuration: 2.0)
+            case .anger?:
+                if sadnessPlayer.isPlaying {
+                    sadnessPlayer.setVolume(0, fadeDuration: 2.0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.sadnessPlayer.stop()
+                    }
+                }
+                angerPlayer.play()
+                angerPlayer.setVolume(2.5, fadeDuration: 1.0)
+            default:
+                print("Error: Could not locate player")
+            }
+        }
+    }
     
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         PlayingState(scene: self, player: self.player),
@@ -70,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         stateMachine.enter(PlayingState.self)
     
-        //playMusic()
+        setUpMusic()
     }
     
     @objc func jump() {
@@ -189,18 +232,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    func playMusic() {
-        
-        let url = Bundle.main.url(forResource: "", withExtension: "")!
-        
+    func setUpMusic() {
+        //Joy
+        let joyURL = Bundle.main.url(forResource: "Joy", withExtension: "wav")!
         do {
-            musicPlayer =  try AVAudioPlayer(contentsOf: url)
+            joyPlayer =  try AVAudioPlayer(contentsOf: joyURL)
         } catch {
             print("Error: Could not load sound file.")
         }
-        musicPlayer.numberOfLoops = -1
-        musicPlayer.prepareToPlay()
-        musicPlayer.play()
+        joyPlayer.numberOfLoops = -1
+        joyPlayer.volume = 0.0
+        joyPlayer.prepareToPlay()
+        
+        //Sadness
+        do {
+            sadnessPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Sadness", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        sadnessPlayer.numberOfLoops = -1
+        sadnessPlayer.volume = 0.0
+        sadnessPlayer.prepareToPlay()
+        
+        //Anger
+        do {
+            angerPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Anger", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        angerPlayer.numberOfLoops = -1
+        angerPlayer.volume = 0.0
+        angerPlayer.prepareToPlay()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -213,6 +275,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         player.update(deltaTime: deltaTime)
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        
+        if player.spriteComponent.node.position.x < 3150 {
+            if region != .joy {
+                region = .joy
+            }
+        } else if player.spriteComponent.node.position.x < 4870 {
+            if region != .sadness {
+                region = .sadness
+            }
+        } else {
+            if region != .anger {
+                region = .anger
+            }
+        }
         
         stateMachine.update(deltaTime: deltaTime)
     }

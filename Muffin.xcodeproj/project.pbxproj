@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F55A71D2321468E0087BE2F /* Sadness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A71C2321468E0087BE2F /* Sadness.wav */; };
-		1F55A71F232146930087BE2F /* Menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A71E232146930087BE2F /* Menu.wav */; };
-		1F55A7212321469A0087BE2F /* Happiness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A7202321469A0087BE2F /* Happiness.wav */; };
-		1F55A7232321469F0087BE2F /* Anger.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F55A7222321469F0087BE2F /* Anger.wav */; };
+		1F44B75923228BD500D89415 /* Sadness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75823228BD500D89415 /* Sadness.wav */; };
+		1F44B75B23228BDA00D89415 /* Menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75A23228BDA00D89415 /* Menu.wav */; };
+		1F44B75D23228BE300D89415 /* Joy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75C23228BE300D89415 /* Joy.wav */; };
+		1F44B75F23228BEA00D89415 /* Anger.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75E23228BEA00D89415 /* Anger.wav */; };
 		1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4088E2305A2CD006331CC /* AppDelegate.swift */; };
 		1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE408982305A2CD006331CC /* Main.storyboard */; };
 		1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089B2305A2CF006331CC /* Assets.xcassets */; };
@@ -51,10 +51,10 @@
 
 /* Begin PBXFileReference section */
 		1F26B7C9230D7348001BBDCE /* OrbComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbComponent.swift; sourceTree = "<group>"; };
-		1F55A71C2321468E0087BE2F /* Sadness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sadness.wav; sourceTree = "<group>"; };
-		1F55A71E232146930087BE2F /* Menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Menu.wav; sourceTree = "<group>"; };
-		1F55A7202321469A0087BE2F /* Happiness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Happiness.wav; sourceTree = "<group>"; };
-		1F55A7222321469F0087BE2F /* Anger.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Anger.wav; sourceTree = "<group>"; };
+		1F44B75823228BD500D89415 /* Sadness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sadness.wav; sourceTree = "<group>"; };
+		1F44B75A23228BDA00D89415 /* Menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Menu.wav; sourceTree = "<group>"; };
+		1F44B75C23228BE300D89415 /* Joy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Joy.wav; sourceTree = "<group>"; };
+		1F44B75E23228BEA00D89415 /* Anger.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Anger.wav; sourceTree = "<group>"; };
 		1F676856230C2391008671F0 /* OrbEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbEntity.swift; sourceTree = "<group>"; };
 		1FE4088B2305A2CD006331CC /* Muffin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Muffin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE4088E2305A2CD006331CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,21 +105,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F55A71A232146740087BE2F /* SFX */ = {
+		1F44B75623228BC000D89415 /* SFX */ = {
 			isa = PBXGroup;
 			children = (
-				1F55A71B232146820087BE2F /* Music */,
+				1F44B75723228BC700D89415 /* Music */,
 			);
 			path = SFX;
 			sourceTree = "<group>";
 		};
-		1F55A71B232146820087BE2F /* Music */ = {
+		1F44B75723228BC700D89415 /* Music */ = {
 			isa = PBXGroup;
 			children = (
-				1F55A71C2321468E0087BE2F /* Sadness.wav */,
-				1F55A71E232146930087BE2F /* Menu.wav */,
-				1F55A7202321469A0087BE2F /* Happiness.wav */,
-				1F55A7222321469F0087BE2F /* Anger.wav */,
+				1F44B75E23228BEA00D89415 /* Anger.wav */,
+				1F44B75C23228BE300D89415 /* Joy.wav */,
+				1F44B75A23228BDA00D89415 /* Menu.wav */,
+				1F44B75823228BD500D89415 /* Sadness.wav */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -209,6 +209,7 @@
 		562FF465230AE68B00D0838B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1F44B75623228BC000D89415 /* SFX */,
 				5642ADFB230F1AFF0065FBC0 /* Personagem.png */,
 			);
 			path = Resources;
@@ -298,6 +299,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F44B75D23228BE300D89415 /* Joy.wav in Resources */,
+				1F44B75F23228BEA00D89415 /* Anger.wav in Resources */,
 				6412B6E3232031E2005DF78B /* Dash.atlas in Resources */,
 				6412B6E1232031E2005DF78B /* Fly.atlas in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
@@ -311,6 +314,8 @@
 				6412B6E0232031E2005DF78B /* Swimming.atlas in Resources */,
 				6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */,
 				6412B6DE232031E1005DF78B /* Floating.atlas in Resources */,
+				1F44B75923228BD500D89415 /* Sadness.wav in Resources */,
+				1F44B75B23228BDA00D89415 /* Menu.wav in Resources */,
 				6412B6DF232031E2005DF78B /* Jump.atlas in Resources */,
 				1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */,
 				1FE4089F2305A2CF006331CC /* LaunchScreen.storyboard in Resources */,
@@ -490,7 +495,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UDGF2JUP82;
+				DEVELOPMENT_TEAM = W9Y372X4WH;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -508,7 +513,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UDGF2JUP82;
+				DEVELOPMENT_TEAM = W9Y372X4WH;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
