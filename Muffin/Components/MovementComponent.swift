@@ -20,11 +20,11 @@ class MovementComponent: GKComponent {
     var water: Bool = false
     
     private var force = 200.0
-    private var maxVelocity: CGFloat = 500
+    private var maxVelocity: CGFloat = 200
     private var jumpVelocity: CGFloat = 500
     private var sinkVelocity: CGFloat = -1000
     private var joyJumpVelocity: CGFloat = 1000
-    private var dashImpulse: CGFloat = 1000
+    private var dashImpulse: CGFloat = 1450
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
     func setUp(_ entity: GKEntity) {
@@ -63,9 +63,9 @@ class MovementComponent: GKComponent {
     
     func dash(left: Bool) {
         if (left) {
-            self.nodeBody.velocity.dx = water ? -0.3*dashImpulse : -dashImpulse
+            self.nodeBody.velocity.dx = water ? -0.2*dashImpulse : -dashImpulse
         } else {
-            self.nodeBody.velocity.dx = water ? 0.3*dashImpulse : dashImpulse
+            self.nodeBody.velocity.dx = water ? 0.2*dashImpulse : dashImpulse
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if self.nodeBody.velocity.dx > 500 {
@@ -86,9 +86,9 @@ class MovementComponent: GKComponent {
         
         if -maxVelocity ... maxVelocity ~= nodeBody.velocity.dx {
             if moveRight {
-                nodeBody.applyForce(CGVector(dx: water ? 0.2*force : force, dy: 0))
+                nodeBody.applyForce(CGVector(dx: water ? 0.1*force : force, dy: 0))
             } else if moveLeft {
-                nodeBody.applyForce(CGVector(dx: water ? -0.2*force : -force, dy: 0))
+                nodeBody.applyForce(CGVector(dx: water ? -0.1*force : -force, dy: 0))
             }
         }
     }
