@@ -27,7 +27,8 @@ class WaterDashState: GKState {
         scene.longPressRec.isEnabled = false
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
-        scene.swipeSideRec.isEnabled = false
+        scene.swipeLeftRec.isEnabled = false
+        scene.swipeRightRec.isEnabled = false
         // things supposed to happen
     }
     

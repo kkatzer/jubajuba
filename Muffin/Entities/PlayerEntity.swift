@@ -23,9 +23,19 @@ class PlayerEntity: GKEntity {
         
         movementComponent = MovementComponent(entity: self)
         addComponent(movementComponent)
+        
+        setUpPhysics()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUpPhysics() {
+        let node = self.spriteComponent.node
+        node.zPosition = Layer.player.rawValue
+        node.physicsBody?.restitution = 0.0
+        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
     }
 }

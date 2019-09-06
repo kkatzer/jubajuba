@@ -22,6 +22,7 @@ class MovementComponent: GKComponent {
     private var maxVelocity: CGFloat = 500
     private var jumpVelocity: CGFloat = 500
     private var joyJumpVelocity: CGFloat = 1000
+    private var dashImpulse: CGFloat = 3000
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
     init(entity: GKEntity) {
@@ -50,6 +51,20 @@ class MovementComponent: GKComponent {
         nodeBody.velocity.dy = joyJumpVelocity
     }
     
+    func dash(left: Bool) {
+        if (left) {
+            self.nodeBody.velocity.dx = -dashImpulse
+        } else {
+            self.nodeBody.velocity.dx = dashImpulse
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if self.nodeBody.velocity.dx > 500 {
+                self.nodeBody.velocity.dx = 500
+            } else if self.nodeBody.velocity.dx < -500 {
+                self.nodeBody.velocity.dx = -500
+            }
+        }
+    }
     func stop() {
         moveToTheLeft(false)
         moveToTheRight(false)
@@ -57,17 +72,26 @@ class MovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
+//        if (nodeBody?.velocity.dx)! > maxVelocity {
+//            nodeBody?.velocity.dx = maxVelocity
+//        } else if (nodeBody?.velocity.dx)! < -maxVelocity {
+//            nodeBody?.velocity.dx = -maxVelocity
+//        }
+//
+//        if moveRight {
+//            nodeBody!.applyForce(CGVector(dx: force, dy: 0))
+//        } else if moveLeft {
+//            nodeBody!.applyForce(CGVector(dx: -force, dy: 0))
+//        }
         
-        if (nodeBody.velocity.dx) > maxVelocity {
-            nodeBody.velocity.dx = maxVelocity
-        } else if (nodeBody.velocity.dx) < -maxVelocity {
-            nodeBody.velocity.dx = -maxVelocity
-        }
         
-        if moveRight {
-            nodeBody.applyForce(CGVector(dx: force, dy: 0))
-        } else if moveLeft {
-            nodeBody.applyForce(CGVector(dx: -force, dy: 0))
+        
+        if -maxVelocity ... maxVelocity ~= nodeBody.velocity.dx {
+            if moveRight {
+                nodeBody.applyForce(CGVector(dx: force, dy: 0))
+            } else if moveLeft {
+                nodeBody.applyForce(CGVector(dx: -force, dy: 0))
+            }
         }
     }
 }
