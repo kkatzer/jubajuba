@@ -32,8 +32,6 @@ class SinkingState: GKState {
         
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody?.linearDamping = 1
-        
-        print("entrou no sinking")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

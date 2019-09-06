@@ -30,13 +30,6 @@ class FloatingUpState: GKState {
         scene.swipeUpRec.isEnabled = true
         scene.swipeDownRec.isEnabled = true
         scene.swipeSideRec.isEnabled = true
-        
-        
-//        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.size.width, height: 0.25 * node.size.height), center: CGPoint(x: 0, y: 20))
-//        player.spriteComponent.setUpPlayerProperties()
-//        move.setUp(player)
-        
-        print("entrou no floating")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

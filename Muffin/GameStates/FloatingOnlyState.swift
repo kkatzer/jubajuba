@@ -32,8 +32,6 @@ class FloatingOnlyState: GKState {
         node.physicsBody!.linearDamping = 0
         node.physicsBody!.velocity.dy = 0
         scene.physicsWorld.gravity.dy = 0
-        
-        print("entrou no only")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

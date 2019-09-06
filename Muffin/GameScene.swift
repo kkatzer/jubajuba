@@ -11,11 +11,10 @@ import GameplayKit
 import AVFoundation
 
 enum Layer: CGFloat {
-    case distance
-    case background
-    case player
-    case orbs
-    case foreground
+    // background < 0
+    case player = 0
+    case water = 1
+    case foreground = 3
 }
 
 struct PhysicsCategory {
@@ -123,11 +122,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
+    func checkGroundContact() -> Bool {
+        for body in (player.spriteComponent.node.physicsBody?.allContactedBodies())! {
+            if body.categoryBitMask == PhysicsCategory.Ground {
+                return true
+            }
+        }
+        return false
+    }
+    
     @objc func sink() {
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterSadState.self)
         } else if stateMachine.currentState is PlayingState {
-            stateMachine.enter(BoostingDownState.self)
+            if checkGroundContact() {
+                jump()
+            } else {
+                stateMachine.enter(BoostingDownState.self)
+            }
         }
     }
     
@@ -166,15 +178,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         player.spriteComponent.setUpPlayerProperties()
+        player.movementComponent.setUp(player)
     }
     
     func setUpGround() {
         ground = self.childNode(withName: "ground")
-        ground.zPosition = Layer.player.rawValue
         
         ground.enumerateChildNodes(withName: "ground") { (node, stop) in
             let ground = node as! SKSpriteNode
-            //ground.zPosition = Layer.player.rawValue
             if ground.texture == nil {
                 ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
             } else {
@@ -195,18 +206,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpOrbs() {
         joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
         joy.orbComponent.idleAnimation()
-        joy.spriteComponent.node.zPosition = Layer.orbs.rawValue
+        joy.spriteComponent.node.zPosition = Layer.player.rawValue
         anger = OrbEntity(node: self.childNode(withName: "anger") as! SKSpriteNode, type: .anger, player: player)
         anger.orbComponent.idleAnimation()
-        anger.spriteComponent.node.zPosition = Layer.orbs.rawValue
+        anger.spriteComponent.node.zPosition = Layer.player.rawValue
         sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
         sadness.orbComponent.idleAnimation()
-        sadness.spriteComponent.node.zPosition = Layer.orbs.rawValue
+        sadness.spriteComponent.node.zPosition = Layer.player.rawValue
     }
     
     func setUpWater() {
         water = self.childNode(withName: "water") as? SKSpriteNode
-        water.zPosition = Layer.background.rawValue
+        water.zPosition = Layer.water.rawValue
+        water.alpha = 0.2
         
         if water.texture == nil {
             water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
@@ -237,8 +249,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState {
-                print("entrou no else if")
                 stateMachine.enter(SinkingState.self)
+            }
+            if stateMachine.currentState is BoostingDownState {
+                stateMachine.enter(WaterSadState.self)
             }
         }
     }
@@ -247,9 +261,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
 
         if other.categoryBitMask == PhysicsCategory.Water {
-            if stateMachine.currentState is FloatingUpState || stateMachine.currentState is WaterJoyState {
-                print("acabou o contato")
+            if stateMachine.currentState is FloatingUpState {
                 stateMachine.enter(FloatingOnlyState.self)
+            }
+            if stateMachine.currentState is WaterJoyState {
+                stateMachine.enter(JoyGoingUpState.self)
             }
         }
     }

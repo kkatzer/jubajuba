@@ -24,6 +24,7 @@ class SpriteComponent: GKComponent {
     }
     
     func setUpPlayerProperties() {
+        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: CGSize(width: 0.3*node.texture!.size().width, height: 0.3*node.texture!.size().height))
         node.zPosition = Layer.player.rawValue
         node.physicsBody?.isDynamic = true
         node.physicsBody?.allowsRotation = false

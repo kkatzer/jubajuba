@@ -118,7 +118,7 @@
 		1FE4088D2305A2CD006331CC /* Muffin */ = {
 			isa = PBXGroup;
 			children = (
-				6412B6E5232031EF005DF78B /* Util */,
+				6412B6E5232031EF005DF78B /* Utils */,
 				6412B6CE232031D4005DF78B /* Sprites */,
 				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
 				560C1C62231E8990002B820A /* GameStates */,
@@ -208,12 +208,12 @@
 			path = Sprites;
 			sourceTree = "<group>";
 		};
-		6412B6E5232031EF005DF78B /* Util */ = {
+		6412B6E5232031EF005DF78B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				6412B6E623203225005DF78B /* AssetsUtil.swift */,
 			);
-			path = Util;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

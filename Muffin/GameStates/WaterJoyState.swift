@@ -38,7 +38,7 @@ class WaterJoyState: GKState {
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == FloatingUpState.self) || (stateClass == FloatingOnlyState.self) // (stateClass == JoyGlidingState.self)
+        return (stateClass == FloatingUpState.self) || (stateClass == FloatingOnlyState.self) || (stateClass == JoyGoingUpState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

@@ -29,7 +29,6 @@ class PlayingState: GKState {
         scene.swipeDownRec.isEnabled = true
         scene.swipeSideRec.isEnabled = true
         
-//        scene.setUpPlayer()
         scene.physicsWorld.gravity.dy = -9.8
         node.physicsBody?.linearDamping = 0
     }

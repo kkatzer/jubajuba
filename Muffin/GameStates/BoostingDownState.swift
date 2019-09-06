@@ -33,12 +33,11 @@ class BoostingDownState: GKState {
         
         scene.physicsWorld.gravity.dy = -9.8
         node.physicsBody?.velocity.dy = sinkVelocity
-        print("entrou no boosting, pulo fora da agua")
         
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == PlayingState.self)
+        return (stateClass == PlayingState.self) || (stateClass == WaterSadState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {
