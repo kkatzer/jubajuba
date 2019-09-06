@@ -28,10 +28,11 @@ class PlayingState: GKState {
         scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = true
         scene.swipeDownRec.isEnabled = true
-        scene.swipeSideRec.isEnabled = true
+        scene.swipeRightRec.isEnabled = true
+        scene.swipeLeftRec.isEnabled = true
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == JoyGoingUpState.self)
+        return (stateClass == JoyGoingUpState.self) || (stateClass == SinkingState.self) || (stateClass == BoostingDownState.self) || (stateClass == DashingState.self)
     }
 }

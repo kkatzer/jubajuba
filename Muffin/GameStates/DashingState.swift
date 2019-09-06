@@ -14,6 +14,7 @@ class DashingState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
+    public var left: Bool = true
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
@@ -27,8 +28,9 @@ class DashingState: GKState {
         scene.longPressRec.isEnabled = false
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
-        scene.swipeSideRec.isEnabled = false
-        // things supposed to happen
+        scene.swipeLeftRec.isEnabled = false
+        scene.swipeRightRec.isEnabled = false
+        move.dash(left: self.left)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -36,6 +38,8 @@ class DashingState: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        
+        if abs((node.physicsBody?.velocity.dx)!) <= 150 {
+            scene.stateMachine.enter(PlayingState.self)
+        }
     }
 }
