@@ -25,6 +25,20 @@ struct PhysicsCategory {
     static let Rock: UInt32 = 0b100
 }
 
+struct Animations {
+    static let Dash: [SKTexture] = AssetsUtil.getSprites(named: "Dash")
+    static let Fall: [SKTexture] = AssetsUtil.getSprites(named: "Fall")
+    static let Falling: [SKTexture] = AssetsUtil.getSprites(named: "Falling")
+    static let Floating: [SKTexture] = AssetsUtil.getSprites(named: "Floating")
+    static let Fly: [SKTexture] = AssetsUtil.getSprites(named: "Fly")
+    static let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
+    static let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
+    static let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
+    static let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
+    static let SwimmingStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimmingStart")
+    static let Walk: [SKTexture] = AssetsUtil.getSprites(named: "Walk")
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     var deltaTime: TimeInterval = 0
@@ -64,7 +78,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                     }
                 }
                 joyPlayer.play()
-                joyPlayer.setVolume(2.5, fadeDuration: 2.0)
+                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
             case .sadness?:
                 if joyPlayer.isPlaying {
                     joyPlayer.setVolume(0, fadeDuration: 2.0)
@@ -78,7 +92,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                     }
                 }
                 sadnessPlayer.play()
-                sadnessPlayer.setVolume(2.5, fadeDuration: 2.0)
+                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
             case .anger?:
                 if sadnessPlayer.isPlaying {
                     sadnessPlayer.setVolume(0, fadeDuration: 2.0)
@@ -87,7 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                     }
                 }
                 angerPlayer.play()
-                angerPlayer.setVolume(2.5, fadeDuration: 1.0)
+                angerPlayer.setVolume(1.5, fadeDuration: 1.0)
             default:
                 print("Error: Could not locate player")
             }
@@ -319,13 +333,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if region != .joy {
                 region = .joy
             }
+            if !joyPlayer.isPlaying {
+                joyPlayer.play()
+                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
+            }
         } else if player.spriteComponent.node.position.x < 4870 {
             if region != .sadness {
                 region = .sadness
             }
+            if !sadnessPlayer.isPlaying {
+                sadnessPlayer.play()
+                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
+            }
         } else {
             if region != .anger {
                 region = .anger
+            }
+            if !angerPlayer.isPlaying {
+                angerPlayer.play()
+                angerPlayer.setVolume(1.5, fadeDuration: 2.0)
             }
         }
         

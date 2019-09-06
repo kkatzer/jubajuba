@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class MovementComponent: GKComponent {
     
@@ -22,12 +23,33 @@ class MovementComponent: GKComponent {
     private var maxVelocity: CGFloat = 500
     private var jumpVelocity: CGFloat = 500
     private var joyJumpVelocity: CGFloat = 1000
-    private var dashImpulse: CGFloat = 3000
+    private var dashImpulse: CGFloat = 1500
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
+    
+    private var jumpSFX: AVAudioPlayer!
+    private var stepsSFX: AVAudioPlayer!
     
     init(entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
         self.nodeBody = spriteComponent.node.physicsBody!
+        
+        do {
+            jumpSFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Jump", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        jumpSFX.numberOfLoops = 0
+        jumpSFX.volume = 3.0
+        jumpSFX.prepareToPlay()
+        
+        do {
+            stepsSFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Steps", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        stepsSFX.numberOfLoops = -1
+        stepsSFX.volume = 3.0
+        stepsSFX.prepareToPlay()
         super.init()
     }
     
@@ -44,6 +66,7 @@ class MovementComponent: GKComponent {
     }
     
     func jump() {
+        jumpSFX.play()
         nodeBody.velocity.dy = jumpVelocity
     }
     
@@ -57,11 +80,11 @@ class MovementComponent: GKComponent {
         } else {
             self.nodeBody.velocity.dx = dashImpulse
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if self.nodeBody.velocity.dx > 500 {
-                self.nodeBody.velocity.dx = 500
-            } else if self.nodeBody.velocity.dx < -500 {
-                self.nodeBody.velocity.dx = -500
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.48) {
+            if self.nodeBody.velocity.dx > 150 {
+                self.nodeBody.velocity.dx = 150
+            } else if self.nodeBody.velocity.dx < -150 {
+                self.nodeBody.velocity.dx = -150
             }
         }
     }
@@ -88,10 +111,20 @@ class MovementComponent: GKComponent {
         
         if -maxVelocity ... maxVelocity ~= nodeBody.velocity.dx {
             if moveRight {
+                if !jumpSFX.isPlaying {
+                    jumpSFX.play()
+                }
                 nodeBody.applyForce(CGVector(dx: force, dy: 0))
             } else if moveLeft {
+                if !jumpSFX.isPlaying {
+                    jumpSFX.play()
+                }
                 nodeBody.applyForce(CGVector(dx: -force, dy: 0))
             }
+        }
+        
+        if (!moveRight && !moveLeft) {
+            stepsSFX.stop()
         }
     }
 }

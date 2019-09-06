@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F37A8572322C2F400CFAF46 /* Jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A8562322C2F400CFAF46 /* Jump.wav */; };
+		1F37A8592322C61200CFAF46 /* Steps.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A8582322C61200CFAF46 /* Steps.wav */; };
+		1F37A85B2322D79700CFAF46 /* Dash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A85A2322D79700CFAF46 /* Dash.wav */; };
 		1F44B75923228BD500D89415 /* Sadness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75823228BD500D89415 /* Sadness.wav */; };
 		1F44B75B23228BDA00D89415 /* Menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75A23228BDA00D89415 /* Menu.wav */; };
 		1F44B75D23228BE300D89415 /* Joy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75C23228BE300D89415 /* Joy.wav */; };
@@ -53,6 +56,9 @@
 
 /* Begin PBXFileReference section */
 		1F26B7C9230D7348001BBDCE /* OrbComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbComponent.swift; sourceTree = "<group>"; };
+		1F37A8562322C2F400CFAF46 /* Jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Jump.wav; sourceTree = "<group>"; };
+		1F37A8582322C61200CFAF46 /* Steps.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Steps.wav; sourceTree = "<group>"; };
+		1F37A85A2322D79700CFAF46 /* Dash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dash.wav; sourceTree = "<group>"; };
 		1F44B75823228BD500D89415 /* Sadness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sadness.wav; sourceTree = "<group>"; };
 		1F44B75A23228BDA00D89415 /* Menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Menu.wav; sourceTree = "<group>"; };
 		1F44B75C23228BE300D89415 /* Joy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Joy.wav; sourceTree = "<group>"; };
@@ -112,6 +118,9 @@
 		1F44B75623228BC000D89415 /* SFX */ = {
 			isa = PBXGroup;
 			children = (
+				1F37A85A2322D79700CFAF46 /* Dash.wav */,
+				1F37A8562322C2F400CFAF46 /* Jump.wav */,
+				1F37A8582322C61200CFAF46 /* Steps.wav */,
 				1F44B75723228BC700D89415 /* Music */,
 			);
 			path = SFX;
@@ -314,6 +323,8 @@
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				6412B6E2232031E2005DF78B /* Heavy.atlas in Resources */,
 				6412B6E4232031E2005DF78B /* Falling.atlas in Resources */,
+				1F37A8572322C2F400CFAF46 /* Jump.wav in Resources */,
+				1F37A85B2322D79700CFAF46 /* Dash.wav in Resources */,
 				6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */,
 				6412B6DD232031E1005DF78B /* Fall.atlas in Resources */,
 				1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */,
@@ -322,6 +333,7 @@
 				6412B6DE232031E1005DF78B /* Floating.atlas in Resources */,
 				1F44B75923228BD500D89415 /* Sadness.wav in Resources */,
 				1F44B75B23228BDA00D89415 /* Menu.wav in Resources */,
+				1F37A8592322C61200CFAF46 /* Steps.wav in Resources */,
 				6412B6DF232031E2005DF78B /* Jump.atlas in Resources */,
 				1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */,
 				1FE4089F2305A2CF006331CC /* LaunchScreen.storyboard in Resources */,
