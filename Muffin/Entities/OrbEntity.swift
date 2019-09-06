@@ -11,6 +11,7 @@ import SpriteKit
 import GameplayKit
 
 enum Type: Int {
+    case none = 0
     case joy = 1
     case sadness = 2
     case anger = 3
@@ -31,7 +32,7 @@ class OrbEntity: GKEntity {
         
         super.init()
         
-        spriteComponent = SpriteComponent(entity: self, node: node)
+        spriteComponent = SpriteComponent(entity: self, node: node, type: type)
         addComponent(spriteComponent)
         
         orbComponent = OrbComponent(entity: self, type: type)

@@ -38,6 +38,8 @@ class OrbComponent: GKComponent {
             timer = Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(anger), userInfo: nil, repeats: true)
         case .sadness:
             timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(sadness), userInfo: nil, repeats: true)
+        case .none:
+            break
         }
     }
     

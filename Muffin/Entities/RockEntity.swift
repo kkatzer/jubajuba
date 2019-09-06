@@ -23,7 +23,7 @@ class RockEntity: GKEntity {
         
         super.init()
         
-        spriteComponent = SpriteComponent(entity: self, node: node)
+        spriteComponent = SpriteComponent(entity: self, node: node, type: .none)
         addComponent(spriteComponent)
         
         breakComponent = BreakComponent(entity: self, scene: scene, breakable: breakable)

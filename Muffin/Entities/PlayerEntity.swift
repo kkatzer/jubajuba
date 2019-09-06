@@ -18,7 +18,7 @@ class PlayerEntity: GKEntity {
     init(node: SKSpriteNode) {
         super.init()
         
-        spriteComponent = SpriteComponent(entity: self, node: node)
+        spriteComponent = SpriteComponent(entity: self, node: node, type: .none)
         addComponent(spriteComponent)
         
         movementComponent = MovementComponent(entity: self)

@@ -78,6 +78,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpOrbs()
         setUpRock()
         setUpWater()
+        setUpLighting()
         
         stateMachine.enter(PlayingState.self)
     
@@ -222,6 +223,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             } else {
                 ground.physicsBody = SKPhysicsBody(texture: ground.texture!, size: ground.texture!.size())
             }
+            self.player.spriteComponent.setUpLight(ground, normalMap: false)
             
             let body = ground.physicsBody
             body?.restitution = 0.0
@@ -271,6 +273,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpRock() {
 //        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
 //        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+    }
+    
+    func setUpLighting() {
+        let lightAffectedNodesWithMapping = [
+            "Joy Z-2",
+            "Joy Z-3",
+            "Joy Z3"
+        ]
+        let lightAffectedNodesWOMapping = [
+            "Joy Z2",
+            "Joy Z-4"
+        ]
+        
+        // With mapping
+        for affectedNodeName in lightAffectedNodesWithMapping {
+            let affectedNode = self.childNode(withName: affectedNodeName)
+            affectedNode?.enumerateChildNodes(withName: "SKSpriteNode") { (node, stop) in
+                let node = node as! SKSpriteNode
+                self.player.spriteComponent.setUpLight(node, normalMap: true)
+            }
+        }
+        
+        // Without mapping
+        for affectedNodeName in lightAffectedNodesWOMapping {
+            let affectedNode = self.childNode(withName: affectedNodeName)
+            affectedNode?.enumerateChildNodes(withName: "SKSpriteNode") { (node, stop) in
+                let node = node as! SKSpriteNode
+                self.player.spriteComponent.setUpLight(node, normalMap: false)
+            }
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {

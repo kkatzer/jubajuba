@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D49E38723214E06009AE94E /* FloatingOnlyState.swift */; };
 		1F59B2642318134C004A56BC /* RockEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F59B2632318134C004A56BC /* RockEntity.swift */; };
 		1F59B26623181400004A56BC /* BreakComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F59B26523181400004A56BC /* BreakComponent.swift */; };
-		0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D49E38723214E06009AE94E /* FloatingOnlyState.swift */; };
 		1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4088E2305A2CD006331CC /* AppDelegate.swift */; };
 		1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE408982305A2CD006331CC /* Main.storyboard */; };
 		1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4089B2305A2CF006331CC /* Assets.xcassets */; };
@@ -475,7 +475,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = 5MSP4455P9;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,7 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = 5MSP4455P9;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
