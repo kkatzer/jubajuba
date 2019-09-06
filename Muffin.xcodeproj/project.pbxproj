@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D00DFE02322F8C400FF8EF5 /* Gliding.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */; };
 		0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D49E38723214E06009AE94E /* FloatingOnlyState.swift */; };
 		1F37A8572322C2F400CFAF46 /* Jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A8562322C2F400CFAF46 /* Jump.wav */; };
 		1F37A85B2322D79700CFAF46 /* Dash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A85A2322D79700CFAF46 /* Dash.wav */; };
@@ -56,6 +57,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Gliding.atlas; sourceTree = "<group>"; };
 		0D49E38723214E06009AE94E /* FloatingOnlyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingOnlyState.swift; sourceTree = "<group>"; };
 		1F26B7C9230D7348001BBDCE /* OrbComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbComponent.swift; sourceTree = "<group>"; };
 		1F37A8562322C2F400CFAF46 /* Jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Jump.wav; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				6412B6D3232031E1005DF78B /* Floating.atlas */,
 				6412B6D6232031E1005DF78B /* Fly.atlas */,
 				6412B6CF232031E0005DF78B /* GettingUp.atlas */,
+				0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */,
 				6412B6D7232031E1005DF78B /* Heavy.atlas */,
 				6412B6D4232031E1005DF78B /* Jump.atlas */,
 				6412B6D5232031E1005DF78B /* Swimming.atlas */,
@@ -331,6 +334,7 @@
 				6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */,
 				6412B6DD232031E1005DF78B /* Fall.atlas in Resources */,
 				1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */,
+				0D00DFE02322F8C400FF8EF5 /* Gliding.atlas in Resources */,
 				6412B6E0232031E2005DF78B /* Swimming.atlas in Resources */,
 				6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */,
 				6412B6DE232031E1005DF78B /* Floating.atlas in Resources */,
@@ -519,7 +523,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W9Y372X4WH;
+				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -537,7 +541,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W9Y372X4WH;
+				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

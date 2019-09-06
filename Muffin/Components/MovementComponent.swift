@@ -26,7 +26,7 @@ class MovementComponent: GKComponent {
     private var jumpVelocity: CGFloat = 500
     private var sinkVelocity: CGFloat = -1000
     private var joyJumpVelocity: CGFloat = 1000
-    private var dashImpulse: CGFloat = 1500
+    private var dashImpulse: CGFloat = 870
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
     private var jumpSFX: AVAudioPlayer!
@@ -111,7 +111,7 @@ class MovementComponent: GKComponent {
     override func update(deltaTime seconds: TimeInterval) {
         let node = self.spriteComponent.node
         
-        if -maxVelocity ... maxVelocity ~= nodeBody.velocity.dx {
+        if -maxVelocity...maxVelocity ~= nodeBody.velocity.dx {
             if moveRight {
                 if (!water && ground) {
                     if !stepsSFX.isPlaying {
