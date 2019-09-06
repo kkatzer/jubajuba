@@ -42,6 +42,7 @@ class DashingState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = false
         scene.swipeRightRec.isEnabled = false
+        move.water = true
         move.dash(left: self.left)
         node.run(SKAction.animate(with: Animations.Dash, timePerFrame: 0.02, resize: true, restore: true))
         if (left) {
@@ -53,7 +54,7 @@ class DashingState: GKState {
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == PlayingState.self)
+        return (stateClass == PlayingState.self) || (stateClass == SinkingState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

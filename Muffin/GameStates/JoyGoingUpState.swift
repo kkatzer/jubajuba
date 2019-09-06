@@ -31,7 +31,10 @@ class JoyGoingUpState: GKState {
         scene.swipeRightRec.isEnabled = true
         
         scene.physicsWorld.gravity.dy = -9.8
+        node.physicsBody?.linearDamping = 0
+        move.water = false
         move.joyJump()
+        scene.zoom()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

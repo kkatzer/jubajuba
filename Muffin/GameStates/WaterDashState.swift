@@ -14,6 +14,7 @@ class WaterDashState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
+    public var left: Bool = true
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
@@ -29,15 +30,18 @@ class WaterDashState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = false
         scene.swipeRightRec.isEnabled = false
-        // things supposed to happen
+        
+        move.water = true
+        move.dash(left: self.left)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == FloatingUpState.self) || (stateClass == PlayingState.self)
+        return (stateClass == FloatingUpState.self) || (stateClass == FloatingOnlyState.self) // || (stateClass == PlayingState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        
+        if abs((node.physicsBody?.velocity.dx)!) <= 300 {
+            scene.stateMachine.enter(FloatingUpState.self)
+        }
     }
 }
-

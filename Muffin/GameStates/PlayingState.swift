@@ -23,16 +23,21 @@ class PlayingState: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        scene.physicsWorld.gravity.dy = -9.8
         scene.tapRec.isEnabled = true
         scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = true
         scene.swipeDownRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
         scene.swipeLeftRec.isEnabled = true
-    }
+        
+        scene.physicsWorld.gravity.dy = -9.8
+        node.physicsBody?.linearDamping = 0
+        move.water = false
     
+        print("playing")
+    }
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == JoyGoingUpState.self) || (stateClass == SinkingState.self) || (stateClass == BoostingDownState.self) || (stateClass == DashingState.self)
+        return (stateClass == JoyGoingUpState.self) || (stateClass == BoostingDownState.self) || (stateClass == SinkingState.self) || (stateClass == DashingState.self)
+        
     }
 }
