@@ -15,6 +15,7 @@ class SinkingState: GKState {
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
     
+    
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node

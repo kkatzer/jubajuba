@@ -105,7 +105,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func jumpUp() {
-        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
+        
+        if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingUpState {
+            stateMachine.enter(WaterJoyState.self)
+        } else if stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is PlayingState {
             stateMachine.enter(JoyGoingUpState.self)
         }
     }
@@ -121,7 +124,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func sink() {
-        stateMachine.enter(BoostingDownState.self)
+        if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is FloatingUpState {
+            stateMachine.enter(WaterSadState.self)
+        } else if stateMachine.currentState is PlayingState {
+            stateMachine.enter(BoostingDownState.self)
+        }
     }
     
     func setUpGestureRecognizers() {
@@ -240,7 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
 
         if other.categoryBitMask == PhysicsCategory.Water {
-            if stateMachine.currentState is FloatingUpState {
+            if stateMachine.currentState is FloatingUpState || stateMachine.currentState is WaterJoyState {
                 print("acabou o contato")
                 stateMachine.enter(FloatingOnlyState.self)
             }

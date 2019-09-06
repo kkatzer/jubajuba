@@ -30,6 +30,7 @@ class JoyGoingUpState: GKState {
         scene.swipeSideRec.isEnabled = true
         
         scene.physicsWorld.gravity.dy = -9.8
+        node.physicsBody?.linearDamping = 0
         move.joyJump()
         scene.zoom()
     }

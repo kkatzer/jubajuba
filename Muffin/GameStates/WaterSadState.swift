@@ -15,6 +15,8 @@ class WaterSadState: GKState {
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
     
+    let sinkVelocity: CGFloat = -1000
+    
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
@@ -29,7 +31,13 @@ class WaterSadState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeSideRec.isEnabled = true
         // things supposed to happen
-//        scene.setUpPlayer()
+        print("mergulhou")
+        
+        scene.physicsWorld.gravity.dy = 1
+        node.physicsBody?.linearDamping = 1
+        node.physicsBody?.velocity.dy = sinkVelocity
+        
+        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -37,6 +45,8 @@ class WaterSadState: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        
+        if node.physicsBody!.velocity.dy >= 0 {
+            scene.stateMachine.enter(FloatingUpState.self)
+        }
     }
 }
