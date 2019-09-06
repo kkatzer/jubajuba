@@ -12,23 +12,29 @@ import GameplayKit
 
 class MovementComponent: GKComponent {
     
-    let spriteComponent: SpriteComponent
-    let nodeBody: SKPhysicsBody
+    var spriteComponent: SpriteComponent!
+    var nodeBody: SKPhysicsBody!
     
     var moveRight: Bool = false
     var moveLeft: Bool = false
+    var water: Bool = false
     
-    private var force = 200
-    private var maxVelocity: CGFloat = 500
+    private var force = 200.0
+    private var maxVelocity: CGFloat = 200
     private var jumpVelocity: CGFloat = 500
+    private var sinkVelocity: CGFloat = -1000
     private var joyJumpVelocity: CGFloat = 1000
-    private var dashImpulse: CGFloat = 3000
+    private var dashImpulse: CGFloat = 2500
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
-    init(entity: GKEntity) {
+    func setUp(_ entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
         self.nodeBody = spriteComponent.node.physicsBody!
+    }
+    
+    init(entity: GKEntity) {
         super.init()
+        setUp(entity)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,14 +54,18 @@ class MovementComponent: GKComponent {
     }
     
     func joyJump() {
-        nodeBody.velocity.dy = joyJumpVelocity
+        nodeBody.velocity.dy = water ? 0.5*joyJumpVelocity : joyJumpVelocity
+    }
+    
+    func sink() {
+        nodeBody.velocity.dy = water ? 0.5*sinkVelocity : sinkVelocity
     }
     
     func dash(left: Bool) {
         if (left) {
-            self.nodeBody.velocity.dx = -dashImpulse
+            self.nodeBody.velocity.dx = water ? -0.2*dashImpulse : -dashImpulse
         } else {
-            self.nodeBody.velocity.dx = dashImpulse
+            self.nodeBody.velocity.dx = water ? 0.2*dashImpulse : dashImpulse
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if self.nodeBody.velocity.dx > 500 {
@@ -65,6 +75,7 @@ class MovementComponent: GKComponent {
             }
         }
     }
+    
     func stop() {
         moveToTheLeft(false)
         moveToTheRight(false)
@@ -72,25 +83,12 @@ class MovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-//        if (nodeBody?.velocity.dx)! > maxVelocity {
-//            nodeBody?.velocity.dx = maxVelocity
-//        } else if (nodeBody?.velocity.dx)! < -maxVelocity {
-//            nodeBody?.velocity.dx = -maxVelocity
-//        }
-//
-//        if moveRight {
-//            nodeBody!.applyForce(CGVector(dx: force, dy: 0))
-//        } else if moveLeft {
-//            nodeBody!.applyForce(CGVector(dx: -force, dy: 0))
-//        }
-        
-        
         
         if -maxVelocity ... maxVelocity ~= nodeBody.velocity.dx {
             if moveRight {
-                nodeBody.applyForce(CGVector(dx: force, dy: 0))
+                nodeBody.applyForce(CGVector(dx: water ? 0.1*force : force, dy: 0))
             } else if moveLeft {
-                nodeBody.applyForce(CGVector(dx: -force, dy: 0))
+                nodeBody.applyForce(CGVector(dx: water ? -0.1*force : -force, dy: 0))
             }
         }
     }

@@ -11,18 +11,18 @@ import GameplayKit
 import AVFoundation
 
 enum Layer: CGFloat {
-    case distance
-    case background
-    case player
-    case foreground
+    // background < 0
+    case player = 0
+    case water = 1
+    case foreground = 3
 }
 
 struct PhysicsCategory {
     static let None: UInt32 = 0
     static let Player: UInt32 = 0b1
-//    static let Obstacle: UInt32 = 0b10
-    static let Ground: UInt32 = 0b11
-    static let Rock: UInt32 = 0b100
+    static let Water: UInt32 = 0b10
+    static let Ground: UInt32 = 0b100
+    static let Rock: UInt32 = 0b1000
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
@@ -40,9 +40,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     let swipeDownRec = UISwipeGestureRecognizer()
     let swipeLeftRec = UISwipeGestureRecognizer()
     let swipeRightRec = UISwipeGestureRecognizer()
+
+    var zoomOutAction = SKAction()
+    var zoomInAction = SKAction()
     
     var player: PlayerEntity!
     var ground: SKNode!
+    var water: SKSpriteNode!
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
@@ -58,6 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         BoostingDownState(scene: self, player: self.player),
         SinkingState(scene: self, player: self.player),
         FloatingUpState(scene: self, player: self.player),
+        FloatingOnlyState(scene: self, player: self.player),
         WaterJoyState(scene: self, player: self.player),
         WaterSadState(scene: self, player: self.player),
         WaterDashState(scene: self, player: self.player),
@@ -72,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpGround()
         setUpOrbs()
         setUpRock()
+        setUpWater()
         
         stateMachine.enter(PlayingState.self)
     
@@ -102,23 +108,62 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func jumpUp() {
-        if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
+        if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingUpState {
+            stateMachine.enter(WaterJoyState.self)
+        } else if stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is PlayingState {
             stateMachine.enter(JoyGoingUpState.self)
         }
     }
     
+    func zoom() {
+        if (camera?.position.x)! > CGFloat(90) {
+            zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
+            zoomOutAction.timingMode = .easeInEaseOut
+            zoomInAction = SKAction.scale(to: 1, duration: 1)
+            zoomInAction.timingMode = .easeInEaseOut
+            camera?.run(SKAction.sequence([zoomOutAction, zoomInAction]))
+        }
+    }
+    
+    func checkGroundContact() -> Bool {
+        for body in (player.spriteComponent.node.physicsBody?.allContactedBodies())! {
+            if body.categoryBitMask == PhysicsCategory.Ground {
+                return true
+            }
+        }
+        return false
+    }
+    
     @objc func sink() {
-        print("sink")
+        if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is FloatingUpState {
+            stateMachine.enter(WaterSadState.self)
+        } else if stateMachine.currentState is PlayingState {
+            if checkGroundContact() {
+                jump()
+            } else {
+                stateMachine.enter(BoostingDownState.self)
+            }
+        }
     }
     
     @objc func leftDash() {
-        stateMachine.state(forClass: DashingState.self)!.left = true
-        stateMachine.enter(DashingState.self)
+        if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
+            stateMachine.state(forClass: WaterDashState.self)!.left = true
+            stateMachine.enter(WaterDashState.self)
+        } else if !(stateMachine.currentState is WaterSadState) && !(stateMachine.currentState is WaterJoyState) {
+            stateMachine.state(forClass: DashingState.self)!.left = true
+            stateMachine.enter(DashingState.self)
+        }
     }
     
     @objc func rightDash() {
-        stateMachine.state(forClass: DashingState.self)!.left = false
-        stateMachine.enter(DashingState.self)
+        if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
+            stateMachine.state(forClass: WaterDashState.self)!.left = false
+            stateMachine.enter(WaterDashState.self)
+        } else if !(stateMachine.currentState is WaterSadState) && !(stateMachine.currentState is WaterJoyState)  {
+            stateMachine.state(forClass: DashingState.self)!.left = false
+            stateMachine.enter(DashingState.self)
+        }
     }
     
     func setUpGestureRecognizers() {
@@ -163,11 +208,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
-        let node = player.spriteComponent.node
-        //node.zPosition = Layer.player.rawValue
-        node.physicsBody?.restitution = 0.0
-        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
-        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
+        player.spriteComponent.setUpPlayerProperties()
+        player.movementComponent.setUp(player)
     }
     
     func setUpGround() {
@@ -175,7 +217,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         ground.enumerateChildNodes(withName: "ground") { (node, stop) in
             let ground = node as! SKSpriteNode
-            //ground.zPosition = Layer.player.rawValue
             if ground.texture == nil {
                 ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
             } else {
@@ -196,10 +237,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpOrbs() {
         joy = OrbEntity(node: self.childNode(withName: "joy") as! SKSpriteNode, type: .joy, player: player)
         joy.orbComponent.idleAnimation()
+        joy.spriteComponent.node.zPosition = Layer.player.rawValue
         anger = OrbEntity(node: self.childNode(withName: "anger") as! SKSpriteNode, type: .anger, player: player)
         anger.orbComponent.idleAnimation()
+        anger.spriteComponent.node.zPosition = Layer.player.rawValue
         sadness = OrbEntity(node: self.childNode(withName: "sadness") as! SKSpriteNode, type: .sadness, player: player)
         sadness.orbComponent.idleAnimation()
+        sadness.spriteComponent.node.zPosition = Layer.player.rawValue
+    }
+    
+    func setUpWater() {
+        water = self.childNode(withName: "water") as? SKSpriteNode
+        water.zPosition = Layer.water.rawValue
+        water.alpha = 0.0
+        
+        if water.texture == nil {
+            water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
+        } else {
+            water.physicsBody = SKPhysicsBody(texture: water.texture!, size: water.texture!.size())
+        }
+        
+        let bodyWater = water.physicsBody
+        bodyWater?.restitution = 0.0
+        bodyWater?.categoryBitMask = PhysicsCategory.Water
+        bodyWater?.contactTestBitMask = PhysicsCategory.Player
+        bodyWater?.collisionBitMask = PhysicsCategory.Player
+        bodyWater?.affectedByGravity = false
+        bodyWater?.allowsRotation = false
+        bodyWater?.isDynamic = true
+        bodyWater?.pinned = true
     }
     
     func setUpRock() {
@@ -218,8 +284,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if other.categoryBitMask == PhysicsCategory.Ground {
-            if stateMachine.currentState is JoyGlidingState {
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState || stateMachine.currentState is FloatingOnlyState {
                 stateMachine.enter(PlayingState.self)
+            }
+        }
+        
+        if other.categoryBitMask == PhysicsCategory.Water {
+            // entrou na agua
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState {
+                stateMachine.enter(SinkingState.self)
+            }
+            if stateMachine.currentState is BoostingDownState {
+                stateMachine.enter(WaterSadState.self)
+            }
+        }
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
+        let player = contact.bodyA
+
+        if other.categoryBitMask == PhysicsCategory.Water {
+            if stateMachine.currentState is FloatingUpState {
+                if (player.node?.physicsBody!.velocity.dy)! > CGFloat(300) {
+                    stateMachine.enter(JoyGoingUpState.self)
+                } else {
+                    stateMachine.enter(FloatingOnlyState.self)
+                }
+            }
+            if stateMachine.currentState is WaterJoyState {
+                stateMachine.enter(JoyGoingUpState.self)
             }
         }
         
@@ -251,9 +345,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         lastUpdateTime = currentTime
         
         player.update(deltaTime: deltaTime)
+        
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        if (camera?.position.x)! < CGFloat(61.7) {
+            camera?.position.x = CGFloat(61.7)
+        }
+        if (camera?.position.x)! < CGFloat(61.7) {
+            camera?.position.x = CGFloat(61.7)
+        }
         
         stateMachine.update(deltaTime: deltaTime)
     }
-    
 }

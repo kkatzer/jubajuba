@@ -30,11 +30,12 @@ class DashingState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = false
         scene.swipeRightRec.isEnabled = false
+        move.water = true
         move.dash(left: self.left)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == PlayingState.self)
+        return (stateClass == PlayingState.self) || (stateClass == SinkingState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

@@ -24,19 +24,25 @@ class WaterSadState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         scene.tapRec.isEnabled = false
-        scene.longPressRec.isEnabled = false
+        scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
         // things supposed to happen
+        scene.physicsWorld.gravity.dy = 1
+        node.physicsBody?.linearDamping = 1
+        move.water = true
+        move.sink()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == FloatingUpState.self) || (stateClass == PlayingState.self)
+        return (stateClass == FloatingUpState.self) // || (stateClass == PlayingState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        
+        if node.physicsBody!.velocity.dy >= 0 {
+            scene.stateMachine.enter(FloatingUpState.self)
+        }
     }
 }

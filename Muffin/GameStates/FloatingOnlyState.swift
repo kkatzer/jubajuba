@@ -1,8 +1,8 @@
 //
-//  BoostingDownState.swift
+//  FloatingOnlyState.swift
 //  Muffin
 //
-//  Created by Vinícius Binder on 04/09/19.
+//  Created by Eduarda Mello on 05/09/19.
 //  Copyright © 2019 Juba-Juba. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class BoostingDownState: GKState {
+class FloatingOnlyState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
@@ -24,20 +24,20 @@ class BoostingDownState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         scene.tapRec.isEnabled = false
-        scene.longPressRec.isEnabled = false
-        scene.swipeUpRec.isEnabled = false
-        scene.swipeDownRec.isEnabled = false
+        scene.longPressRec.isEnabled = true
+        scene.swipeUpRec.isEnabled = true
+        scene.swipeDownRec.isEnabled = true
         scene.swipeLeftRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
         
-        scene.physicsWorld.gravity.dy = -9.8
-        move.water = false
-        move.sink()
-        
+        node.physicsBody!.linearDamping = 0
+        node.physicsBody!.velocity.dy = 0
+        scene.physicsWorld.gravity.dy = 0
+        move.water = true
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == PlayingState.self) || (stateClass == WaterSadState.self)
+        return (stateClass == JoyGoingUpState.self) || (stateClass == WaterSadState.self) || (stateClass == PlayingState.self) // || (stateClass == WaterDashState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {
