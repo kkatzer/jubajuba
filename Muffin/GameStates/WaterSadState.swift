@@ -33,6 +33,7 @@ class WaterSadState: GKState {
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody?.linearDamping = 1
         move.water = true
+        move.ground = false
         move.sink()
     }
     

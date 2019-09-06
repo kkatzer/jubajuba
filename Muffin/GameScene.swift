@@ -144,6 +144,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     @objc func jump() {
         if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
             player.movementComponent?.jump()
+            player.movementComponent.ground = false
         }
     }
     
@@ -154,9 +155,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if pos.x < self.view!.frame.width/2 {
             // left
             moveComponent?.moveToTheLeft(true)
+            player.spriteComponent.node.xScale = abs(player.spriteComponent.node.xScale) * -1.0
         } else {
             // right
             moveComponent?.moveToTheRight(true)
+            player.spriteComponent.node.xScale = abs(player.spriteComponent.node.xScale) * 1.0
         }
         
         if sender.state == .ended {
@@ -344,6 +347,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState || stateMachine.currentState is FloatingOnlyState {
                 stateMachine.enter(PlayingState.self)
             }
+            player.movementComponent.ground = true
         }
         
         if other.categoryBitMask == PhysicsCategory.Water {

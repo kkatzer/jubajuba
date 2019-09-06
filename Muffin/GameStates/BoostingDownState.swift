@@ -32,6 +32,7 @@ class BoostingDownState: GKState {
         
         scene.physicsWorld.gravity.dy = -9.8
         move.water = false
+        move.ground = false
         move.sink()
         
     }

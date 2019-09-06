@@ -42,7 +42,8 @@ class DashingState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = false
         scene.swipeRightRec.isEnabled = false
-        move.water = true
+        move.water = false
+        move.ground = false
         move.dash(left: self.left)
         node.run(SKAction.animate(with: Animations.Dash, timePerFrame: 0.02, resize: true, restore: true))
         if (left) {

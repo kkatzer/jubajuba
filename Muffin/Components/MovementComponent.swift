@@ -19,6 +19,7 @@ class MovementComponent: GKComponent {
     var moveRight: Bool = false
     var moveLeft: Bool = false
     var water: Bool = false
+    var ground: Bool = false
     
     private var force = 200.0
     private var maxVelocity: CGFloat = 200
@@ -46,7 +47,7 @@ class MovementComponent: GKComponent {
             print("Error: Could not load sound file.")
         }
         jumpSFX.numberOfLoops = 0
-        jumpSFX.volume = 3.0
+        jumpSFX.volume = 1.0
         jumpSFX.prepareToPlay()
         
         do {
@@ -55,7 +56,7 @@ class MovementComponent: GKComponent {
             print("Error: Could not load sound file.")
         }
         stepsSFX.numberOfLoops = -1
-        stepsSFX.volume = 3.0
+        stepsSFX.volume = 1.0
         stepsSFX.prepareToPlay()
         super.init()
         setUp(entity)
@@ -108,16 +109,29 @@ class MovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
+        let node = self.spriteComponent.node
         
         if -maxVelocity ... maxVelocity ~= nodeBody.velocity.dx {
             if moveRight {
-                if !jumpSFX.isPlaying {
-                    jumpSFX.play()
+                if (!water && ground) {
+                    if !stepsSFX.isPlaying {
+                        stepsSFX.play()
+                    }
+                    if (node.action(forKey: "walking") == nil) {
+                        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Walk, timePerFrame: 0.025, resize: true, restore: true)), withKey: "walking")
+                        node.xScale = abs(node.xScale) * 1.0
+                    }
                 }
                 nodeBody.applyForce(CGVector(dx: water ? 0.1*force : force, dy: 0))
             } else if moveLeft {
-                if !jumpSFX.isPlaying {
-                    jumpSFX.play()
+                if (!water && ground) {
+                    if !stepsSFX.isPlaying {
+                        stepsSFX.play()
+                    }
+                    if (node.action(forKey: "walking") == nil) {
+                        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Walk, timePerFrame: 0.025, resize: true, restore: true)), withKey: "walking")
+                        node.xScale = abs(node.xScale) * -1.0
+                    }
                 }
                 nodeBody.applyForce(CGVector(dx: water ? -0.1*force : -force, dy: 0))
             }
@@ -125,6 +139,7 @@ class MovementComponent: GKComponent {
         
         if (!moveRight && !moveLeft) {
             stepsSFX.stop()
+            node.removeAction(forKey: "walking")
         }
     }
 }

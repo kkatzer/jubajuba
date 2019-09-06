@@ -33,6 +33,7 @@ class JoyGoingUpState: GKState {
         scene.physicsWorld.gravity.dy = -9.8
         node.physicsBody?.linearDamping = 0
         move.water = false
+        move.ground = false
         move.joyJump()
         scene.zoom()
     }

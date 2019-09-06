@@ -34,6 +34,7 @@ class WaterJoyState: GKState {
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody!.linearDamping = 1
         move.water = true
+        move.ground = false
         move.joyJump()
         //scene.zoom()
         scene.stateMachine.enter(FloatingUpState.self)

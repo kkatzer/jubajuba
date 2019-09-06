@@ -32,6 +32,7 @@ class WaterDashState: GKState {
         scene.swipeRightRec.isEnabled = false
         
         move.water = true
+        move.ground = false
         move.dash(left: self.left)
     }
     

@@ -34,6 +34,7 @@ class FloatingOnlyState: GKState {
         node.physicsBody!.velocity.dy = 0
         scene.physicsWorld.gravity.dy = 0
         move.water = true
+        move.ground = false
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
