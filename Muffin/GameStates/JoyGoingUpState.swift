@@ -35,6 +35,7 @@ class JoyGoingUpState: GKState {
         move.water = false
         move.ground = false
         move.joyJump()
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
         scene.zoom()
     }
     
@@ -45,6 +46,7 @@ class JoyGoingUpState: GKState {
     override func update(deltaTime seconds: TimeInterval) {
         if node.physicsBody!.velocity.dy < 0 {
             scene.stateMachine.enter(JoyGlidingState.self)
+            node.removeAction(forKey: "joyGoingUp")
         }
     }
 }
