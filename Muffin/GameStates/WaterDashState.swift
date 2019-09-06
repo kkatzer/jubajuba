@@ -40,7 +40,7 @@ class WaterDashState: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        if abs((node.physicsBody?.velocity.dx)!) <= 150 {
+        if abs((node.physicsBody?.velocity.dx)!) <= 300 {
             scene.stateMachine.enter(FloatingUpState.self)
         }
     }

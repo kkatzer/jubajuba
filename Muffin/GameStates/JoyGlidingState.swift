@@ -30,7 +30,7 @@ class JoyGlidingState: GKState {
         scene.swipeLeftRec.isEnabled = false
         scene.swipeRightRec.isEnabled = false
         
-        scene.physicsWorld.gravity.dy = -5
+        scene.physicsWorld.gravity.dy = -2
         move.water = false
     }
     

@@ -117,7 +117,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func zoom() {
         if (camera?.position.x)! > CGFloat(90) {
-            zoomOutAction = SKAction.scale(to: 1.8, duration: 1)
+            zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
             zoomOutAction.timingMode = .easeInEaseOut
             zoomInAction = SKAction.scale(to: 1, duration: 1)
             zoomInAction.timingMode = .easeInEaseOut
@@ -150,7 +150,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
             stateMachine.state(forClass: WaterDashState.self)!.left = true
             stateMachine.enter(WaterDashState.self)
-        } else if !(stateMachine.currentState is WaterSadState) && !(stateMachine.currentState is WaterJoyState)  {
+        } else if !(stateMachine.currentState is WaterSadState) && !(stateMachine.currentState is WaterJoyState) {
             stateMachine.state(forClass: DashingState.self)!.left = true
             stateMachine.enter(DashingState.self)
         }
@@ -249,7 +249,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpWater() {
         water = self.childNode(withName: "water") as? SKSpriteNode
         water.zPosition = Layer.water.rawValue
-        water.alpha = 0.2
+        water.alpha = 0.0
         
         if water.texture == nil {
             water.physicsBody = SKPhysicsBody(rectangleOf: water.size)

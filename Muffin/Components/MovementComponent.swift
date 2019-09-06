@@ -24,7 +24,7 @@ class MovementComponent: GKComponent {
     private var jumpVelocity: CGFloat = 500
     private var sinkVelocity: CGFloat = -1000
     private var joyJumpVelocity: CGFloat = 1000
-    private var dashImpulse: CGFloat = 1450
+    private var dashImpulse: CGFloat = 2500
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
     func setUp(_ entity: GKEntity) {
