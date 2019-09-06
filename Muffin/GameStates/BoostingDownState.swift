@@ -15,8 +15,6 @@ class BoostingDownState: GKState {
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
     
-    let sinkVelocity: CGFloat = -1000
-    
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
@@ -33,7 +31,8 @@ class BoostingDownState: GKState {
         scene.swipeRightRec.isEnabled = true
         
         scene.physicsWorld.gravity.dy = -9.8
-        node.physicsBody?.velocity.dy = sinkVelocity
+        move.water = false
+        move.sink()
         
     }
     

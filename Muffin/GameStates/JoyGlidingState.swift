@@ -31,6 +31,7 @@ class JoyGlidingState: GKState {
         scene.swipeRightRec.isEnabled = false
         
         scene.physicsWorld.gravity.dy = -5
+        move.water = false
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

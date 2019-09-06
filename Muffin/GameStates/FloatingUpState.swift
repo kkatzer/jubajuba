@@ -32,10 +32,15 @@ class FloatingUpState: GKState {
         scene.swipeLeftRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
         // things supposed to happen
+        scene.physicsWorld.gravity.dy = 1
+        node.physicsBody?.linearDamping = 1
+        move.water = true
+        
+        print("up")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self) || (stateClass == FloatingOnlyState.self)
+        return (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self) || (stateClass == FloatingOnlyState.self) || (stateClass == JoyGoingUpState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

@@ -29,9 +29,12 @@ class PlayingState: GKState {
         scene.swipeDownRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
         scene.swipeLeftRec.isEnabled = true
+        
         scene.physicsWorld.gravity.dy = -9.8
         node.physicsBody?.linearDamping = 0
+        move.water = false
     
+        print("playing")
     }
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == JoyGoingUpState.self) || (stateClass == BoostingDownState.self) || (stateClass == SinkingState.self) || (stateClass == DashingState.self)

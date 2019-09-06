@@ -15,8 +15,6 @@ class WaterSadState: GKState {
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
     
-    let sinkVelocity: CGFloat = -1000
-    
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
@@ -34,9 +32,8 @@ class WaterSadState: GKState {
         // things supposed to happen
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody?.linearDamping = 1
-        node.physicsBody?.velocity.dy = sinkVelocity
-        
-        
+        move.water = true
+        move.sink()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

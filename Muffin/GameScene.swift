@@ -21,8 +21,8 @@ struct PhysicsCategory {
     static let None: UInt32 = 0
     static let Player: UInt32 = 0b1
     static let Water: UInt32 = 0b10
-    static let Ground: UInt32 = 0b11
-    static let Rock: UInt32 = 0b100
+    static let Ground: UInt32 = 0b100
+    static let Rock: UInt32 = 0b1000
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
@@ -108,7 +108,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func jumpUp() {
-        
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterJoyState.self)
         } else if stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is PlayingState {
@@ -148,13 +147,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func leftDash() {
-        stateMachine.state(forClass: DashingState.self)!.left = true
-        stateMachine.enter(DashingState.self)
+        if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
+            stateMachine.state(forClass: WaterDashState.self)!.left = true
+            stateMachine.enter(WaterDashState.self)
+        } else if !(stateMachine.currentState is WaterSadState) && !(stateMachine.currentState is WaterJoyState)  {
+            stateMachine.state(forClass: DashingState.self)!.left = true
+            stateMachine.enter(DashingState.self)
+        }
     }
     
     @objc func rightDash() {
-        stateMachine.state(forClass: DashingState.self)!.left = false
-        stateMachine.enter(DashingState.self)
+        if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
+            stateMachine.state(forClass: WaterDashState.self)!.left = false
+            stateMachine.enter(WaterDashState.self)
+        } else if !(stateMachine.currentState is WaterSadState) && !(stateMachine.currentState is WaterJoyState)  {
+            stateMachine.state(forClass: DashingState.self)!.left = false
+            stateMachine.enter(DashingState.self)
+        }
     }
     
     func setUpGestureRecognizers() {
@@ -282,7 +291,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
-            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState {
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState {
                 stateMachine.enter(SinkingState.self)
             }
             if stateMachine.currentState is BoostingDownState {
@@ -293,14 +302,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func didEnd(_ contact: SKPhysicsContact) {
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
+        let player = contact.bodyA
 
         if other.categoryBitMask == PhysicsCategory.Water {
             if stateMachine.currentState is FloatingUpState {
-                stateMachine.enter(FloatingOnlyState.self)
+                if (player.node?.physicsBody!.velocity.dy)! > CGFloat(300) {
+                    stateMachine.enter(JoyGoingUpState.self)
+                } else {
+                    stateMachine.enter(FloatingOnlyState.self)
+                }
             }
             if stateMachine.currentState is WaterJoyState {
                 stateMachine.enter(JoyGoingUpState.self)
             }
+        }
+        
         if other.categoryBitMask == PhysicsCategory.Rock {
             rock.breakComponent.breakRock()
         }
