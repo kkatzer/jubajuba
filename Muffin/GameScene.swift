@@ -21,7 +21,8 @@ struct PhysicsCategory {
     static let None: UInt32 = 0
     static let Player: UInt32 = 0b1
 //    static let Obstacle: UInt32 = 0b10
-    static let Ground: UInt32 = 0b100
+    static let Ground: UInt32 = 0b11
+    static let Rock: UInt32 = 0b100
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
@@ -37,13 +38,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     let longPressRec = UILongPressGestureRecognizer()
     let swipeUpRec = UISwipeGestureRecognizer()
     let swipeDownRec = UISwipeGestureRecognizer()
-    let swipeSideRec = UISwipeGestureRecognizer()
+    let swipeLeftRec = UISwipeGestureRecognizer()
+    let swipeRightRec = UISwipeGestureRecognizer()
     
     var player: PlayerEntity!
     var ground: SKNode!
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
+    var rock: RockEntity!
+    var moveRock: RockEntity!
     
     private var joyPlayer: AVAudioPlayer!
     private var sadnessPlayer: AVAudioPlayer!
@@ -110,6 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpPlayer()
         setUpGround()
         setUpOrbs()
+        setUpRock()
         
         stateMachine.enter(PlayingState.self)
     
@@ -149,6 +154,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         print("sink")
     }
     
+    @objc func leftDash() {
+        stateMachine.state(forClass: DashingState.self)!.left = true
+        stateMachine.enter(DashingState.self)
+    }
+    
+    @objc func rightDash() {
+        stateMachine.state(forClass: DashingState.self)!.left = false
+        stateMachine.enter(DashingState.self)
+    }
+    
     func setUpGestureRecognizers() {
         tapRec.addTarget(self, action: #selector(jump))
         tapRec.delegate = self
@@ -169,6 +184,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         swipeDownRec.delegate = self
         swipeDownRec.direction = .down
         self.view!.addGestureRecognizer(swipeDownRec)
+        
+        swipeLeftRec.addTarget(self, action: #selector(leftDash))
+        swipeLeftRec.direction = .left
+        self.view!.addGestureRecognizer(swipeLeftRec)
+        
+        swipeRightRec.addTarget(self, action: #selector(rightDash))
+        swipeRightRec.direction = .right
+        self.view!.addGestureRecognizer(swipeRightRec)
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -222,13 +245,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         sadness.orbComponent.idleAnimation()
     }
     
+    func setUpRock() {
+//        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
+//        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
+        var other: SKPhysicsBody = contact.bodyA
+        if contact.bodyA.categoryBitMask == PhysicsCategory.Player {
+            other = contact.bodyB
+        } else if contact.bodyB.categoryBitMask == PhysicsCategory.Player {
+            other = contact.bodyA
+        } else {
+            return
+        }
         
         if other.categoryBitMask == PhysicsCategory.Ground {
             if stateMachine.currentState is JoyGlidingState {
                 stateMachine.enter(PlayingState.self)
             }
+        }
+        
+        if other.categoryBitMask == PhysicsCategory.Rock {
+            rock.breakComponent.breakRock()
         }
     }
     
