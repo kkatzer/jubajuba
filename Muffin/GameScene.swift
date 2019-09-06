@@ -164,7 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         let node = player.spriteComponent.node
-        node.zPosition = Layer.player.rawValue
+        //node.zPosition = Layer.player.rawValue
         node.physicsBody?.restitution = 0.0
         node.physicsBody?.categoryBitMask = PhysicsCategory.Player
         node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground
