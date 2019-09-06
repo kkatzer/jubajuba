@@ -29,7 +29,8 @@ class BoostingDownState: GKState {
         scene.longPressRec.isEnabled = false
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
-        scene.swipeSideRec.isEnabled = true
+        scene.swipeLeftRec.isEnabled = true
+        scene.swipeRightRec.isEnabled = true
         
         scene.physicsWorld.gravity.dy = -9.8
         node.physicsBody?.velocity.dy = sinkVelocity

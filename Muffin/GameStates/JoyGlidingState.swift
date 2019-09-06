@@ -27,7 +27,8 @@ class JoyGlidingState: GKState {
         scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
-        scene.swipeSideRec.isEnabled = false
+        scene.swipeLeftRec.isEnabled = false
+        scene.swipeRightRec.isEnabled = false
         
         scene.physicsWorld.gravity.dy = -5
     }

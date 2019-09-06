@@ -29,7 +29,9 @@ class FloatingUpState: GKState {
         scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = true
         scene.swipeDownRec.isEnabled = true
-        scene.swipeSideRec.isEnabled = true
+        scene.swipeLeftRec.isEnabled = true
+        scene.swipeRightRec.isEnabled = true
+        // things supposed to happen
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

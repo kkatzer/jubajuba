@@ -29,7 +29,8 @@ class WaterSadState: GKState {
         scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
-        scene.swipeSideRec.isEnabled = true
+        scene.swipeLeftRec.isEnabled = true
+        scene.swipeRightRec.isEnabled = true
         // things supposed to happen
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody?.linearDamping = 1
