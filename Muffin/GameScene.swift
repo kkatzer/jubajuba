@@ -118,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func zoom() {
-        if (camera?.position.x)! > CGFloat(200) {
+        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(250) && (camera?.position.x)! < barrierRight.position.x-CGFloat(250) {
             zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
             zoomOutAction.timingMode = .easeInEaseOut
             zoomInAction = SKAction.scale(to: 1, duration: 1)
