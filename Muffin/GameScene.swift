@@ -48,6 +48,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var sadness: OrbEntity!
     var rock: RockEntity!
     var moveRock: RockEntity!
+    var barrierLeft: SKSpriteNode!
+    var barrierRight: SKSpriteNode!
     
     private var musicPlayer: AVAudioPlayer!
     
@@ -89,8 +91,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    @objc func walk(sender: UITapGestureRecognizer) {
+    @objc func walk(sender: UILongPressGestureRecognizer) {
         let moveComponent = player.movementComponent
+        let node = player.spriteComponent.node
         let pos = sender.location(in: self.view!)
         
         if pos.x < self.view!.frame.width/2 {
@@ -209,6 +212,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         player.setUpPlayerProperties()
         player.movementComponent.setUp(player)
+        
+        print(UIDevice.current.hasNotch)
+        if UIDevice.current.hasNotch {
+            player.spriteComponent.node.position.x += CGFloat(50)
+        }
     }
     
     func setUpPlayerContactNodes(_ node: SKSpriteNode, tree: Bool) {
@@ -239,6 +247,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         ground.enumerateChildNodes(withName: "tree") { (node, stop) in
             self.setUpPlayerContactNodes(node as! SKSpriteNode, tree: true)
         }
+        barrierLeft = self.childNode(withName: "barrierLeft") as? SKSpriteNode
+        setUpPlayerContactNodes(barrierLeft, tree: true)
+        barrierRight = self.childNode(withName: "barrierRight") as? SKSpriteNode
+        setUpPlayerContactNodes(barrierRight, tree: true)
     }
     
     func setUpOrbs() {
@@ -385,12 +397,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         player.update(deltaTime: deltaTime)
         
-        let cameraBorder: CGFloat = -110
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
-        if (camera?.position.x)! < cameraBorder {
-            camera?.position.x = cameraBorder
-        } else if (camera?.position.x)! < cameraBorder {
-            camera?.position.x = cameraBorder
+        
+        let width: CGFloat = UIScreen.main.bounds.size.width*UIScreen.main.bounds.size.width/UIScreen.main.bounds.size.height
+        let posCamL = (camera?.position.x)! - width/4
+        let posCamR = (camera?.position.x)! + width/4
+        let posBarL = barrierLeft.position.x + 0.5*barrierLeft.size.width
+        let posBarR = barrierRight.position.x - 0.5*barrierRight.size.width
+        if posCamL < posBarL {
+            camera?.position.x = posBarL + width/4
+        } else if posCamR > posBarR {
+            camera?.position.x = posBarR - width/4
         }
         
         stateMachine.update(deltaTime: deltaTime)
