@@ -137,7 +137,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpRock()
         setUpWater()
         setUpLighting()
-        
         stateMachine.enter(PlayingState.self)
     
         setUpMusic()

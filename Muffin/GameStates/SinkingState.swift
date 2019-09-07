@@ -31,7 +31,7 @@ class SinkingState: GKState {
             print("Error: Could not load sound file.")
         }
         splashSFX.numberOfLoops = 0
-        splashSFX.volume = 1.0
+        splashSFX.volume = 0.8
         splashSFX.prepareToPlay()
         
         do {

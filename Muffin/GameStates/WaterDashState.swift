@@ -29,7 +29,7 @@ class WaterDashState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 0.4
+        SFX.volume = 0.2
         SFX.prepareToPlay()
         
         super.init()

@@ -28,7 +28,7 @@ class WaterJoyState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 0.4
+        SFX.volume = 0.8
         SFX.prepareToPlay()
         super.init()
     }

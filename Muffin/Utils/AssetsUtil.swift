@@ -13,6 +13,9 @@ class AssetsUtil {
     public static func getSprites(named name: String) -> [SKTexture] {
         var animationSprites: [SKTexture] = []
         let animatedAtlas = SKTextureAtlas(named: name)
+        animatedAtlas.preload {
+            print("atlas preloaded")
+        }
         let numTextures = animatedAtlas.textureNames.count
         for i in 0..<numTextures {
             let textureName = "\(name)_\(i)"
