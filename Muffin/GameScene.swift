@@ -34,6 +34,7 @@ struct Animations {
     static let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
     static let Gliding: [SKTexture] = AssetsUtil.getSprites(named: "Gliding")
     static let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
+    static let Idle: [SKTexture] = AssetsUtil.getSprites(named: "Idle")
     static let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
     static let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
     static let SwimmingStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimmingStart")

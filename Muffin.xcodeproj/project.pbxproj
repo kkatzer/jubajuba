@@ -12,6 +12,7 @@
 		0D00B7192324370F00C5C4D4 /* Menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0D00B7152324370D00C5C4D4 /* Menu.wav */; };
 		0D00B71A2324370F00C5C4D4 /* Sadness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0D00B7162324370E00C5C4D4 /* Sadness.wav */; };
 		0D00DFE02322F8C400FF8EF5 /* Gliding.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */; };
+		0D03ADE023245F0300FBF9AC /* Idle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0D03ADDF23245F0300FBF9AC /* Idle.atlas */; };
 		0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D49E38723214E06009AE94E /* FloatingOnlyState.swift */; };
 		1F37A8572322C2F400CFAF46 /* Jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A8562322C2F400CFAF46 /* Jump.wav */; };
 		1F37A85B2322D79700CFAF46 /* JoyUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A85A2322D79700CFAF46 /* JoyUp.wav */; };
@@ -69,6 +70,7 @@
 		0D00B7152324370D00C5C4D4 /* Menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Menu.wav; sourceTree = "<group>"; };
 		0D00B7162324370E00C5C4D4 /* Sadness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sadness.wav; sourceTree = "<group>"; };
 		0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Gliding.atlas; sourceTree = "<group>"; };
+		0D03ADDF23245F0300FBF9AC /* Idle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Idle.atlas; sourceTree = "<group>"; };
 		0D49E38723214E06009AE94E /* FloatingOnlyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingOnlyState.swift; sourceTree = "<group>"; };
 		1F26B7C9230D7348001BBDCE /* OrbComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbComponent.swift; sourceTree = "<group>"; };
 		1F37A8562322C2F400CFAF46 /* Jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Jump.wav; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				6412B6CF232031E0005DF78B /* GettingUp.atlas */,
 				0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */,
 				6412B6D7232031E1005DF78B /* Heavy.atlas */,
+				0D03ADDF23245F0300FBF9AC /* Idle.atlas */,
 				6412B6D4232031E1005DF78B /* Jump.atlas */,
 				6412B6D5232031E1005DF78B /* Swimming.atlas */,
 				6412B6D0232031E0005DF78B /* SwimmingStart.atlas */,
@@ -352,6 +355,7 @@
 				6412B6DC232031E1005DF78B /* Walk.atlas in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */,
+				0D03ADE023245F0300FBF9AC /* Idle.atlas in Resources */,
 				6412B6E2232031E2005DF78B /* Heavy.atlas in Resources */,
 				6412B6E4232031E2005DF78B /* Falling.atlas in Resources */,
 				0D00B7172324370F00C5C4D4 /* Joy.wav in Resources */,
