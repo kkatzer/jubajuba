@@ -222,6 +222,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             } else {
                 node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
             }
+            node.alpha = 0.0
             
             let body = node.physicsBody
             body?.restitution = 0.0
@@ -270,14 +271,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpRock() {
 //        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
-        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+//        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
     }
     
     func setUpLighting() {
         let lightAffectedNodesWithMapping = [
             "Joy Z-2",
             "Joy Z3",
-            //"Sadness Z-2",
+            "Sadness Z-2",
             "Anger Z-2",
         ]
         let lightAffectedNodesWOMapping = [
