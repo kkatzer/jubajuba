@@ -29,10 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     var deltaTime: TimeInterval = 0
     var lastUpdateTime: TimeInterval = 0
-    
     var deltaStamp: TimeInterval = 0
-    
-    let velocityX: CGFloat = 200
     
     let tapRec = UITapGestureRecognizer()
     let longPressRec = UILongPressGestureRecognizer()
@@ -46,7 +43,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     var player: PlayerEntity!
     var ground: SKNode!
-    var water: SKSpriteNode!
     var joy: OrbEntity!
     var anger: OrbEntity!
     var sadness: OrbEntity!
@@ -77,7 +73,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpGround()
         setUpOrbs()
         setUpRock()
-        setUpWater()
+        if let water = self.childNode(withName: "water") as? SKSpriteNode {
+            setUpWater(water)
+        }
         setUpLighting()
         
         stateMachine.enter(PlayingState.self)
@@ -213,25 +211,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         player.movementComponent.setUp(player)
     }
     
-    func setUpGround() {
-        ground = self.childNode(withName: "ground")
-        ground.enumerateChildNodes(withName: "ground") { (node, stop) in
-            let node = node as! SKSpriteNode
-            if node.texture == nil {
-                node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
-            } else {
-                node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
-            }
+    func setUpPlayerContactNodes(_ node: SKSpriteNode, tree: Bool) {
+        if node.texture == nil {
+            node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+        } else {
+            node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
+        }
+        
+        let body = node.physicsBody
+        if !tree {
             node.alpha = 0.0
-            
-            let body = node.physicsBody
             body?.restitution = 0.0
             body?.categoryBitMask = PhysicsCategory.Ground
             body?.contactTestBitMask = PhysicsCategory.Player
-            body?.affectedByGravity = false
-            body?.allowsRotation = false
-            body?.isDynamic = false
-            body?.pinned = false
+        }
+        body?.affectedByGravity = false
+        body?.allowsRotation = false
+        body?.isDynamic = false
+        body?.pinned = false
+    }
+    
+    func setUpGround() {
+        ground = self.childNode(withName: "ground")
+        ground.enumerateChildNodes(withName: "SKSpriteNode") { (node, stop) in
+            self.setUpPlayerContactNodes(node as! SKSpriteNode, tree: false)
+        }
+        ground.enumerateChildNodes(withName: "tree") { (node, stop) in
+            self.setUpPlayerContactNodes(node as! SKSpriteNode, tree: true)
         }
     }
     
@@ -247,8 +253,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         sadness.spriteComponent.node.zPosition = Layer.player.rawValue
     }
     
-    func setUpWater() {
-        water = self.childNode(withName: "water") as? SKSpriteNode
+    func setUpWater(_ water: SKSpriteNode) {
         water.zPosition = Layer.water.rawValue
         water.alpha = 0.0
         
@@ -279,6 +284,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             "Joy Z-2",
             "Joy Z3",
             "Sadness Z-2",
+            "Sadness Z-3",
+            "Sadness Z2",
+            "Tree Z-3",
+            "Cogumelos Z3",
             "Anger Z-2",
         ]
         let lightAffectedNodesWOMapping = [
@@ -286,6 +295,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             "Joy Z-4",
             "Sadness Z3",
             "Anger Z-4",
+            "Anger Z-5",
         ]
         
         // With mapping
@@ -321,9 +331,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState || stateMachine.currentState is FloatingOnlyState {
                 stateMachine.enter(PlayingState.self)
             }
-        }
-        
-        if other.categoryBitMask == PhysicsCategory.Water {
+        } else if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState {
                 stateMachine.enter(SinkingState.self)
@@ -339,19 +347,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let player = contact.bodyA
 
         if other.categoryBitMask == PhysicsCategory.Water {
-            if stateMachine.currentState is FloatingUpState {
+            if stateMachine.currentState is WaterJoyState {
+                stateMachine.enter(JoyGoingUpState.self)
+            } else if stateMachine.currentState is FloatingUpState {
                 if (player.node?.physicsBody!.velocity.dy)! > CGFloat(300) {
                     stateMachine.enter(JoyGoingUpState.self)
                 } else {
                     stateMachine.enter(FloatingOnlyState.self)
                 }
             }
-            if stateMachine.currentState is WaterJoyState {
-                stateMachine.enter(JoyGoingUpState.self)
-            }
-        }
-        
-        if other.categoryBitMask == PhysicsCategory.Rock {
+        } else if other.categoryBitMask == PhysicsCategory.Rock {
             rock.breakComponent.breakRock()
         }
     }
@@ -380,12 +385,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         player.update(deltaTime: deltaTime)
         
+        let cameraBorder: CGFloat = -110
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
-        if (camera?.position.x)! < CGFloat(61.7) {
-            camera?.position.x = CGFloat(61.7)
-        }
-        if (camera?.position.x)! < CGFloat(61.7) {
-            camera?.position.x = CGFloat(61.7)
+        if (camera?.position.x)! < cameraBorder {
+            camera?.position.x = cameraBorder
+        } else if (camera?.position.x)! < cameraBorder {
+            camera?.position.x = cameraBorder
         }
         
         stateMachine.update(deltaTime: deltaTime)

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "TreeLineBottom.png",
+      "filename" : "TreeLine2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "TreeLineBottom@2x.png",
+      "filename" : "TreeLine2@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "TreeLineBottom@3x.png",
+      "filename" : "TreeLine2@3x.png",
       "scale" : "3x"
     }
   ],
