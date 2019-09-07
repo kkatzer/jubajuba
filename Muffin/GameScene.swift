@@ -212,11 +212,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
         player.setUpPlayerProperties()
         player.movementComponent.setUp(player)
-        
-        print(UIDevice.current.hasNotch)
-        if UIDevice.current.hasNotch {
-            player.spriteComponent.node.position.x += CGFloat(50)
-        }
+        player.spriteComponent.node.position.x += CGFloat(50)
     }
     
     func setUpPlayerContactNodes(_ node: SKSpriteNode, tree: Bool) {
