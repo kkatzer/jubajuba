@@ -34,7 +34,7 @@ class JoyGlidingState: GKState {
         move.water = false
         move.ground = false
         node.removeAllActions()
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Gliding, timePerFrame: 0.022, resize: true, restore: true)), withKey: "gliding")
+        node.run(SKAction.animate(with: Animations.Gliding, timePerFrame: 0.025, resize: true, restore: true))
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
