@@ -139,7 +139,7 @@ class MovementComponent: GKComponent {
             }
         }
         
-        if (!moveRight && !moveLeft) {
+        if (!moveRight && !moveLeft || !ground) {
             stepsSFX.stop()
             node.removeAction(forKey: "walking")
         }

@@ -9,16 +9,27 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class WaterJoyState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
+    private var SFX: AVAudioPlayer!
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
         self.move = player.movementComponent
+        
+        do {
+            SFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "JoyUp", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        SFX.numberOfLoops = 0
+        SFX.volume = 0.4
+        SFX.prepareToPlay()
         super.init()
     }
     
@@ -34,6 +45,7 @@ class WaterJoyState: GKState {
         node.physicsBody!.linearDamping = 1
         move.water = true
         move.ground = false
+        SFX.play()
         move.joyJump()
         //scene.zoom()
         node.removeAllActions()
