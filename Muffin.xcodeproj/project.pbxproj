@@ -38,6 +38,8 @@
 		561920D2231FE74400E86F44 /* WaterSadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D1231FE74400E86F44 /* WaterSadState.swift */; };
 		561920D4231FE77200E86F44 /* WaterDashState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D3231FE77200E86F44 /* WaterDashState.swift */; };
 		561920D6231FE79000E86F44 /* DashingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D5231FE79000E86F44 /* DashingState.swift */; };
+		5620C0A22323F85100BCA21D /* GameSceneSad.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5620C0A12323F85100BCA21D /* GameSceneSad.sks */; };
+		5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */; };
 		562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45C230AE68B00D0838B /* SpriteComponent.swift */; };
 		562FF485230AE68B00D0838B /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45D230AE68B00D0838B /* MovementComponent.swift */; };
 		562FF486230AE68B00D0838B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 562FF45F230AE68B00D0838B /* GameScene.sks */; };
@@ -46,6 +48,7 @@
 		562FF489230AE68B00D0838B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF464230AE68B00D0838B /* GameViewController.swift */; };
 		5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642ADFB230F1AFF0065FBC0 /* Personagem.png */; };
 		56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56741CFF230D89F6000393A5 /* CGPointExtensions.swift */; };
+		56F86653232416E300AC468A /* GameSceneAnger.sks in Resources */ = {isa = PBXBuildFile; fileRef = 56F86652232416E300AC468A /* GameSceneAnger.sks */; };
 		6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6CF232031E0005DF78B /* GettingUp.atlas */; };
 		6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D0232031E0005DF78B /* SwimmingStart.atlas */; };
 		6412B6DC232031E1005DF78B /* Walk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D1232031E1005DF78B /* Walk.atlas */; };
@@ -94,6 +97,8 @@
 		561920D1231FE74400E86F44 /* WaterSadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterSadState.swift; sourceTree = "<group>"; };
 		561920D3231FE77200E86F44 /* WaterDashState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDashState.swift; sourceTree = "<group>"; };
 		561920D5231FE79000E86F44 /* DashingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashingState.swift; sourceTree = "<group>"; };
+		5620C0A12323F85100BCA21D /* GameSceneSad.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneSad.sks; sourceTree = "<group>"; };
+		5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneJoy.sks; sourceTree = "<group>"; };
 		562FF45C230AE68B00D0838B /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		562FF45D230AE68B00D0838B /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		562FF45F230AE68B00D0838B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -102,6 +107,7 @@
 		562FF464230AE68B00D0838B /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		5642ADFB230F1AFF0065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
 		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
+		56F86652232416E300AC468A /* GameSceneAnger.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneAnger.sks; sourceTree = "<group>"; };
 		6412B6CF232031E0005DF78B /* GettingUp.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GettingUp.atlas; sourceTree = "<group>"; };
 		6412B6D0232031E0005DF78B /* SwimmingStart.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SwimmingStart.atlas; sourceTree = "<group>"; };
 		6412B6D1232031E1005DF78B /* Walk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Walk.atlas; sourceTree = "<group>"; };
@@ -224,6 +230,9 @@
 			isa = PBXGroup;
 			children = (
 				562FF45F230AE68B00D0838B /* GameScene.sks */,
+				5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */,
+				5620C0A12323F85100BCA21D /* GameSceneSad.sks */,
+				56F86652232416E300AC468A /* GameSceneAnger.sks */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -342,6 +351,7 @@
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
 				6412B6DC232031E1005DF78B /* Walk.atlas in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
+				5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */,
 				6412B6E2232031E2005DF78B /* Heavy.atlas in Resources */,
 				6412B6E4232031E2005DF78B /* Falling.atlas in Resources */,
 				0D00B7172324370F00C5C4D4 /* Joy.wav in Resources */,
@@ -358,7 +368,9 @@
 				1F37A86623240CA100CFAF46 /* Stone Breaking.wav in Resources */,
 				1F37A85E2322E26C00CFAF46 /* Steps.wav in Resources */,
 				6412B6DF232031E2005DF78B /* Jump.atlas in Resources */,
+				56F86653232416E300AC468A /* GameSceneAnger.sks in Resources */,
 				1FE4089C2305A2CF006331CC /* Assets.xcassets in Resources */,
+				5620C0A22323F85100BCA21D /* GameSceneSad.sks in Resources */,
 				1FE4089F2305A2CF006331CC /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
