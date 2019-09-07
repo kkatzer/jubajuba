@@ -29,7 +29,6 @@ class WaterJoyState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
-        // things supposed to happen
         
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody!.linearDamping = 1
@@ -37,7 +36,10 @@ class WaterJoyState: GKState {
         move.ground = false
         move.joyJump()
         //scene.zoom()
+        node.removeAllActions()
+        // animation
         scene.stateMachine.enter(FloatingUpState.self)
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

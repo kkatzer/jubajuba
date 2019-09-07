@@ -34,8 +34,8 @@ class PlayingState: GKState {
         node.physicsBody?.linearDamping = 0
         move.water = false
         move.ground = true
-    
-        print("playing")
+        node.removeAllActions()
+        
     }
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == JoyGoingUpState.self) || (stateClass == BoostingDownState.self) || (stateClass == SinkingState.self) || (stateClass == DashingState.self)

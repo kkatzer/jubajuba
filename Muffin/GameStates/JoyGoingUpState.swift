@@ -35,6 +35,7 @@ class JoyGoingUpState: GKState {
         move.water = false
         move.ground = false
         move.joyJump()
+        node.removeAllActions()
         node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
         scene.zoom()
     }

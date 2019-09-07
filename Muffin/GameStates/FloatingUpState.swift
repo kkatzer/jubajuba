@@ -31,13 +31,23 @@ class FloatingUpState: GKState {
         scene.swipeDownRec.isEnabled = true
         scene.swipeLeftRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
-        // things supposed to happen
+        
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody?.linearDamping = 1
         move.water = true
         move.ground = false
+        node.removeAllActions()
         
-        print("up")
+        if !(previousState is SinkingState) {
+            let sequence = SKAction.sequence([
+                .animate(with: Animations.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true),
+                .animate(with: Animations.Swimming, timePerFrame: 0.05, resize: true, restore: true)
+                ])
+            node.run(sequence)
+        } else {
+            node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Swimming, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimming")
+            
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

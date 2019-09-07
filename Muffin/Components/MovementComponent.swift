@@ -24,9 +24,9 @@ class MovementComponent: GKComponent {
     private var force = 200.0
     private var maxVelocity: CGFloat = 200
     private var jumpVelocity: CGFloat = 500
-    private var sinkVelocity: CGFloat = -1000
+    private var sinkVelocity: CGFloat = -500
     private var joyJumpVelocity: CGFloat = 1000
-    private var dashImpulse: CGFloat = 870
+    var dashImpulse: CGFloat = 600
     private var slowStopMultiplier: CGFloat = 3 // the higher the slower (0 <)
     
     private var jumpSFX: AVAudioPlayer!
@@ -77,6 +77,8 @@ class MovementComponent: GKComponent {
     func jump() {
         jumpSFX.play()
         nodeBody.velocity.dy = jumpVelocity
+        self.spriteComponent.node.run(SKAction.animate(with: Animations.Jump, timePerFrame: 0.03, resize: true, restore: true))
+        
     }
     
     func joyJump() {
@@ -84,14 +86,14 @@ class MovementComponent: GKComponent {
     }
     
     func sink() {
-        nodeBody.velocity.dy = water ? 0.5*sinkVelocity : sinkVelocity
+        nodeBody.velocity.dy = water ? 0.8*sinkVelocity : sinkVelocity
     }
     
     func dash(left: Bool) {
         if (left) {
-            self.nodeBody.velocity.dx = water ? -0.2*dashImpulse : -dashImpulse
+            self.nodeBody.velocity.dx = water ? -0.5*dashImpulse : -dashImpulse
         } else {
-            self.nodeBody.velocity.dx = water ? 0.2*dashImpulse : dashImpulse
+            self.nodeBody.velocity.dx = water ? 0.5*dashImpulse : dashImpulse
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.48) {
             if self.nodeBody.velocity.dx > 150 {
