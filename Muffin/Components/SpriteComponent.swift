@@ -11,6 +11,7 @@ import SpriteKit
 import GameplayKit
 
 class SpriteComponent: GKComponent {
+    
     var node: SKSpriteNode
     
     init(entity: GKEntity, node: SKSpriteNode) {
@@ -23,16 +24,12 @@ class SpriteComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpPlayerProperties() {
-        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: CGSize(width: 0.3*node.texture!.size().width, height: 0.3*node.texture!.size().height))
-        node.zPosition = Layer.player.rawValue
-        node.physicsBody?.isDynamic = true
-        node.physicsBody?.allowsRotation = false
-        node.physicsBody?.pinned = false
-        node.physicsBody?.affectedByGravity = true
-        node.physicsBody?.restitution = 0.0
-        node.physicsBody?.categoryBitMask = PhysicsCategory.Player
-        node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground | PhysicsCategory.Water
-        node.physicsBody?.collisionBitMask = PhysicsCategory.Ground
+    func setUpLight(_ node: SKSpriteNode, normalMap: Bool) {
+        node.lightingBitMask = 1
+        node.shadowCastBitMask = 0
+        node.shadowedBitMask = 1
+        if normalMap {
+            node.normalTexture = node.texture?.generatingNormalMap(withSmoothness: 0.55, contrast: 0.3)
+        }
     }
 }
