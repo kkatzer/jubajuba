@@ -209,23 +209,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpPlayer() {
         player = PlayerEntity(node: self.childNode(withName: "player") as! SKSpriteNode)
-        player.spriteComponent.setUpPlayerProperties()
+        player.setUpPlayerProperties()
         player.movementComponent.setUp(player)
     }
     
     func setUpGround() {
         ground = self.childNode(withName: "ground")
-        
         ground.enumerateChildNodes(withName: "ground") { (node, stop) in
-            let ground = node as! SKSpriteNode
-            if ground.texture == nil {
-                ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
+            let node = node as! SKSpriteNode
+            if node.texture == nil {
+                node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
             } else {
-                ground.physicsBody = SKPhysicsBody(texture: ground.texture!, size: ground.texture!.size())
+                node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
             }
-            self.player.spriteComponent.setUpLight(ground, normalMap: false)
             
-            let body = ground.physicsBody
+            let body = node.physicsBody
             body?.restitution = 0.0
             body?.categoryBitMask = PhysicsCategory.Ground
             body?.contactTestBitMask = PhysicsCategory.Player
@@ -272,18 +270,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func setUpRock() {
 //        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
-//        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
     }
     
     func setUpLighting() {
         let lightAffectedNodesWithMapping = [
             "Joy Z-2",
-            "Joy Z-3",
-            "Joy Z3"
+            "Joy Z3",
+            //"Sadness Z-2",
+            "Anger Z-2",
         ]
         let lightAffectedNodesWOMapping = [
             "Joy Z2",
-            "Joy Z-4"
+            "Joy Z-4",
+            "Sadness Z3",
+            "Anger Z-4",
         ]
         
         // With mapping

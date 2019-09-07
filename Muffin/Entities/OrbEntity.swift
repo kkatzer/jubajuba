@@ -11,7 +11,6 @@ import SpriteKit
 import GameplayKit
 
 enum Type: Int {
-    case none = 0
     case joy = 1
     case sadness = 2
     case anger = 3
@@ -20,9 +19,9 @@ enum Type: Int {
 }
 
 class OrbEntity: GKEntity {
+    
     var spriteComponent: SpriteComponent!
     var orbComponent: OrbComponent!
-    
     let type: Type!
     let player: PlayerEntity!
     
@@ -32,14 +31,39 @@ class OrbEntity: GKEntity {
         
         super.init()
         
-        spriteComponent = SpriteComponent(entity: self, node: node, type: type)
+        spriteComponent = SpriteComponent(entity: self, node: node)
         addComponent(spriteComponent)
         
         orbComponent = OrbComponent(entity: self, type: type)
         addComponent(orbComponent)
+        
+        switch type {
+        case .joy:
+            self.setUpLightNode(UIColor.yellow)
+        //UIColor(red: <#T##CGFloat#>, green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
+        case .anger:
+            self.setUpLightNode(UIColor.red)
+        case .sadness:
+            self.setUpLightNode(UIColor.blue)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUpLightNode(_ color: UIColor) {
+        let lightNode = SKLightNode()
+        lightNode.position = CGPoint()
+        lightNode.ambientColor = color
+        lightNode.lightColor = color
+        lightNode.shadowColor = UIColor.black
+        lightNode.falloff = 4.5
+        
+        let node = self.spriteComponent.node
+        
+        node.addChild(lightNode)
+        
+        spriteComponent.setUpLight(node, normalMap: true)
     }
 }
