@@ -122,6 +122,9 @@
 		6412B6D8232031E1005DF78B /* Dash.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Dash.atlas; sourceTree = "<group>"; };
 		6412B6D9232031E1005DF78B /* Falling.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Falling.atlas; sourceTree = "<group>"; };
 		6412B6E623203225005DF78B /* AssetsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsUtil.swift; sourceTree = "<group>"; };
+		64599C5A2324770D000FC978 /* CutsceneHapinnes.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneHapinnes.mp4; sourceTree = "<group>"; };
+		64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneSadness.mp4; sourceTree = "<group>"; };
+		64599C5C2324770E000FC978 /* CutsceneAngry.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneAngry.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +255,7 @@
 		562FF465230AE68B00D0838B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				64599C59232476DA000FC978 /* Cutscenes */,
 				1F44B75623228BC000D89415 /* SFX */,
 				5642ADFB230F1AFF0065FBC0 /* Personagem.png */,
 			);
@@ -284,6 +288,16 @@
 				6412B6E623203225005DF78B /* AssetsUtil.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		64599C59232476DA000FC978 /* Cutscenes */ = {
+			isa = PBXGroup;
+			children = (
+				64599C5C2324770E000FC978 /* CutsceneAngry.mp4 */,
+				64599C5A2324770D000FC978 /* CutsceneHapinnes.mp4 */,
+				64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */,
+			);
+			path = Cutscenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -555,7 +569,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,7 +587,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
