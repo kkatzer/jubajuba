@@ -35,10 +35,13 @@ class FloatingOnlyState: GKState {
         scene.physicsWorld.gravity.dy = 0
         move.water = true
         move.ground = false
+        node.removeAllActions()
+        // animation
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Floating, timePerFrame: 0.05, resize: true, restore: true)), withKey: "floating")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == JoyGoingUpState.self) || (stateClass == WaterSadState.self) || (stateClass == PlayingState.self) // || (stateClass == WaterDashState.self)
+        return (stateClass == JoyGoingUpState.self) || (stateClass == WaterSadState.self) // || (stateClass == PlayingState.self) // || (stateClass == WaterDashState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval) {

@@ -35,6 +35,9 @@ class SinkingState: GKState {
         node.physicsBody?.linearDamping = 1
         move.water = true
         move.ground = false
+        node.removeAllActions()
+        // animation
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimmingStart")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

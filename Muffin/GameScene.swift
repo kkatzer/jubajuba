@@ -32,6 +32,7 @@ struct Animations {
     static let Floating: [SKTexture] = AssetsUtil.getSprites(named: "Floating")
     static let Fly: [SKTexture] = AssetsUtil.getSprites(named: "Fly")
     static let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
+    static let Gliding: [SKTexture] = AssetsUtil.getSprites(named: "Gliding")
     static let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
     static let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
     static let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
@@ -197,7 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     @objc func sink() {
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterSadState.self)
-        } else if stateMachine.currentState is PlayingState {
+        } else if stateMachine.currentState is PlayingState || stateMachine.currentState is JoyGlidingState {
             if checkGroundContact() {
                 jump()
             } else {
@@ -335,6 +336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func didBegin(_ contact: SKPhysicsContact) {
         var other: SKPhysicsBody = contact.bodyA
+        
         if contact.bodyA.categoryBitMask == PhysicsCategory.Player {
             other = contact.bodyB
         } else if contact.bodyB.categoryBitMask == PhysicsCategory.Player {

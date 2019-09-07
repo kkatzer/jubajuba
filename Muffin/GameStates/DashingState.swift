@@ -45,6 +45,7 @@ class DashingState: GKState {
         move.water = false
         move.ground = false
         move.dash(left: self.left)
+        node.removeAllActions()
         node.run(SKAction.animate(with: Animations.Dash, timePerFrame: 0.02, resize: true, restore: true))
         if (left) {
             node.xScale = abs(node.xScale) * -1.0
@@ -60,6 +61,7 @@ class DashingState: GKState {
     
     override func update(deltaTime seconds: TimeInterval) {
         if abs((node.physicsBody?.velocity.dx)!) <= 150 {
+            move.stop()
             scene.stateMachine.enter(PlayingState.self)
         }
     }

@@ -34,6 +34,15 @@ class WaterDashState: GKState {
         move.water = true
         move.ground = false
         move.dash(left: self.left)
+        node.removeAllActions()
+        // animation
+        node.run(SKAction.animate(with: Animations.Dash, timePerFrame: 0.02, resize: true, restore: true))
+        if (left) {
+            node.xScale = abs(node.xScale) * -1.0
+        } else {
+            node.xScale = abs(node.xScale) * 1.0
+        }
+
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -41,7 +50,7 @@ class WaterDashState: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        if abs((node.physicsBody?.velocity.dx)!) <= 300 {
+        if abs((node.physicsBody?.velocity.dx)!) <= 0.415*move.dashImpulse {
             scene.stateMachine.enter(FloatingUpState.self)
         }
     }
