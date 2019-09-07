@@ -29,7 +29,7 @@ class DashingState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 3.0
+        SFX.volume = 1.0
         SFX.prepareToPlay()
         
         super.init()

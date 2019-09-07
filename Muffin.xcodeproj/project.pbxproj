@@ -10,8 +10,12 @@
 		0D00DFE02322F8C400FF8EF5 /* Gliding.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */; };
 		0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D49E38723214E06009AE94E /* FloatingOnlyState.swift */; };
 		1F37A8572322C2F400CFAF46 /* Jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A8562322C2F400CFAF46 /* Jump.wav */; };
-		1F37A85B2322D79700CFAF46 /* Dash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A85A2322D79700CFAF46 /* Dash.wav */; };
+		1F37A85B2322D79700CFAF46 /* JoyUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A85A2322D79700CFAF46 /* JoyUp.wav */; };
 		1F37A85E2322E26C00CFAF46 /* Steps.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A85D2322E26B00CFAF46 /* Steps.wav */; };
+		1F37A8602323FEC200CFAF46 /* Dash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A85F2323FEC200CFAF46 /* Dash.wav */; };
+		1F37A8622324070100CFAF46 /* Splash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A8612324070100CFAF46 /* Splash.wav */; };
+		1F37A8642324080A00CFAF46 /* Under the Water.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A8632324080A00CFAF46 /* Under the Water.wav */; };
+		1F37A86623240CA100CFAF46 /* Stone Breaking.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F37A86523240CA100CFAF46 /* Stone Breaking.wav */; };
 		1F44B75923228BD500D89415 /* Sadness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75823228BD500D89415 /* Sadness.wav */; };
 		1F44B75B23228BDA00D89415 /* Menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75A23228BDA00D89415 /* Menu.wav */; };
 		1F44B75D23228BE300D89415 /* Joy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1F44B75C23228BE300D89415 /* Joy.wav */; };
@@ -61,8 +65,12 @@
 		0D49E38723214E06009AE94E /* FloatingOnlyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingOnlyState.swift; sourceTree = "<group>"; };
 		1F26B7C9230D7348001BBDCE /* OrbComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrbComponent.swift; sourceTree = "<group>"; };
 		1F37A8562322C2F400CFAF46 /* Jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Jump.wav; sourceTree = "<group>"; };
-		1F37A85A2322D79700CFAF46 /* Dash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dash.wav; sourceTree = "<group>"; };
+		1F37A85A2322D79700CFAF46 /* JoyUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = JoyUp.wav; sourceTree = "<group>"; };
 		1F37A85D2322E26B00CFAF46 /* Steps.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Steps.wav; sourceTree = "<group>"; };
+		1F37A85F2323FEC200CFAF46 /* Dash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dash.wav; sourceTree = "<group>"; };
+		1F37A8612324070100CFAF46 /* Splash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Splash.wav; sourceTree = "<group>"; };
+		1F37A8632324080A00CFAF46 /* Under the Water.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Under the Water.wav"; sourceTree = "<group>"; };
+		1F37A86523240CA100CFAF46 /* Stone Breaking.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Stone Breaking.wav"; sourceTree = "<group>"; };
 		1F44B75823228BD500D89415 /* Sadness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sadness.wav; sourceTree = "<group>"; };
 		1F44B75A23228BDA00D89415 /* Menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Menu.wav; sourceTree = "<group>"; };
 		1F44B75C23228BE300D89415 /* Joy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Joy.wav; sourceTree = "<group>"; };
@@ -123,7 +131,11 @@
 			isa = PBXGroup;
 			children = (
 				1F37A85D2322E26B00CFAF46 /* Steps.wav */,
-				1F37A85A2322D79700CFAF46 /* Dash.wav */,
+				1F37A8612324070100CFAF46 /* Splash.wav */,
+				1F37A8632324080A00CFAF46 /* Under the Water.wav */,
+				1F37A86523240CA100CFAF46 /* Stone Breaking.wav */,
+				1F37A85A2322D79700CFAF46 /* JoyUp.wav */,
+				1F37A85F2323FEC200CFAF46 /* Dash.wav */,
 				1F37A8562322C2F400CFAF46 /* Jump.wav */,
 				1F44B75723228BC700D89415 /* Music */,
 			);
@@ -321,6 +333,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F44B75D23228BE300D89415 /* Joy.wav in Resources */,
+				1F37A8622324070100CFAF46 /* Splash.wav in Resources */,
+				1F37A8602323FEC200CFAF46 /* Dash.wav in Resources */,
 				1F44B75F23228BEA00D89415 /* Anger.wav in Resources */,
 				6412B6E3232031E2005DF78B /* Dash.atlas in Resources */,
 				6412B6E1232031E2005DF78B /* Fly.atlas in Resources */,
@@ -330,14 +344,16 @@
 				6412B6E2232031E2005DF78B /* Heavy.atlas in Resources */,
 				6412B6E4232031E2005DF78B /* Falling.atlas in Resources */,
 				1F37A8572322C2F400CFAF46 /* Jump.wav in Resources */,
-				1F37A85B2322D79700CFAF46 /* Dash.wav in Resources */,
+				1F37A85B2322D79700CFAF46 /* JoyUp.wav in Resources */,
 				6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */,
+				1F37A8642324080A00CFAF46 /* Under the Water.wav in Resources */,
 				6412B6DD232031E1005DF78B /* Fall.atlas in Resources */,
 				1FE4089A2305A2CD006331CC /* Main.storyboard in Resources */,
 				0D00DFE02322F8C400FF8EF5 /* Gliding.atlas in Resources */,
 				6412B6E0232031E2005DF78B /* Swimming.atlas in Resources */,
 				6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */,
 				6412B6DE232031E1005DF78B /* Floating.atlas in Resources */,
+				1F37A86623240CA100CFAF46 /* Stone Breaking.wav in Resources */,
 				1F44B75923228BD500D89415 /* Sadness.wav in Resources */,
 				1F37A85E2322E26C00CFAF46 /* Steps.wav in Resources */,
 				1F44B75B23228BDA00D89415 /* Menu.wav in Resources */,
