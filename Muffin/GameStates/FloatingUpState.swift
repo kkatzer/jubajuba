@@ -35,8 +35,6 @@ class FloatingUpState: GKState {
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody?.linearDamping = 1
         move.water = true
-        
-        print("up")
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

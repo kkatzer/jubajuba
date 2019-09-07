@@ -33,8 +33,10 @@ class JoyGoingUpState: GKState {
         scene.physicsWorld.gravity.dy = -9.8
         node.physicsBody?.linearDamping = 0
         move.water = false
-        move.joyJump()
-        scene.zoom()
+        if !(previousState is WaterJoyState) {
+            move.joyJump()
+            scene.zoom()
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
