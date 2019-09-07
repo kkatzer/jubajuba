@@ -28,7 +28,7 @@ class GameViewController: UIViewController {
                 view.ignoresSiblingOrder = true
                 
                 view.showsFPS = false
-                view.showsPhysics = true
+//                view.showsPhysics = true
                 view.showsNodeCount = false
             }
         }
@@ -37,10 +37,6 @@ class GameViewController: UIViewController {
     override var shouldAutorotate: Bool {
         return true
     }
-
-//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        return [.landscape, .landscapeLeft, .landscapeRight]
-//    }
 
     override var prefersStatusBarHidden: Bool {
         return true
