@@ -29,11 +29,15 @@ class WaterSadState: GKState {
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
-        // things supposed to happen
+        
         scene.physicsWorld.gravity.dy = 1
         node.physicsBody?.linearDamping = 1
         move.water = true
+        move.ground = false
         move.sink()
+        node.removeAllActions()
+        // animation
+        node.run(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.055, resize: true, restore: true))
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

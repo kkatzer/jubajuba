@@ -33,6 +33,11 @@ class PlayingState: GKState {
         scene.physicsWorld.gravity.dy = -9.8
         node.physicsBody?.linearDamping = 0
         move.water = false
+        move.ground = true
+        node.removeAllActions()
+        
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Idle, timePerFrame: 0.05, resize: true, restore: true)), withKey: "idle")
+        
     }
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == JoyGoingUpState.self) || (stateClass == BoostingDownState.self) || (stateClass == SinkingState.self) || (stateClass == DashingState.self)

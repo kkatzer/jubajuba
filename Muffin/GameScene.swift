@@ -25,6 +25,29 @@ struct PhysicsCategory {
     static let Rock: UInt32 = 0b1000
 }
 
+class Animations {
+    
+    static let shared = Animations()
+    
+    let Dash: [SKTexture] = AssetsUtil.getSprites(named: "Dash")
+    let Fall: [SKTexture] = AssetsUtil.getSprites(named: "Fall")
+    let Falling: [SKTexture] = AssetsUtil.getSprites(named: "Falling")
+    let Floating: [SKTexture] = AssetsUtil.getSprites(named: "Floating")
+    let Fly: [SKTexture] = AssetsUtil.getSprites(named: "Fly")
+    let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
+    let Gliding: [SKTexture] = AssetsUtil.getSprites(named: "Gliding")
+    let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
+    let Idle: [SKTexture] = AssetsUtil.getSprites(named: "Idle")
+    let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
+    let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
+    let SwimmingStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimmingStart")
+    let Walk: [SKTexture] = AssetsUtil.getSprites(named: "Walk")
+    
+    private init() {
+        
+    }
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     var deltaTime: TimeInterval = 0
@@ -51,7 +74,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var barrierLeft: SKSpriteNode!
     var barrierRight: SKSpriteNode!
     
-    private var musicPlayer: AVAudioPlayer!
+    private var joyPlayer: AVAudioPlayer!
+    private var sadnessPlayer: AVAudioPlayer!
+    private var angerPlayer: AVAudioPlayer!
+    
+//    private var region: Type? {
+//        didSet {
+//            switch region {
+//            case .joy?:
+//                if sadnessPlayer.isPlaying {
+//                    sadnessPlayer.setVolume(0, fadeDuration: 1.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                        self.sadnessPlayer.stop()
+//                    }
+//                }
+//                joyPlayer.play()
+//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            case .sadness?:
+//                if joyPlayer.isPlaying {
+//                    joyPlayer.setVolume(0, fadeDuration: 2.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                        self.joyPlayer.stop()
+//                    }
+//                } else if angerPlayer.isPlaying {
+//                    angerPlayer.setVolume(0, fadeDuration: 1.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                        self.angerPlayer.stop()
+//                    }
+//                }
+//                sadnessPlayer.play()
+//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            case .anger?:
+//                if sadnessPlayer.isPlaying {
+//                    sadnessPlayer.setVolume(0, fadeDuration: 2.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                        self.sadnessPlayer.stop()
+//                    }
+//                }
+//                angerPlayer.play()
+//                angerPlayer.setVolume(1.5, fadeDuration: 1.0)
+//            default:
+//                print("Error: Could not locate player")
+//            }
+//        }
+//    }
     
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         PlayingState(scene: self, player: self.player),
@@ -79,15 +145,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             setUpWater(water)
         }
         setUpLighting()
-        
         stateMachine.enter(PlayingState.self)
     
-        //playMusic()
+        setUpMusic()
     }
     
     @objc func jump() {
         if player.spriteComponent.node.physicsBody?.allContactedBodies().count != 0 {
             player.movementComponent?.jump()
+            player.movementComponent.ground = false
         }
     }
     
@@ -99,9 +165,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if pos.x < self.view!.frame.width/2 {
             // left
             moveComponent?.moveToTheLeft(true)
+            player.spriteComponent.node.xScale = abs(player.spriteComponent.node.xScale) * -1.0
         } else {
             // right
             moveComponent?.moveToTheRight(true)
+            player.spriteComponent.node.xScale = abs(player.spriteComponent.node.xScale) * 1.0
         }
         
         if sender.state == .ended {
@@ -118,7 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func zoom() {
-        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(250) && (camera?.position.x)! < barrierRight.position.x-CGFloat(250) {
+        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(600) && (camera?.position.x)! < barrierRight.position.x-CGFloat(250) {
             zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
             zoomOutAction.timingMode = .easeInEaseOut
             zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -139,7 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     @objc func sink() {
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterSadState.self)
-        } else if stateMachine.currentState is PlayingState {
+        } else if stateMachine.currentState is PlayingState || stateMachine.currentState is JoyGlidingState {
             if checkGroundContact() {
                 jump()
             } else {
@@ -327,6 +395,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func didBegin(_ contact: SKPhysicsContact) {
         var other: SKPhysicsBody = contact.bodyA
+        
         if contact.bodyA.categoryBitMask == PhysicsCategory.Player {
             other = contact.bodyB
         } else if contact.bodyB.categoryBitMask == PhysicsCategory.Player {
@@ -339,7 +408,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState || stateMachine.currentState is FloatingOnlyState {
                 stateMachine.enter(PlayingState.self)
             }
-        } else if other.categoryBitMask == PhysicsCategory.Water {
+            player.movementComponent.ground = true
+        }
+        
+        if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState {
                 stateMachine.enter(SinkingState.self)
@@ -369,18 +441,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    func playMusic() {
-        
-        let url = Bundle.main.url(forResource: "", withExtension: "")!
-        
+    func setUpMusic() {
+        //Joy
+        let joyURL = Bundle.main.url(forResource: "Joy", withExtension: "wav")!
         do {
-            musicPlayer =  try AVAudioPlayer(contentsOf: url)
+            joyPlayer =  try AVAudioPlayer(contentsOf: joyURL)
         } catch {
             print("Error: Could not load sound file.")
         }
-        musicPlayer.numberOfLoops = -1
-        musicPlayer.prepareToPlay()
-        musicPlayer.play()
+        joyPlayer.numberOfLoops = -1
+        joyPlayer.volume = 0.0
+        joyPlayer.prepareToPlay()
+        
+        //Sadness
+        do {
+            sadnessPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Sadness", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        sadnessPlayer.numberOfLoops = -1
+        sadnessPlayer.volume = 0.0
+        sadnessPlayer.prepareToPlay()
+        
+        //Anger
+        do {
+            angerPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Anger", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        angerPlayer.numberOfLoops = -1
+        angerPlayer.volume = 0.0
+        angerPlayer.prepareToPlay()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -405,6 +496,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         } else if posCamR > posBarR {
             camera?.position.x = posBarR - width/4
         }
+        
+//        if player.spriteComponent.node.position.x < 3150 {
+//            if region != .joy {
+//                region = .joy
+//            }
+//            if !joyPlayer.isPlaying {
+//                joyPlayer.play()
+//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            }
+//        } else if player.spriteComponent.node.position.x < 4870 {
+//            if region != .sadness {
+//                region = .sadness
+//            }
+//            if !sadnessPlayer.isPlaying {
+//                sadnessPlayer.play()
+//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            }
+//        } else {
+//            if region != .anger {
+//                region = .anger
+//            }
+//            if !angerPlayer.isPlaying {
+//                angerPlayer.play()
+//                angerPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            }
+//        }
         
         stateMachine.update(deltaTime: deltaTime)
     }

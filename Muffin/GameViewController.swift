@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let scene = GKScene(fileNamed: "GameSceneJoy") {
+        if let scene = GKScene(fileNamed: "GameSceneSad") {
         sceneNode = scene.rootNode as! GameScene?
             
             sceneNode.scaleMode = .aspectFill
@@ -28,7 +28,7 @@ class GameViewController: UIViewController {
                 view.ignoresSiblingOrder = true
                 
                 view.showsFPS = false
-//                view.showsPhysics = true
+                view.showsPhysics = true
                 view.showsNodeCount = false
             }
         }

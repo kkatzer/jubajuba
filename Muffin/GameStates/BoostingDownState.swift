@@ -30,9 +30,16 @@ class BoostingDownState: GKState {
         scene.swipeLeftRec.isEnabled = true
         scene.swipeRightRec.isEnabled = true
         
-        scene.physicsWorld.gravity.dy = -9.8
+        if previousState is JoyGlidingState {
+            scene.physicsWorld.gravity.dy = -2
+        } else {
+            scene.physicsWorld.gravity.dy = -5
+        }
         move.water = false
+        move.ground = false
         move.sink()
+        node.removeAllActions()
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.02, resize: true, restore: true)), withKey: "heavy")
         
     }
     
