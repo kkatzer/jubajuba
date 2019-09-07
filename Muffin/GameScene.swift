@@ -93,9 +93,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     @objc func walk(sender: UILongPressGestureRecognizer) {
         let moveComponent = player.movementComponent
-        let node = player.spriteComponent.node
         let pos = sender.location(in: self.view!)
         
+        // comparar com o player e nao a view
         if pos.x < self.view!.frame.width/2 {
             // left
             moveComponent?.moveToTheLeft(true)
@@ -118,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func zoom() {
-        if (camera?.position.x)! > CGFloat(90) {
+        if (camera?.position.x)! > CGFloat(200) {
             zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
             zoomOutAction.timingMode = .easeInEaseOut
             zoomInAction = SKAction.scale(to: 1, duration: 1)
