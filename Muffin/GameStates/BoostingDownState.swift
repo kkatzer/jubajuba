@@ -39,7 +39,7 @@ class BoostingDownState: GKState {
         move.ground = false
         move.sink()
         node.removeAllActions()
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Heavy, timePerFrame: 0.02, resize: true, restore: true)), withKey: "heavy")
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.02, resize: true, restore: true)), withKey: "heavy")
         
     }
     

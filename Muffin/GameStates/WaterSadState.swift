@@ -37,7 +37,7 @@ class WaterSadState: GKState {
         move.sink()
         node.removeAllActions()
         // animation
-        node.run(SKAction.animate(with: Animations.Heavy, timePerFrame: 0.055, resize: true, restore: true))
+        node.run(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.055, resize: true, restore: true))
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

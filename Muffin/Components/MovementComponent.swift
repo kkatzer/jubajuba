@@ -38,9 +38,6 @@ class MovementComponent: GKComponent {
     }
     
     init(entity: GKEntity) {
-        self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
-        self.nodeBody = spriteComponent.node.physicsBody!
-        
         do {
             jumpSFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Jump", withExtension: "wav")!)
         } catch {
@@ -77,7 +74,7 @@ class MovementComponent: GKComponent {
     func jump() {
         jumpSFX.play()
         nodeBody.velocity.dy = jumpVelocity
-        self.spriteComponent.node.run(SKAction.animate(with: Animations.Jump, timePerFrame: 0.03, resize: true, restore: true))
+        self.spriteComponent.node.run(SKAction.animate(with: Animations.shared.Jump, timePerFrame: 0.03, resize: true, restore: true))
         
     }
     
@@ -120,7 +117,7 @@ class MovementComponent: GKComponent {
                         stepsSFX.play()
                     }
                     if (node.action(forKey: "walking") == nil) {
-                        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Walk, timePerFrame: 0.025, resize: true, restore: true)), withKey: "walking")
+                        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Walk, timePerFrame: 0.025, resize: true, restore: true)), withKey: "walking")
                         node.xScale = abs(node.xScale) * 1.0
                     }
                 }
@@ -131,7 +128,7 @@ class MovementComponent: GKComponent {
                         stepsSFX.play()
                     }
                     if (node.action(forKey: "walking") == nil) {
-                        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Walk, timePerFrame: 0.025, resize: true, restore: true)), withKey: "walking")
+                        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Walk, timePerFrame: 0.025, resize: true, restore: true)), withKey: "walking")
                         node.xScale = abs(node.xScale) * -1.0
                     }
                 }

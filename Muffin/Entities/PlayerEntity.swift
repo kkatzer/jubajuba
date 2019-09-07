@@ -21,10 +21,11 @@ class PlayerEntity: GKEntity {
         spriteComponent = SpriteComponent(entity: self, node: node)
         addComponent(spriteComponent)
         
+        setUpPlayerProperties()
+
         movementComponent = MovementComponent(entity: self)
         addComponent(movementComponent)
         
-        setUpPlayerProperties()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,7 +34,8 @@ class PlayerEntity: GKEntity {
     
     func setUpPlayerProperties() {
         let node = self.spriteComponent.node
-        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: CGSize(width: 0.3*node.texture!.size().width, height: 0.3*node.texture!.size().height))
+        //node.physicsBody = SKPhysicsBody(texture: node.texture!, size: CGSize(width: 40.9, height: 76.8))
+        node.physicsBody = SKPhysicsBody(circleOfRadius: 38)
         node.zPosition = Layer.player.rawValue
         node.physicsBody?.isDynamic = true
         node.physicsBody?.allowsRotation = false

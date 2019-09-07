@@ -25,20 +25,27 @@ struct PhysicsCategory {
     static let Rock: UInt32 = 0b1000
 }
 
-struct Animations {
-    static let Dash: [SKTexture] = AssetsUtil.getSprites(named: "Dash")
-    static let Fall: [SKTexture] = AssetsUtil.getSprites(named: "Fall")
-    static let Falling: [SKTexture] = AssetsUtil.getSprites(named: "Falling")
-    static let Floating: [SKTexture] = AssetsUtil.getSprites(named: "Floating")
-    static let Fly: [SKTexture] = AssetsUtil.getSprites(named: "Fly")
-    static let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
-    static let Gliding: [SKTexture] = AssetsUtil.getSprites(named: "Gliding")
-    static let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
-    static let Idle: [SKTexture] = AssetsUtil.getSprites(named: "Idle")
-    static let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
-    static let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
-    static let SwimmingStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimmingStart")
-    static let Walk: [SKTexture] = AssetsUtil.getSprites(named: "Walk")
+class Animations {
+    
+    static let shared = Animations()
+    
+    let Dash: [SKTexture] = AssetsUtil.getSprites(named: "Dash")
+    let Fall: [SKTexture] = AssetsUtil.getSprites(named: "Fall")
+    let Falling: [SKTexture] = AssetsUtil.getSprites(named: "Falling")
+    let Floating: [SKTexture] = AssetsUtil.getSprites(named: "Floating")
+    let Fly: [SKTexture] = AssetsUtil.getSprites(named: "Fly")
+    let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
+    let Gliding: [SKTexture] = AssetsUtil.getSprites(named: "Gliding")
+    let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
+    let Idle: [SKTexture] = AssetsUtil.getSprites(named: "Idle")
+    let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
+    let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
+    let SwimmingStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimmingStart")
+    let Walk: [SKTexture] = AssetsUtil.getSprites(named: "Walk")
+    
+    private init() {
+        
+    }
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
@@ -71,46 +78,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private var sadnessPlayer: AVAudioPlayer!
     private var angerPlayer: AVAudioPlayer!
     
-    private var region: Type? {
-        didSet {
-            switch region {
-            case .joy?:
-                if sadnessPlayer.isPlaying {
-                    sadnessPlayer.setVolume(0, fadeDuration: 1.0)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.sadnessPlayer.stop()
-                    }
-                }
-                joyPlayer.play()
-                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
-            case .sadness?:
-                if joyPlayer.isPlaying {
-                    joyPlayer.setVolume(0, fadeDuration: 2.0)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        self.joyPlayer.stop()
-                    }
-                } else if angerPlayer.isPlaying {
-                    angerPlayer.setVolume(0, fadeDuration: 1.0)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        self.angerPlayer.stop()
-                    }
-                }
-                sadnessPlayer.play()
-                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
-            case .anger?:
-                if sadnessPlayer.isPlaying {
-                    sadnessPlayer.setVolume(0, fadeDuration: 2.0)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        self.sadnessPlayer.stop()
-                    }
-                }
-                angerPlayer.play()
-                angerPlayer.setVolume(1.5, fadeDuration: 1.0)
-            default:
-                print("Error: Could not locate player")
-            }
-        }
-    }
+//    private var region: Type? {
+//        didSet {
+//            switch region {
+//            case .joy?:
+//                if sadnessPlayer.isPlaying {
+//                    sadnessPlayer.setVolume(0, fadeDuration: 1.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                        self.sadnessPlayer.stop()
+//                    }
+//                }
+//                joyPlayer.play()
+//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            case .sadness?:
+//                if joyPlayer.isPlaying {
+//                    joyPlayer.setVolume(0, fadeDuration: 2.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                        self.joyPlayer.stop()
+//                    }
+//                } else if angerPlayer.isPlaying {
+//                    angerPlayer.setVolume(0, fadeDuration: 1.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                        self.angerPlayer.stop()
+//                    }
+//                }
+//                sadnessPlayer.play()
+//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            case .anger?:
+//                if sadnessPlayer.isPlaying {
+//                    sadnessPlayer.setVolume(0, fadeDuration: 2.0)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                        self.sadnessPlayer.stop()
+//                    }
+//                }
+//                angerPlayer.play()
+//                angerPlayer.setVolume(1.5, fadeDuration: 1.0)
+//            default:
+//                print("Error: Could not locate player")
+//            }
+//        }
+//    }
     
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         PlayingState(scene: self, player: self.player),
@@ -179,7 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func zoom() {
-        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(250) && (camera?.position.x)! < barrierRight.position.x-CGFloat(250) {
+        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(600) && (camera?.position.x)! < barrierRight.position.x-CGFloat(250) {
             zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
             zoomOutAction.timingMode = .easeInEaseOut
             zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -490,31 +497,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             camera?.position.x = posBarR - width/4
         }
         
-        if player.spriteComponent.node.position.x < 3150 {
-            if region != .joy {
-                region = .joy
-            }
-            if !joyPlayer.isPlaying {
-                joyPlayer.play()
-                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
-            }
-        } else if player.spriteComponent.node.position.x < 4870 {
-            if region != .sadness {
-                region = .sadness
-            }
-            if !sadnessPlayer.isPlaying {
-                sadnessPlayer.play()
-                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
-            }
-        } else {
-            if region != .anger {
-                region = .anger
-            }
-            if !angerPlayer.isPlaying {
-                angerPlayer.play()
-                angerPlayer.setVolume(1.5, fadeDuration: 2.0)
-            }
-        }
+//        if player.spriteComponent.node.position.x < 3150 {
+//            if region != .joy {
+//                region = .joy
+//            }
+//            if !joyPlayer.isPlaying {
+//                joyPlayer.play()
+//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            }
+//        } else if player.spriteComponent.node.position.x < 4870 {
+//            if region != .sadness {
+//                region = .sadness
+//            }
+//            if !sadnessPlayer.isPlaying {
+//                sadnessPlayer.play()
+//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            }
+//        } else {
+//            if region != .anger {
+//                region = .anger
+//            }
+//            if !angerPlayer.isPlaying {
+//                angerPlayer.play()
+//                angerPlayer.setVolume(1.5, fadeDuration: 2.0)
+//            }
+//        }
         
         stateMachine.update(deltaTime: deltaTime)
     }

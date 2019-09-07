@@ -63,7 +63,7 @@ class SinkingState: GKState {
         move.ground = false
         node.removeAllActions()
         // animation
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimmingStart")
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimmingStart")
         
         if (!SFX.isPlaying) {
             SFX.play()

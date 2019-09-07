@@ -36,7 +36,7 @@ class PlayingState: GKState {
         move.ground = true
         node.removeAllActions()
         
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Idle, timePerFrame: 0.1, resize: true, restore: true)), withKey: "idle")
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Idle, timePerFrame: 0.05, resize: true, restore: true)), withKey: "idle")
         
     }
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

@@ -46,7 +46,7 @@ class DashingState: GKState {
         move.ground = false
         move.dash(left: self.left)
         node.removeAllActions()
-        node.run(SKAction.animate(with: Animations.Dash, timePerFrame: 0.02, resize: true, restore: true))
+        node.run(SKAction.animate(with: Animations.shared.Dash, timePerFrame: 0.02, resize: true, restore: true))
         if (left) {
             node.xScale = abs(node.xScale) * -1.0
         } else {

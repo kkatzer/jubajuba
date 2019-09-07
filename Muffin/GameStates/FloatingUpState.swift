@@ -40,12 +40,12 @@ class FloatingUpState: GKState {
         
         if !(previousState is SinkingState) {
             let sequence = SKAction.sequence([
-                .animate(with: Animations.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true),
-                .animate(with: Animations.Swimming, timePerFrame: 0.05, resize: true, restore: true)
+                .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true),
+                .animate(with: Animations.shared.Swimming, timePerFrame: 0.05, resize: true, restore: true)
                 ])
             node.run(sequence)
         } else {
-            node.run(SKAction.repeatForever(SKAction.animate(with: Animations.Swimming, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimming")
+            node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Swimming, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimming")
             
         }
     }
