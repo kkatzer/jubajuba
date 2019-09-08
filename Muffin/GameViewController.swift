@@ -48,11 +48,14 @@ class GameViewController: UIViewController {
         
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = self.view.bounds
+        playerLayer.videoGravity = .resizeAspectFill
         self.view.layer.addSublayer(playerLayer)
         player.play()
     }
     
     @objc func playerDidFinishPlaying(note: NSNotification) {
+        sceneNode.isPaused = false
+
         if let orb = lastPlayedCutscene {
             switch orb {
             case .Joy:
@@ -82,10 +85,16 @@ class GameViewController: UIViewController {
                 view.ignoresSiblingOrder = true
                 
                 view.showsFPS = false
-                view.showsPhysics = true
+                view.showsPhysics = false
                 view.showsNodeCount = false
             }
         }
+    }
+    
+    func loadSceneWithDelay(fileNamed name: String) {
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {timer in
+            self.loadScene(fileNamed: name)
+        })
     }
 }
 
@@ -97,10 +106,10 @@ extension GameViewController: TutorialView {
             playVideo(named: "CutsceneJoy")
         case .Sadness:
             playVideo(named: "CutsceneSadness")
-            loadScene(fileNamed: "GameSceneSad")
+            loadSceneWithDelay(fileNamed: "GameSceneSad")
         case .Anger:
             playVideo(named: "CutsceneAnger")
-            loadScene(fileNamed: "GameSceneAnger")
+            loadSceneWithDelay(fileNamed: "GameSceneAnger")
         }
     }
 }

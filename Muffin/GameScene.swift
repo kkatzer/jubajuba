@@ -216,6 +216,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func jumpUp() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.joyEnabled == false {
+                return
+            }
+        }
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterJoyState.self)
         } else if stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is PlayingState {
@@ -243,6 +248,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func sink() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.sadEnabled == false {
+                return
+            }
+        }
+        
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterSadState.self)
         } else if stateMachine.currentState is PlayingState || stateMachine.currentState is JoyGlidingState {
@@ -255,6 +266,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func leftDash() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.angerEnabled == false {
+                return
+            }
+        }
+        
         if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
             stateMachine.state(forClass: WaterDashState.self)!.left = true
             stateMachine.enter(WaterDashState.self)
@@ -265,6 +282,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func rightDash() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.angerEnabled == false {
+                return
+            }
+        }
+        
         if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
             stateMachine.state(forClass: WaterDashState.self)!.left = false
             stateMachine.enter(WaterDashState.self)
@@ -477,7 +500,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             player.movementComponent.stop()
             other.node?.removeFromParent()
             if let orbSprite = self.childNode(withName: "JoySprite") as? SKSpriteNode {
-                gameViewDelegate?.displayCutscene(forOrb: Orb.Joy)
+                self.gameViewDelegate?.displayCutscene(forOrb: Orb.Joy)
+                orbSprite.removeFromParent()
+            } else if let orbSprite = self.childNode(withName: "SadSprite") as? SKSpriteNode {
+                self.gameViewDelegate?.displayCutscene(forOrb: Orb.Sadness)
+                orbSprite.removeFromParent()
+            } else if let orbSprite = self.childNode(withName: "AngerSprite") as? SKSpriteNode {
+                self.gameViewDelegate?.displayCutscene(forOrb: Orb.Anger)
                 orbSprite.removeFromParent()
             }
         }
