@@ -50,6 +50,8 @@
 		5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642ADFB230F1AFF0065FBC0 /* Personagem.png */; };
 		56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56741CFF230D89F6000393A5 /* CGPointExtensions.swift */; };
 		56B5AECD232482C900F25B74 /* SwimActionStart.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 56B5AECC232482C900F25B74 /* SwimActionStart.atlas */; };
+		56DFA660232542FD00FD7845 /* BoostDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA65F232542FD00FD7845 /* BoostDown.wav */; };
+		56DFA66223254FC300FD7845 /* FlyGlideTransition.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA66123254FC300FD7845 /* FlyGlideTransition.atlas */; };
 		56F86653232416E300AC468A /* GameSceneAnger.sks in Resources */ = {isa = PBXBuildFile; fileRef = 56F86652232416E300AC468A /* GameSceneAnger.sks */; };
 		6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6CF232031E0005DF78B /* GettingUp.atlas */; };
 		6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D0232031E0005DF78B /* SwimmingStart.atlas */; };
@@ -111,6 +113,8 @@
 		5642ADFB230F1AFF0065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
 		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
 		56B5AECC232482C900F25B74 /* SwimActionStart.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SwimActionStart.atlas; sourceTree = "<group>"; };
+		56DFA65F232542FD00FD7845 /* BoostDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BoostDown.wav; sourceTree = "<group>"; };
+		56DFA66123254FC300FD7845 /* FlyGlideTransition.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = FlyGlideTransition.atlas; sourceTree = "<group>"; };
 		56F86652232416E300AC468A /* GameSceneAnger.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneAnger.sks; sourceTree = "<group>"; };
 		6412B6CF232031E0005DF78B /* GettingUp.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GettingUp.atlas; sourceTree = "<group>"; };
 		6412B6D0232031E0005DF78B /* SwimmingStart.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SwimmingStart.atlas; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 				1F37A85A2322D79700CFAF46 /* JoyUp.wav */,
 				1F37A85F2323FEC200CFAF46 /* Dash.wav */,
 				1F37A8562322C2F400CFAF46 /* Jump.wav */,
+				56DFA65F232542FD00FD7845 /* BoostDown.wav */,
 				1F44B75723228BC700D89415 /* Music */,
 			);
 			path = SFX;
@@ -268,6 +273,7 @@
 				6412B6D9232031E1005DF78B /* Falling.atlas */,
 				6412B6D3232031E1005DF78B /* Floating.atlas */,
 				6412B6D6232031E1005DF78B /* Fly.atlas */,
+				56DFA66123254FC300FD7845 /* FlyGlideTransition.atlas */,
 				6412B6CF232031E0005DF78B /* GettingUp.atlas */,
 				0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */,
 				6412B6D7232031E1005DF78B /* Heavy.atlas */,
@@ -351,10 +357,12 @@
 				0D00B71A2324370F00C5C4D4 /* Sadness.wav in Resources */,
 				1F37A8622324070100CFAF46 /* Splash.wav in Resources */,
 				1F37A8602323FEC200CFAF46 /* Dash.wav in Resources */,
+				56DFA66223254FC300FD7845 /* FlyGlideTransition.atlas in Resources */,
 				0D00B7192324370F00C5C4D4 /* Menu.wav in Resources */,
 				6412B6E3232031E2005DF78B /* Dash.atlas in Resources */,
 				6412B6E1232031E2005DF78B /* Fly.atlas in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
+				56DFA660232542FD00FD7845 /* BoostDown.wav in Resources */,
 				6412B6DC232031E1005DF78B /* Walk.atlas in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */,

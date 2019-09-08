@@ -34,6 +34,7 @@ class Animations {
     let Falling: [SKTexture] = AssetsUtil.getSprites(named: "Falling")
     let Floating: [SKTexture] = AssetsUtil.getSprites(named: "Floating")
     let Fly: [SKTexture] = AssetsUtil.getSprites(named: "Fly")
+    let FlyGlideTransition: [SKTexture] = AssetsUtil.getSprites(named: "FlyGlideTransition")
     let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
     let Gliding: [SKTexture] = AssetsUtil.getSprites(named: "Gliding")
     let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
@@ -416,11 +417,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
-            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState {
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState || stateMachine.currentState is BoostingDownState {
                 stateMachine.enter(SinkingState.self)
-            }
-            if stateMachine.currentState is BoostingDownState {
-                stateMachine.enter(WaterSadState.self)
             }
         }
     }

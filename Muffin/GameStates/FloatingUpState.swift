@@ -38,7 +38,7 @@ class FloatingUpState: GKState {
         move.ground = false
         node.removeAllActions()
         
-        if !(previousState is SinkingState) {
+        if !(previousState is SinkingState) && !(previousState is BoostingDownState) {
             node.run(SKAction.animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true))
         }
         node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Swimming, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimming")

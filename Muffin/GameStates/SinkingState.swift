@@ -55,19 +55,20 @@ class SinkingState: GKState {
         scene.swipeRightRec.isEnabled = true
         
         scene.physicsWorld.gravity.dy = 1
-        node.physicsBody?.linearDamping = 1
+        node.physicsBody?.linearDamping = 1.5
         if (!move.water) {
             splashSFX.play()
         }
         move.water = true
         move.ground = false
         node.removeAllActions()
-        node.run(SKAction.sequence([
-            .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.06, resize: true, restore: true),
-            .run {
-                self.scene.stateMachine.enter(FloatingUpState.self)
-            }
-            ]))
+        let sequence = SKAction.sequence([
+                .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.06, resize: true, restore: true),
+                .run {
+                    self.scene.stateMachine.enter(FloatingUpState.self)
+                }
+                ])
+        node.run(sequence)
         
         if (!SFX.isPlaying) {
             SFX.play()

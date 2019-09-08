@@ -45,13 +45,19 @@ class WaterJoyState: GKState {
         node.physicsBody!.linearDamping = 1
         move.water = true
         move.ground = false
-        SFX.play()
-        move.joyJump()
         //scene.zoom()
         node.removeAllActions()
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
-        
-        scene.stateMachine.enter(FloatingUpState.self)
+        node.run(SKAction.sequence([
+            .animate(with: Animations.shared.SwimActionStart, timePerFrame: 0.02, resize: true, restore: true),
+            .run {
+                self.SFX.play()
+                self.move.joyJump()
+                },
+            .animate(with: Animations.shared.SwimActionEnd, timePerFrame: 0.02, resize: true, restore: true),
+            .run {
+                self.scene.stateMachine.enter(FloatingUpState.self)
+            }
+            ]))
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

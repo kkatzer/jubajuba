@@ -46,7 +46,15 @@ class DashingState: GKState {
         move.ground = false
         move.dash(left: self.left)
         node.removeAllActions()
-        node.run(SKAction.animate(with: Animations.shared.Dash, timePerFrame: 0.02, resize: true, restore: true))
+        let sequence = SKAction.sequence([
+            .animate(with: Animations.shared.Dash, timePerFrame: 0.02, resize: true, restore: true),
+            .run {
+                self.move.stopDash()
+                self.scene.stateMachine.enter(PlayingState.self)
+            }
+            ])
+        node.run(sequence)
+        
         if (left) {
             node.xScale = abs(node.xScale) * -1.0
         } else {
@@ -57,12 +65,5 @@ class DashingState: GKState {
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == PlayingState.self) || (stateClass == SinkingState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        if abs((node.physicsBody?.velocity.dx)!) <= 150 {
-            move.stopDash()
-            scene.stateMachine.enter(PlayingState.self)
-        }
     }
 }

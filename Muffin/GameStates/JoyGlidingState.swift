@@ -34,8 +34,13 @@ class JoyGlidingState: GKState {
         move.water = false
         move.ground = false
         node.removeAllActions()
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Gliding, timePerFrame: 0.022, resize: true, restore: true)), withKey: "gliding")
-        // falling?
+        
+        let sequence = SKAction.sequence([
+            .animate(with: Animations.shared.FlyGlideTransition, timePerFrame: 0.008, resize: true, restore: true),
+            .repeatForever(.animate(with: Animations.shared.Gliding, timePerFrame: 0.025, resize: true, restore: true))
+            // falling?
+            ])
+        node.run(sequence)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
