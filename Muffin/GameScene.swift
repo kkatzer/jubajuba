@@ -445,7 +445,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             "Anger Z-2",
         ]
         let lightAffectedNodesWOMapping = [
-            "Joy Z2",
+            //"Joy Z2", // creative decision (also sad mushrooms)
+            "Joy Z-3",
             "Joy Z-4",
             "Sadness Z-6",
             "Sadness Z3",

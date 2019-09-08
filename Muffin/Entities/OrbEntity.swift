@@ -58,7 +58,7 @@ class OrbEntity: GKEntity {
         lightNode.ambientColor = UIColor.white
         lightNode.lightColor = color
         lightNode.shadowColor = UIColor.black
-        lightNode.falloff = 4
+        lightNode.falloff = 3.5
         
         let node = self.spriteComponent.node
         
