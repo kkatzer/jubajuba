@@ -36,8 +36,11 @@ class FloatingOnlyState: GKState {
         move.water = true
         move.ground = false
         node.removeAllActions()
-        // animation
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Floating, timePerFrame: 0.05, resize: true, restore: true)), withKey: "floating")
+        
+        node.run(SKAction.repeatForever(SKAction.sequence([
+            .animate(with: Animations.shared.Floating, timePerFrame: 0.05, resize: true, restore: true),
+            .animate(with: Animations.shared.Floating.reversed(), timePerFrame: 0.05, resize: true, restore: true)
+            ])))
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

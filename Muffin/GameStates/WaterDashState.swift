@@ -59,6 +59,7 @@ class WaterDashState: GKState {
                 self.scene.stateMachine.enter(FloatingUpState.self)
             }
             ])
+        
         if (left) {
             node.xScale = abs(node.xScale) * -1.0
         } else {

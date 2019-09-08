@@ -79,7 +79,7 @@ class MovementComponent: GKComponent {
     }
     
     func joyJump() {
-        nodeBody.velocity.dy = water ? 0.5*joyJumpVelocity : joyJumpVelocity
+        nodeBody.velocity.dy = water ? 0.25*joyJumpVelocity : joyJumpVelocity
     }
     
     func sink() {

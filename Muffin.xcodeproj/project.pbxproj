@@ -41,6 +41,8 @@
 		561920D2231FE74400E86F44 /* WaterSadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D1231FE74400E86F44 /* WaterSadState.swift */; };
 		561920D4231FE77200E86F44 /* WaterDashState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D3231FE77200E86F44 /* WaterDashState.swift */; };
 		561920D6231FE79000E86F44 /* DashingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D5231FE79000E86F44 /* DashingState.swift */; };
+		5620399B2325A12F00FAF85E /* Bokeh.sks in Resources */ = {isa = PBXBuildFile; fileRef = 562039992325A12F00FAF85E /* Bokeh.sks */; };
+		5620399C2325A12F00FAF85E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5620399A2325A12F00FAF85E /* Assets.xcassets */; };
 		5620C0A22323F85100BCA21D /* GameSceneSad.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5620C0A12323F85100BCA21D /* GameSceneSad.sks */; };
 		5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */; };
 		562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45C230AE68B00D0838B /* SpriteComponent.swift */; };
@@ -107,6 +109,8 @@
 		561920D1231FE74400E86F44 /* WaterSadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterSadState.swift; sourceTree = "<group>"; };
 		561920D3231FE77200E86F44 /* WaterDashState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDashState.swift; sourceTree = "<group>"; };
 		561920D5231FE79000E86F44 /* DashingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashingState.swift; sourceTree = "<group>"; };
+		562039992325A12F00FAF85E /* Bokeh.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bokeh.sks; sourceTree = "<group>"; };
+		5620399A2325A12F00FAF85E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5620C0A12323F85100BCA21D /* GameSceneSad.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneSad.sks; sourceTree = "<group>"; };
 		5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneJoy.sks; sourceTree = "<group>"; };
 		562FF45C230AE68B00D0838B /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
@@ -230,6 +234,15 @@
 			path = GameStates;
 			sourceTree = "<group>";
 		};
+		5620399823259EF000FAF85E /* VFX */ = {
+			isa = PBXGroup;
+			children = (
+				562039992325A12F00FAF85E /* Bokeh.sks */,
+				5620399A2325A12F00FAF85E /* Assets.xcassets */,
+			);
+			path = VFX;
+			sourceTree = "<group>";
+		};
 		562FF45B230AE68B00D0838B /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +278,7 @@
 		562FF465230AE68B00D0838B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5620399823259EF000FAF85E /* VFX */,
 				64599C59232476DA000FC978 /* Cutscenes */,
 				1F44B75623228BC000D89415 /* SFX */,
 				5642ADFB230F1AFF0065FBC0 /* Personagem.png */,
@@ -370,6 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5620399B2325A12F00FAF85E /* Bokeh.sks in Resources */,
 				64599C5D232484F7000FC978 /* CutsceneAnger.mp4 in Resources */,
 				64599C5E232484F7000FC978 /* CutsceneJoy.mp4 in Resources */,
 				64599C5F232484F7000FC978 /* CutsceneSadness.mp4 in Resources */,
@@ -383,6 +398,7 @@
 				6412B6E1232031E2005DF78B /* Fly.atlas in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
 				6412B6DC232031E1005DF78B /* Walk.atlas in Resources */,
+				5620399C2325A12F00FAF85E /* Assets.xcassets in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */,
 				0D03ADE023245F0300FBF9AC /* Idle.atlas in Resources */,

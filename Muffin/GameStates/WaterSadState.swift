@@ -55,7 +55,7 @@ class WaterSadState: GKState {
             sequence = SKAction.sequence([
                 .animate(with: Animations.shared.SwimActionStart, timePerFrame: 0.03, resize: true, restore: true),
                 .animate(with: Animations.shared.Heavy, timePerFrame: 0.04, resize: true, restore: true),
-                .animate(with: Animations.shared.SwimActionEnd, timePerFrame: 0.04, resize: true, restore: true),
+                .animate(with: Animations.shared.SwimActionEnd, timePerFrame: 0.041, resize: true, restore: true),
                 .run {
                     self.scene.stateMachine.enter(FloatingUpState.self)
                 }

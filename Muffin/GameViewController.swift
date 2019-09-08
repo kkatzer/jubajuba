@@ -23,6 +23,8 @@ class GameViewController: UIViewController {
         
         loadScene(fileNamed: "GameSceneJoy")
         
+        // To do:
+        // allow choice of which orbs to debug with
     }
     
     override var shouldAutorotate: Bool {

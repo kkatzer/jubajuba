@@ -104,6 +104,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private var joyPlayer: AVAudioPlayer!
     private var sadnessPlayer: AVAudioPlayer!
     private var angerPlayer: AVAudioPlayer!
+    
+    private var lastVelocityYStamp: CGFloat!
+    private var secondToLastVelocityYStamp: CGFloat!
         
 //    private var region: Type? {
 //        didSet {
@@ -189,6 +192,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         stateMachine.enter(PlayingState.self)
     
         setUpMusic()
+        
+        setUpLightFX()
+    }
+    
+    func setUpLightFX() {
+        for i in 1...4 {
+            let emitterNode = SKEmitterNode()
+            switch i {
+            case 1:
+                emitterNode.position = CGPoint(x: -0.5*camera!.frame.size.width, y: -0.5*camera!.frame.size.height)
+            case 2:
+                emitterNode.position = CGPoint(x: 0.5*camera!.frame.size.width, y: -0.5*camera!.frame.size.height)
+            case 3:
+                emitterNode.position = CGPoint(x: -0.5*camera!.frame.size.width, y: 0.5*camera!.frame.size.height)
+            case 4:
+                emitterNode.position = CGPoint(x: 0.5*camera!.frame.size.width, y: 0.5*camera!.frame.size.height)
+            default:
+                break
+            }
+            emitterNode.zPosition = 15
+            camera?.addChild(emitterNode)
+        }
+        
+        //turnOffLightFX(duration: 0.0)
+    }
+    
+    func turnOnLightFX(_ color: UIColor, _ time: TimeInterval) {
+        for node in camera!.children {
+            let lightNode = node as! SKLightNode
+            lightNode.lightColor = color
+            lightNode.run(SKAction.scale(to: 1, duration: time))
+        }
+    }
+    
+    func turnOffLightFX(duration time: TimeInterval) {
+        for node in camera!.children {
+            let lightNode = node as! SKLightNode
+            lightNode.isEnabled = false
+            lightNode.run(SKAction.scale(to: 0, duration: time))
+        }
     }
     
     @objc func jump() {
@@ -227,12 +270,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterJoyState.self)
         } else if stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is PlayingState {
+            stateMachine.state(forClass: JoyGoingUpState.self)!.comingFromWaterJoy = false
             stateMachine.enter(JoyGoingUpState.self)
         }
     }
     
     func zoom() {
-        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(600) && (camera?.position.x)! < barrierRight.position.x-CGFloat(250) {
+        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(600) && (camera?.position.x)! < barrierRight.position.x-CGFloat(600) {
             zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
             zoomOutAction.timingMode = .easeInEaseOut
             zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -448,6 +492,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             //"Joy Z2", // creative decision (also sad mushrooms)
             "Joy Z-3",
             "Joy Z-4",
+            "Sadness Z-4",
             "Sadness Z-6",
             "Sadness Z3",
             "Anger Z-4",
@@ -484,7 +529,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             return
         }
         
-        if other.categoryBitMask == PhysicsCategory.Ground {
+        if other.categoryBitMask == PhysicsCategory.Ground && !player.movementComponent.water {
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState || stateMachine.currentState is FloatingOnlyState {
                 stateMachine.enter(PlayingState.self)
             }
@@ -516,12 +561,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func didEnd(_ contact: SKPhysicsContact) {
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
-        let player = contact.bodyA
 
         if other.categoryBitMask == PhysicsCategory.Water {
             if stateMachine.currentState is FloatingUpState {
-                if (player.node?.physicsBody!.velocity.dy)! > CGFloat(300) {
-                    // pass current velocity
+                if secondToLastVelocityYStamp > CGFloat(220) {
+                    // pass current velocity?
+                    stateMachine.state(forClass: JoyGoingUpState.self)!.comingFromWaterJoy = true
                     stateMachine.enter(JoyGoingUpState.self)
                 } else {
                     stateMachine.enter(FloatingOnlyState.self)
@@ -577,6 +622,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         player.update(deltaTime: deltaTime)
         
+        secondToLastVelocityYStamp = lastVelocityYStamp
+        lastVelocityYStamp = player.spriteComponent.node.physicsBody!.velocity.dy
+        
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         
         let width: CGFloat = UIScreen.main.bounds.size.width*UIScreen.main.bounds.size.width/UIScreen.main.bounds.size.height
@@ -624,5 +672,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
 //        }
         
         stateMachine.update(deltaTime: deltaTime)
+        
+//        let fps = 20.0
+//        let animFrames = Animations.shared.Idle
+//        var normals = [SKTexture]()
+//        for texture in animFrames {
+//            normals.append(texture.generatingNormalMap(withSmoothness: 0.55, contrast: 0.3))
+//        }
+//        let anim = SKAction.customAction(withDuration: 1.0, actionBlock: { node, time in
+//            let index = Int((fps * Double(time))) % animFrames.count
+//            (node as! SKSpriteNode).normalTexture = normals[index]
+//            (node as! SKSpriteNode).texture = animFrames[index]
+//        })
+//        player.spriteComponent.node.run(SKAction.repeatForever(anim));
     }
 }

@@ -16,6 +16,7 @@ class JoyGoingUpState: GKState {
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
     private var SFX: AVAudioPlayer!
+    var comingFromWaterJoy: Bool = false
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
@@ -57,7 +58,10 @@ class JoyGoingUpState: GKState {
             ]))
         
         scene.zoom()
-        SFX.play()
+        
+        if !comingFromWaterJoy {
+            SFX.play()
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -65,7 +69,6 @@ class JoyGoingUpState: GKState {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        
         let sinkingState = scene.stateMachine.state(forClass: SinkingState.self)
         if (sinkingState!.SFX.isPlaying) {
             sinkingState!.SFX.stop()

@@ -62,6 +62,7 @@ class SinkingState: GKState {
         move.water = true
         move.ground = false
         node.removeAllActions()
+        
         let sequence = SKAction.sequence([
                 .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.06, resize: true, restore: true),
                 .run {

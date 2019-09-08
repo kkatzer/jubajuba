@@ -45,18 +45,18 @@ class WaterJoyState: GKState {
         node.physicsBody!.linearDamping = 1
         move.water = true
         move.ground = false
-        //scene.zoom()
+        
         node.removeAllActions()
         node.run(SKAction.sequence([
+            .run {
+                self.node.physicsBody?.velocity.dy = 0
+                },
             .animate(with: Animations.shared.SwimActionStart, timePerFrame: 0.02, resize: true, restore: true),
             .run {
                 self.SFX.play()
                 self.move.joyJump()
-                },
-            .animate(with: Animations.shared.SwimActionEnd, timePerFrame: 0.02, resize: true, restore: true),
-            .run {
                 self.scene.stateMachine.enter(FloatingUpState.self)
-            }
+                }
             ]))
     }
     

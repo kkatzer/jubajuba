@@ -52,6 +52,7 @@ class BoostingDownState: GKState {
         move.sink()
         node.removeAllActions()
         SFX.play()
+        
         node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.02, resize: true, restore: true)), withKey: "heavy")
         // falling?
     }
