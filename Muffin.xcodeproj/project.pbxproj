@@ -32,6 +32,8 @@
 		560C1C64231E89B3002B820A /* PlayingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C1C63231E89B3002B820A /* PlayingState.swift */; };
 		560C1C66231E9133002B820A /* JoyGoingUpState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C1C65231E9133002B820A /* JoyGoingUpState.swift */; };
 		560C1C68231E916F002B820A /* JoyGlidingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C1C67231E916F002B820A /* JoyGlidingState.swift */; };
+		56132CA72325656D004AA579 /* FlyGlideTransition.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 56132CA62325656D004AA579 /* FlyGlideTransition.atlas */; };
+		56132CA923256758004AA579 /* BoostDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 56132CA823256758004AA579 /* BoostDown.wav */; };
 		561920CA231FDACF00E86F44 /* BoostingDownState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920C9231FDACF00E86F44 /* BoostingDownState.swift */; };
 		561920CC231FE3AF00E86F44 /* SinkingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920CB231FE3AF00E86F44 /* SinkingState.swift */; };
 		561920CE231FE56700E86F44 /* FloatingUpState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920CD231FE56700E86F44 /* FloatingUpState.swift */; };
@@ -50,8 +52,6 @@
 		5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642ADFB230F1AFF0065FBC0 /* Personagem.png */; };
 		56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56741CFF230D89F6000393A5 /* CGPointExtensions.swift */; };
 		56B5AECD232482C900F25B74 /* SwimActionStart.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 56B5AECC232482C900F25B74 /* SwimActionStart.atlas */; };
-		56DFA660232542FD00FD7845 /* BoostDown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA65F232542FD00FD7845 /* BoostDown.wav */; };
-		56DFA66223254FC300FD7845 /* FlyGlideTransition.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 56DFA66123254FC300FD7845 /* FlyGlideTransition.atlas */; };
 		56F86653232416E300AC468A /* GameSceneAnger.sks in Resources */ = {isa = PBXBuildFile; fileRef = 56F86652232416E300AC468A /* GameSceneAnger.sks */; };
 		6412B6DA232031E1005DF78B /* GettingUp.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6CF232031E0005DF78B /* GettingUp.atlas */; };
 		6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D0232031E0005DF78B /* SwimmingStart.atlas */; };
@@ -95,6 +95,8 @@
 		560C1C63231E89B3002B820A /* PlayingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingState.swift; sourceTree = "<group>"; };
 		560C1C65231E9133002B820A /* JoyGoingUpState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyGoingUpState.swift; sourceTree = "<group>"; };
 		560C1C67231E916F002B820A /* JoyGlidingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyGlidingState.swift; sourceTree = "<group>"; };
+		56132CA62325656D004AA579 /* FlyGlideTransition.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = FlyGlideTransition.atlas; sourceTree = "<group>"; };
+		56132CA823256758004AA579 /* BoostDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BoostDown.wav; sourceTree = "<group>"; };
 		561920C9231FDACF00E86F44 /* BoostingDownState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostingDownState.swift; sourceTree = "<group>"; };
 		561920CB231FE3AF00E86F44 /* SinkingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinkingState.swift; sourceTree = "<group>"; };
 		561920CD231FE56700E86F44 /* FloatingUpState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingUpState.swift; sourceTree = "<group>"; };
@@ -113,8 +115,6 @@
 		5642ADFB230F1AFF0065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
 		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
 		56B5AECC232482C900F25B74 /* SwimActionStart.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SwimActionStart.atlas; sourceTree = "<group>"; };
-		56DFA65F232542FD00FD7845 /* BoostDown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BoostDown.wav; sourceTree = "<group>"; };
-		56DFA66123254FC300FD7845 /* FlyGlideTransition.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = FlyGlideTransition.atlas; sourceTree = "<group>"; };
 		56F86652232416E300AC468A /* GameSceneAnger.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneAnger.sks; sourceTree = "<group>"; };
 		6412B6CF232031E0005DF78B /* GettingUp.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GettingUp.atlas; sourceTree = "<group>"; };
 		6412B6D0232031E0005DF78B /* SwimmingStart.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SwimmingStart.atlas; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 				1F37A85A2322D79700CFAF46 /* JoyUp.wav */,
 				1F37A85F2323FEC200CFAF46 /* Dash.wav */,
 				1F37A8562322C2F400CFAF46 /* Jump.wav */,
-				56DFA65F232542FD00FD7845 /* BoostDown.wav */,
+				56132CA823256758004AA579 /* BoostDown.wav */,
 				1F44B75723228BC700D89415 /* Music */,
 			);
 			path = SFX;
@@ -273,7 +273,7 @@
 				6412B6D9232031E1005DF78B /* Falling.atlas */,
 				6412B6D3232031E1005DF78B /* Floating.atlas */,
 				6412B6D6232031E1005DF78B /* Fly.atlas */,
-				56DFA66123254FC300FD7845 /* FlyGlideTransition.atlas */,
+				56132CA62325656D004AA579 /* FlyGlideTransition.atlas */,
 				6412B6CF232031E0005DF78B /* GettingUp.atlas */,
 				0D00DFDF2322F8C400FF8EF5 /* Gliding.atlas */,
 				6412B6D7232031E1005DF78B /* Heavy.atlas */,
@@ -357,12 +357,11 @@
 				0D00B71A2324370F00C5C4D4 /* Sadness.wav in Resources */,
 				1F37A8622324070100CFAF46 /* Splash.wav in Resources */,
 				1F37A8602323FEC200CFAF46 /* Dash.wav in Resources */,
-				56DFA66223254FC300FD7845 /* FlyGlideTransition.atlas in Resources */,
+				56132CA72325656D004AA579 /* FlyGlideTransition.atlas in Resources */,
 				0D00B7192324370F00C5C4D4 /* Menu.wav in Resources */,
 				6412B6E3232031E2005DF78B /* Dash.atlas in Resources */,
 				6412B6E1232031E2005DF78B /* Fly.atlas in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
-				56DFA660232542FD00FD7845 /* BoostDown.wav in Resources */,
 				6412B6DC232031E1005DF78B /* Walk.atlas in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */,
@@ -381,6 +380,7 @@
 				6412B6E0232031E2005DF78B /* Swimming.atlas in Resources */,
 				6412B6DB232031E1005DF78B /* SwimmingStart.atlas in Resources */,
 				6412B6DE232031E1005DF78B /* Floating.atlas in Resources */,
+				56132CA923256758004AA579 /* BoostDown.wav in Resources */,
 				1F37A86623240CA100CFAF46 /* Stone Breaking.wav in Resources */,
 				1F37A85E2322E26C00CFAF46 /* Steps.wav in Resources */,
 				6412B6DF232031E2005DF78B /* Jump.atlas in Resources */,
