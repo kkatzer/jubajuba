@@ -62,6 +62,9 @@
 		6412B6E3232031E2005DF78B /* Dash.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D8232031E1005DF78B /* Dash.atlas */; };
 		6412B6E4232031E2005DF78B /* Falling.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6412B6D9232031E1005DF78B /* Falling.atlas */; };
 		6412B6E723203225005DF78B /* AssetsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6412B6E623203225005DF78B /* AssetsUtil.swift */; };
+		64599C5D232484F7000FC978 /* CutsceneAnger.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5C2324770E000FC978 /* CutsceneAnger.mp4 */; };
+		64599C5E232484F7000FC978 /* CutsceneJoy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5A2324770D000FC978 /* CutsceneJoy.mp4 */; };
+		64599C5F232484F7000FC978 /* CutsceneSadness.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +125,9 @@
 		6412B6D8232031E1005DF78B /* Dash.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Dash.atlas; sourceTree = "<group>"; };
 		6412B6D9232031E1005DF78B /* Falling.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Falling.atlas; sourceTree = "<group>"; };
 		6412B6E623203225005DF78B /* AssetsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsUtil.swift; sourceTree = "<group>"; };
+		64599C5A2324770D000FC978 /* CutsceneJoy.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneJoy.mp4; sourceTree = "<group>"; };
+		64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneSadness.mp4; sourceTree = "<group>"; };
+		64599C5C2324770E000FC978 /* CutsceneAnger.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneAnger.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +258,7 @@
 		562FF465230AE68B00D0838B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				64599C59232476DA000FC978 /* Cutscenes */,
 				1F44B75623228BC000D89415 /* SFX */,
 				5642ADFB230F1AFF0065FBC0 /* Personagem.png */,
 			);
@@ -284,6 +291,16 @@
 				6412B6E623203225005DF78B /* AssetsUtil.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		64599C59232476DA000FC978 /* Cutscenes */ = {
+			isa = PBXGroup;
+			children = (
+				64599C5C2324770E000FC978 /* CutsceneAnger.mp4 */,
+				64599C5A2324770D000FC978 /* CutsceneJoy.mp4 */,
+				64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */,
+			);
+			path = Cutscenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,6 +361,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64599C5D232484F7000FC978 /* CutsceneAnger.mp4 in Resources */,
+				64599C5E232484F7000FC978 /* CutsceneJoy.mp4 in Resources */,
+				64599C5F232484F7000FC978 /* CutsceneSadness.mp4 in Resources */,
 				0D00B7182324370F00C5C4D4 /* Anger.wav in Resources */,
 				0D00B71A2324370F00C5C4D4 /* Sadness.wav in Resources */,
 				1F37A8622324070100CFAF46 /* Splash.wav in Resources */,
@@ -555,7 +575,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,7 +593,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A7Z8B7ZWX2;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

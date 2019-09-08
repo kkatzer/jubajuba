@@ -10,6 +10,26 @@ import SpriteKit
 import GameplayKit
 import AVFoundation
 
+protocol TutorialView: class {
+    func displayCutscene(forOrb orb: Orb)
+}
+
+protocol LevelConfigurator: class {
+    func getCurrentConfiguration() -> LevelConfiguration
+}
+
+class LevelConfiguration {
+    var sadEnabled = false
+    var joyEnabled = false
+    var angerEnabled = false
+}
+
+enum Orb {
+    case Joy
+    case Sadness
+    case Anger
+}
+
 enum Layer: CGFloat {
     // background < 0
     case player = 0
@@ -23,6 +43,7 @@ struct PhysicsCategory {
     static let Water: UInt32 = 0b10
     static let Ground: UInt32 = 0b100
     static let Rock: UInt32 = 0b1000
+    static let OrbHitbox: UInt32 = 0b11
 }
 
 class Animations {
@@ -49,6 +70,9 @@ class Animations {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
+    
+    weak var gameViewDelegate: TutorialView?
+    weak var levelConfigurator: LevelConfigurator?
     
     var deltaTime: TimeInterval = 0
     var lastUpdateTime: TimeInterval = 0
@@ -77,7 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private var joyPlayer: AVAudioPlayer!
     private var sadnessPlayer: AVAudioPlayer!
     private var angerPlayer: AVAudioPlayer!
-    
+        
 //    private var region: Type? {
 //        didSet {
 //            switch region {
@@ -141,9 +165,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpGround()
         setUpOrbs()
         setUpRock()
+        
         if let water = self.childNode(withName: "water") as? SKSpriteNode {
             setUpWater(water)
         }
+        
+        if let hitBoxOrb = self.childNode(withName: "JoySpriteBox") as? SKSpriteNode {
+            setupOrbHitBox(hitBoxOrb)
+        }
+        
+        if let hitBoxOrb = self.childNode(withName: "SadSpriteBox") as? SKSpriteNode {
+            setupOrbHitBox(hitBoxOrb)
+        }
+        
+        if let hitBoxOrb = self.childNode(withName: "AngerSpriteBox") as? SKSpriteNode {
+            setupOrbHitBox(hitBoxOrb)
+        }
+        
         setUpLighting()
         stateMachine.enter(PlayingState.self)
     
@@ -178,6 +216,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func jumpUp() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.joyEnabled == false {
+                return
+            }
+        }
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterJoyState.self)
         } else if stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is PlayingState {
@@ -205,6 +248,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func sink() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.sadEnabled == false {
+                return
+            }
+        }
+        
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterSadState.self)
         } else if stateMachine.currentState is PlayingState || stateMachine.currentState is JoyGlidingState {
@@ -217,6 +266,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func leftDash() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.angerEnabled == false {
+                return
+            }
+        }
+        
         if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
             stateMachine.state(forClass: WaterDashState.self)!.left = true
             stateMachine.enter(WaterDashState.self)
@@ -227,6 +282,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     @objc func rightDash() {
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            if levelConfig.angerEnabled == false {
+                return
+            }
+        }
+        
         if stateMachine.currentState is FloatingUpState || stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingOnlyState {
             stateMachine.state(forClass: WaterDashState.self)!.left = false
             stateMachine.enter(WaterDashState.self)
@@ -329,6 +390,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         sadness.spriteComponent.node.zPosition = Layer.player.rawValue
     }
     
+    func setupOrbHitBox(_ spriteNode: SKSpriteNode) {
+        spriteNode.alpha = 0.0
+        let nodeBody = SKPhysicsBody(rectangleOf: spriteNode.size)
+        nodeBody.restitution = 0.0
+        nodeBody.categoryBitMask = PhysicsCategory.OrbHitbox
+        nodeBody.contactTestBitMask = PhysicsCategory.Player
+        nodeBody.collisionBitMask = PhysicsCategory.Player
+        nodeBody.affectedByGravity = false
+        nodeBody.allowsRotation = false
+        nodeBody.isDynamic = true
+        nodeBody.pinned = true
+        spriteNode.physicsBody = nodeBody
+    }
+    
     func setUpWater(_ water: SKSpriteNode) {
         water.zPosition = Layer.water.rawValue
         water.alpha = 0.0
@@ -420,6 +495,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 stateMachine.enter(WaterSadState.self)
             }
         }
+        
+        if other.categoryBitMask == PhysicsCategory.OrbHitbox {
+            player.movementComponent.stop()
+            other.node?.removeFromParent()
+            if let orbSprite = self.childNode(withName: "JoySprite") as? SKSpriteNode {
+                self.gameViewDelegate?.displayCutscene(forOrb: Orb.Joy)
+                orbSprite.removeFromParent()
+            } else if let orbSprite = self.childNode(withName: "SadSprite") as? SKSpriteNode {
+                self.gameViewDelegate?.displayCutscene(forOrb: Orb.Sadness)
+                orbSprite.removeFromParent()
+            } else if let orbSprite = self.childNode(withName: "AngerSprite") as? SKSpriteNode {
+                self.gameViewDelegate?.displayCutscene(forOrb: Orb.Anger)
+                orbSprite.removeFromParent()
+            }
+        }
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
@@ -496,6 +586,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         } else if posCamR > posBarR {
             camera?.position.x = posBarR - width/4
         }
+        
+        if let levelConfig = levelConfigurator?.getCurrentConfiguration() {
+            self.joy.setIsHidden(!levelConfig.joyEnabled)
+            self.sadness.setIsHidden(!levelConfig.sadEnabled)
+            self.anger.setIsHidden(!levelConfig.angerEnabled)
+        }
+        
         
 //        if player.spriteComponent.node.position.x < 3150 {
 //            if region != .joy {

@@ -14,7 +14,6 @@ class AssetsUtil {
         var animationSprites: [SKTexture] = []
         let animatedAtlas = SKTextureAtlas(named: name)
         animatedAtlas.preload {
-            print("atlas preloaded")
         }
         let numTextures = animatedAtlas.textureNames.count
         for i in 0..<numTextures {
