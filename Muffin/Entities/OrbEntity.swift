@@ -55,7 +55,7 @@ class OrbEntity: GKEntity {
     func setUpLightNode(_ color: UIColor) {
         let lightNode = SKLightNode()
         lightNode.position = CGPoint()
-        lightNode.ambientColor = color
+        lightNode.ambientColor = UIColor.white
         lightNode.lightColor = color
         lightNode.shadowColor = UIColor.black
         lightNode.falloff = 4.5
@@ -65,5 +65,9 @@ class OrbEntity: GKEntity {
         node.addChild(lightNode)
         
         spriteComponent.setUpLight(node, normalMap: true)
+    }
+    
+    func setIsHidden(_ isHidden: Bool) {
+        spriteComponent.node.isHidden = isHidden
     }
 }
