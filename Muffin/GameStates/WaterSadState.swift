@@ -36,17 +36,30 @@ class WaterSadState: GKState {
         move.ground = false
         move.sink()
         node.removeAllActions()
-        // animation
-        node.run(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.055, resize: true, restore: true))
+        
+        let sequence: SKAction
+        if !(previousState is FloatingOnlyState) {
+            sequence = SKAction.sequence([
+                .animate(with: Animations.shared.SwimActionStart, timePerFrame: 0.025, resize: true, restore: true),
+                .animate(with: Animations.shared.Heavy, timePerFrame: 0.04, resize: true, restore: true),
+                .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.025, resize: true, restore: true),
+                .run {
+                    self.scene.stateMachine.enter(FloatingUpState.self)
+                }
+                ])
+        } else {
+            sequence = SKAction.sequence([
+                .animate(with: Animations.shared.Heavy, timePerFrame: 0.03, resize: true, restore: true),
+                .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.01, resize: true, restore: true),
+                .run {
+                    self.scene.stateMachine.enter(FloatingUpState.self)
+                }
+                ])
+        }
+        node.run(sequence)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == FloatingUpState.self) // || (stateClass == PlayingState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        if node.physicsBody!.velocity.dy >= 0 {
-            scene.stateMachine.enter(FloatingUpState.self)
-        }
     }
 }

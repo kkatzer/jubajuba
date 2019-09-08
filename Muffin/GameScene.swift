@@ -41,6 +41,8 @@ class Animations {
     let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
     let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
     let SwimmingStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimmingStart")
+    let SwimActionStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimActionStart").reversed()
+    let SwimActionEnd: [SKTexture] = AssetsUtil.getSprites(named: "SwimActionStart")
     let Walk: [SKTexture] = AssetsUtil.getSprites(named: "Walk")
     
     private init() {
@@ -369,6 +371,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let lightAffectedNodesWOMapping = [
             "Joy Z2",
             "Joy Z-4",
+            "Sadness Z-6",
             "Sadness Z3",
             "Anger Z-4",
             "Anger Z-5",
@@ -427,14 +430,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let player = contact.bodyA
 
         if other.categoryBitMask == PhysicsCategory.Water {
-            if stateMachine.currentState is WaterJoyState {
-                stateMachine.enter(JoyGoingUpState.self)
-            } else if stateMachine.currentState is FloatingUpState {
+            if stateMachine.currentState is FloatingUpState {
                 if (player.node?.physicsBody!.velocity.dy)! > CGFloat(300) {
+                    // pass current velocity
                     stateMachine.enter(JoyGoingUpState.self)
                 } else {
                     stateMachine.enter(FloatingOnlyState.self)
                 }
+            } else if stateMachine.currentState is FloatingOnlyState {
+                stateMachine.enter(PlayingState.self)
             }
         } else if other.categoryBitMask == PhysicsCategory.Rock {
             rock.breakComponent.breakRock()

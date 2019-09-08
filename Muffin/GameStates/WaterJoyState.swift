@@ -49,16 +49,12 @@ class WaterJoyState: GKState {
         move.joyJump()
         //scene.zoom()
         node.removeAllActions()
-        // animation
-        scene.stateMachine.enter(FloatingUpState.self)
         node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
+        
+        scene.stateMachine.enter(FloatingUpState.self)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == FloatingUpState.self) || (stateClass == FloatingOnlyState.self) || (stateClass == JoyGoingUpState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        
     }
 }

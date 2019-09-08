@@ -48,7 +48,13 @@ class JoyGoingUpState: GKState {
         move.ground = false
         move.joyJump()
         node.removeAllActions()
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
+        node.run(SKAction.sequence([
+            .animate(with: Animations.shared.Fly, timePerFrame: 0.001, resize: true, restore: true),
+            .run {
+                self.scene.stateMachine.enter(JoyGlidingState.self)
+            }
+            ]))
+            
         scene.zoom()
         SFX.play()
     }
@@ -61,10 +67,6 @@ class JoyGoingUpState: GKState {
         let sinkingState = scene.stateMachine.state(forClass: SinkingState.self)
         if (sinkingState!.SFX.isPlaying) {
             sinkingState!.SFX.stop()
-        }
-        if node.physicsBody!.velocity.dy < 0 {
-            scene.stateMachine.enter(JoyGlidingState.self)
-            node.removeAction(forKey: "joyGoingUp")
         }
     }
 }

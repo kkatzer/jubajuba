@@ -107,6 +107,10 @@ class MovementComponent: GKComponent {
         nodeBody.velocity.dx /= slowStopMultiplier
     }
     
+    func stopDash() {
+        nodeBody.velocity.dx /= water ? 0.3*slowStopMultiplier : 0.5*slowStopMultiplier
+    }
+    
     override func update(deltaTime seconds: TimeInterval) {
         let node = self.spriteComponent.node
         

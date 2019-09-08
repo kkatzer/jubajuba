@@ -62,8 +62,12 @@ class SinkingState: GKState {
         move.water = true
         move.ground = false
         node.removeAllActions()
-        // animation
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimmingStart")
+        node.run(SKAction.sequence([
+            .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.06, resize: true, restore: true),
+            .run {
+                self.scene.stateMachine.enter(FloatingUpState.self)
+            }
+            ]))
         
         if (!SFX.isPlaying) {
             SFX.play()
@@ -72,11 +76,5 @@ class SinkingState: GKState {
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == FloatingUpState.self) || (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        if node.physicsBody!.velocity.dy >= 0 {
-            scene.stateMachine.enter(FloatingUpState.self)
-        }
     }
 }

@@ -45,6 +45,9 @@ class PlayerEntity: GKEntity {
         node.physicsBody?.categoryBitMask = PhysicsCategory.Player
         node.physicsBody?.contactTestBitMask = PhysicsCategory.Ground | PhysicsCategory.Water
         node.physicsBody?.collisionBitMask = PhysicsCategory.Ground
-        spriteComponent.setUpLight(node, normalMap: true)
+        node.lightingBitMask = 0
+        node.shadowCastBitMask = 0
+        node.shadowedBitMask = 1
+        node.normalTexture = node.texture?.generatingNormalMap(withSmoothness: 0.55, contrast: 0.3)
     }
 }

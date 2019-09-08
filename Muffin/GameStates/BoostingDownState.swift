@@ -40,14 +40,11 @@ class BoostingDownState: GKState {
         move.sink()
         node.removeAllActions()
         node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.02, resize: true, restore: true)), withKey: "heavy")
+        // falling?
         
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == PlayingState.self) || (stateClass == WaterSadState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        
     }
 }
