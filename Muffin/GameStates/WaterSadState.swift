@@ -9,16 +9,28 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class WaterSadState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
+    private var SFX: AVAudioPlayer!
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
         self.move = player.movementComponent
+        
+        do {
+            SFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "BoostDown", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        SFX.numberOfLoops = 0
+        SFX.volume = 0.5
+        SFX.prepareToPlay()
+        
         super.init()
     }
     
@@ -35,18 +47,34 @@ class WaterSadState: GKState {
         move.water = true
         move.ground = false
         move.sink()
+        scene.callLightFX("Sad")
+        SFX.play()
         node.removeAllActions()
-        // animation
-        node.run(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.055, resize: true, restore: true))
+        
+        let sequence: SKAction
+        if !(previousState is FloatingOnlyState) {
+            sequence = SKAction.sequence([
+                .animate(with: Animations.shared.SwimActionStart, timePerFrame: 0.03, resize: true, restore: true),
+                .animate(with: Animations.shared.Heavy, timePerFrame: 0.04, resize: true, restore: true),
+                .animate(with: Animations.shared.SwimActionEnd, timePerFrame: 0.041, resize: true, restore: true),
+                .run {
+                    self.scene.stateMachine.enter(FloatingUpState.self)
+                }
+                ])
+        } else {
+            sequence = SKAction.sequence([
+                // SwimActionStart trimmed
+                .animate(with: Animations.shared.Heavy, timePerFrame: 0.04, resize: true, restore: true),
+                .animate(with: Animations.shared.SwimActionEnd, timePerFrame: 0.04, resize: true, restore: true),
+                .run {
+                    self.scene.stateMachine.enter(FloatingUpState.self)
+                }
+                ])
+        }
+        node.run(sequence)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == FloatingUpState.self) // || (stateClass == PlayingState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        if node.physicsBody!.velocity.dy >= 0 {
-            scene.stateMachine.enter(FloatingUpState.self)
-        }
     }
 }

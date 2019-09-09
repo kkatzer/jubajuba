@@ -38,23 +38,21 @@ class FloatingUpState: GKState {
         move.ground = false
         node.removeAllActions()
         
-        if !(previousState is SinkingState) {
-            let sequence = SKAction.sequence([
-                .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true),
-                .animate(with: Animations.shared.Swimming, timePerFrame: 0.05, resize: true, restore: true)
+        var sequence: SKAction
+        if previousState is WaterJoyState {
+            sequence = SKAction.sequence([
+                .animate(with: Animations.shared.SwimActionEnd, timePerFrame: 0.02, resize: true, restore: true),
+                .repeatForever(SKAction.animate(with: Animations.shared.Swimming, timePerFrame: 0.05, resize: true, restore: true))
                 ])
-            node.run(sequence)
         } else {
-            node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Swimming, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimming")
-            
+            sequence = SKAction.sequence([
+                .repeatForever(SKAction.animate(with: Animations.shared.Swimming, timePerFrame: 0.05, resize: true, restore: true))
+                ])
         }
+        node.run(sequence)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self) || (stateClass == FloatingOnlyState.self) || (stateClass == JoyGoingUpState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        
     }
 }

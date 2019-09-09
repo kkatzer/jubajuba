@@ -31,7 +31,7 @@ class SinkingState: GKState {
             print("Error: Could not load sound file.")
         }
         splashSFX.numberOfLoops = 0
-        splashSFX.volume = 0.8
+        splashSFX.volume = 0.2
         splashSFX.prepareToPlay()
         
         do {
@@ -40,7 +40,7 @@ class SinkingState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = -1
-        SFX.volume = 0.5
+        SFX.volume = 0.15
         SFX.prepareToPlay()
         
         super.init()
@@ -55,15 +55,21 @@ class SinkingState: GKState {
         scene.swipeRightRec.isEnabled = true
         
         scene.physicsWorld.gravity.dy = 1
-        node.physicsBody?.linearDamping = 1
+        node.physicsBody?.linearDamping = 1.5
         if (!move.water) {
             splashSFX.play()
         }
         move.water = true
         move.ground = false
         node.removeAllActions()
-        // animation
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.05, resize: true, restore: true)), withKey: "swimmingStart")
+        
+        let sequence = SKAction.sequence([
+                .animate(with: Animations.shared.SwimmingStart, timePerFrame: 0.06, resize: true, restore: true),
+                .run {
+                    self.scene.stateMachine.enter(FloatingUpState.self)
+                }
+                ])
+        node.run(sequence)
         
         if (!SFX.isPlaying) {
             SFX.play()
@@ -72,11 +78,5 @@ class SinkingState: GKState {
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == FloatingUpState.self) || (stateClass == WaterJoyState.self) || (stateClass == WaterSadState.self) || (stateClass == WaterDashState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        if node.physicsBody!.velocity.dy >= 0 {
-            scene.stateMachine.enter(FloatingUpState.self)
-        }
     }
 }

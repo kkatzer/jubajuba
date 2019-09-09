@@ -16,6 +16,7 @@ class JoyGoingUpState: GKState {
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
     private var SFX: AVAudioPlayer!
+    var comingFromWaterJoy: Bool = false
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
@@ -28,7 +29,7 @@ class JoyGoingUpState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 1.0
+        SFX.volume = 0.9
         SFX.prepareToPlay()
         
         super.init()
@@ -46,11 +47,22 @@ class JoyGoingUpState: GKState {
         node.physicsBody?.linearDamping = 0
         move.water = false
         move.ground = false
+        scene.callLightFX("Joy")
         move.joyJump()
+        
         node.removeAllActions()
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
+        node.run(SKAction.sequence([
+            .animate(with: Animations.shared.Fly, timePerFrame: 0.03, resize: true, restore: true),
+            .run {
+                self.scene.stateMachine.enter(JoyGlidingState.self)
+            }
+            ]))
+        
         scene.zoom()
-        SFX.play()
+        
+        if !comingFromWaterJoy {
+            SFX.play()
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -61,10 +73,6 @@ class JoyGoingUpState: GKState {
         let sinkingState = scene.stateMachine.state(forClass: SinkingState.self)
         if (sinkingState!.SFX.isPlaying) {
             sinkingState!.SFX.stop()
-        }
-        if node.physicsBody!.velocity.dy < 0 {
-            scene.stateMachine.enter(JoyGlidingState.self)
-            node.removeAction(forKey: "joyGoingUp")
         }
     }
 }

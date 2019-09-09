@@ -55,6 +55,7 @@ class Animations {
     let Falling: [SKTexture] = AssetsUtil.getSprites(named: "Falling")
     let Floating: [SKTexture] = AssetsUtil.getSprites(named: "Floating")
     let Fly: [SKTexture] = AssetsUtil.getSprites(named: "Fly")
+    let FlyGlideTransition: [SKTexture] = AssetsUtil.getSprites(named: "FlyGlideTransition")
     let GettingUp: [SKTexture] = AssetsUtil.getSprites(named: "GettingUp")
     let Gliding: [SKTexture] = AssetsUtil.getSprites(named: "Gliding")
     let Heavy: [SKTexture] = AssetsUtil.getSprites(named: "Heavy")
@@ -62,6 +63,8 @@ class Animations {
     let Jump: [SKTexture] = AssetsUtil.getSprites(named: "Jump")
     let Swimming: [SKTexture] = AssetsUtil.getSprites(named: "Swimming")
     let SwimmingStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimmingStart")
+    let SwimActionStart: [SKTexture] = AssetsUtil.getSprites(named: "SwimActionStart").reversed()
+    let SwimActionEnd: [SKTexture] = AssetsUtil.getSprites(named: "SwimActionStart")
     let Walk: [SKTexture] = AssetsUtil.getSprites(named: "Walk")
     
     private init() {
@@ -102,8 +105,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     private var joyPlayer: AVAudioPlayer!
     private var sadnessPlayer: AVAudioPlayer!
     private var angerPlayer: AVAudioPlayer!
-    
     var musicPlayer: AVAudioPlayer!
+    
+    private var lastVelocityYStamp: CGFloat!
+    private var secondToLastVelocityYStamp: CGFloat!
+    
+    var JoyLight: SKSpriteNode!
+    var SadLight: SKSpriteNode!
+    var AngerLight: SKSpriteNode!
     
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         PlayingState(scene: self, player: self.player),
@@ -148,6 +157,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         stateMachine.enter(PlayingState.self)
     
         setUpMusic()
+        
+        setUpLightFX()
+    }
+    
+    func setUpLightFX() {
+        JoyLight = SKSpriteNode(color: #colorLiteral(red: 1, green: 0.8562885523, blue: 0.000872995588, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        JoyLight.alpha = 0.0
+        JoyLight.zPosition = 50
+        addChild(JoyLight)
+        SadLight = SKSpriteNode(color: #colorLiteral(red: 0.410720408, green: 0.6092639565, blue: 0.7631528974, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        SadLight.alpha = 0.0
+        SadLight.zPosition = 50
+        addChild(SadLight)
+        AngerLight = SKSpriteNode(color: #colorLiteral(red: 0.826115787, green: 0.3553501666, blue: 0.4102210701, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        AngerLight.alpha = 0.0
+        AngerLight.zPosition = 50
+        addChild(AngerLight)
+    }
+    
+    func callLightFX(_ type: String) {
+        switch type {
+        case "Joy":
+            JoyLight.run(SKAction.sequence([
+                .fadeAlpha(to: 0.15, duration: 0.6),
+                .fadeAlpha(to: 0, duration: 0.6)
+                ]))
+        case "Sad":
+            SadLight.run(SKAction.sequence([
+                .fadeAlpha(to: 0.42, duration: 0.6),
+                .fadeAlpha(to: 0, duration: 0.6)
+                ]))
+        case "Anger":
+            AngerLight.run(SKAction.sequence([
+                .fadeAlpha(to: 0.2, duration: 0.23),
+                .fadeAlpha(to: 0, duration: 0.23)
+                ]))
+        default:
+            break
+        }
     }
     
     @objc func jump() {
@@ -186,12 +234,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if stateMachine.currentState is SinkingState || stateMachine.currentState is FloatingUpState {
             stateMachine.enter(WaterJoyState.self)
         } else if stateMachine.currentState is FloatingOnlyState || stateMachine.currentState is PlayingState {
+            stateMachine.state(forClass: JoyGoingUpState.self)!.comingFromWaterJoy = false
             stateMachine.enter(JoyGoingUpState.self)
         }
     }
     
     func zoom() {
-        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(600) && (camera?.position.x)! < barrierRight.position.x-CGFloat(250) {
+        if (camera?.position.x)! > barrierLeft.position.x+CGFloat(600) && (camera?.position.x)! < barrierRight.position.x-CGFloat(600) {
             zoomOutAction = SKAction.scale(to: 1.5, duration: 1)
             zoomOutAction.timingMode = .easeInEaseOut
             zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -388,8 +437,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func setUpRock() {
-//        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
-//        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+        if (self.childNode(withName: "rock") as? SKSpriteNode) != nil {
+            rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
+        }
+        if (self.childNode(withName: "moveRock") as? SKSpriteNode) != nil {
+            moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+        }
     }
     
     func setUpLighting() {
@@ -404,8 +457,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             "Anger Z-2",
         ]
         let lightAffectedNodesWOMapping = [
-            "Joy Z2",
+            //"Joy Z2", // creative decision (also sad mushrooms)
+            "Joy Z-3",
             "Joy Z-4",
+            "Sadness Z-4",
+            "Sadness Z-6",
             "Sadness Z3",
             "Anger Z-4",
             "Anger Z-5",
@@ -441,7 +497,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             return
         }
         
-        if other.categoryBitMask == PhysicsCategory.Ground {
+        if other.categoryBitMask == PhysicsCategory.Ground && !player.movementComponent.water {
             if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is BoostingDownState || stateMachine.currentState is FloatingOnlyState {
                 stateMachine.enter(PlayingState.self)
             }
@@ -450,11 +506,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if other.categoryBitMask == PhysicsCategory.Water {
             // entrou na agua
-            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState {
+            if stateMachine.currentState is JoyGlidingState || stateMachine.currentState is PlayingState || stateMachine.currentState is DashingState || stateMachine.currentState is BoostingDownState {
                 stateMachine.enter(SinkingState.self)
-            }
-            if stateMachine.currentState is BoostingDownState {
-                stateMachine.enter(WaterSadState.self)
             }
         }
         
@@ -476,17 +529,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func didEnd(_ contact: SKPhysicsContact) {
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
-        let player = contact.bodyA
 
         if other.categoryBitMask == PhysicsCategory.Water {
-            if stateMachine.currentState is WaterJoyState {
-                stateMachine.enter(JoyGoingUpState.self)
-            } else if stateMachine.currentState is FloatingUpState {
-                if (player.node?.physicsBody!.velocity.dy)! > CGFloat(300) {
+            if stateMachine.currentState is FloatingUpState {
+                if secondToLastVelocityYStamp > CGFloat(220) {
+                    // pass current velocity?
+                    stateMachine.state(forClass: JoyGoingUpState.self)!.comingFromWaterJoy = true
                     stateMachine.enter(JoyGoingUpState.self)
                 } else {
                     stateMachine.enter(FloatingOnlyState.self)
                 }
+            } else if stateMachine.currentState is FloatingOnlyState {
+                stateMachine.enter(PlayingState.self)
             }
         } else if other.categoryBitMask == PhysicsCategory.Rock {
             rock.breakComponent.breakRock()
@@ -505,9 +559,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 print("Error: Could not load sound file.")
             }
             musicPlayer.numberOfLoops = -1
-            musicPlayer.volume = 1
             musicPlayer.play()
-            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+            musicPlayer.volume = 0
+            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
         }
         //Sadness
         
@@ -518,8 +572,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 print("Error: Could not load sound file.")
             }
             musicPlayer.numberOfLoops = -1
-            musicPlayer.volume = 1
-            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+            musicPlayer.volume = 0
+            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
         }
         //Anger
         
@@ -530,18 +584,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 print("Error: Could not load sound file.")
             }
             musicPlayer.numberOfLoops = -1
-            musicPlayer.volume = 1
-            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+            musicPlayer.volume = 0
+            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
         }
     }
     
     
     func playMusic() {
+        musicPlayer.volume = 0
         musicPlayer.play()
-        
+        musicPlayer.setVolume(0.2, fadeDuration: 2.0)
     }
     
     func stopMusic() {
+        //musicPlayer.setVolume(0, fadeDuration: 2)
         musicPlayer.stop()
     }
     
@@ -555,6 +611,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         lastUpdateTime = currentTime
         
         player.update(deltaTime: deltaTime)
+        
+        secondToLastVelocityYStamp = lastVelocityYStamp
+        lastVelocityYStamp = player.spriteComponent.node.physicsBody!.velocity.dy
         
         camera?.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         
@@ -575,32 +634,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             self.anger.setIsHidden(!levelConfig.angerEnabled)
         }
         
-        
-//        if player.spriteComponent.node.position.x < 3150 {
-//            if region != .joy {
-//                region = .joy
-//            }
-//            if !joyPlayer.isPlaying {
-//                joyPlayer.play()
-//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            }
-//        } else if player.spriteComponent.node.position.x < 4870 {
-//            if region != .sadness {
-//                region = .sadness
-//            }
-//            if !sadnessPlayer.isPlaying {
-//                sadnessPlayer.play()
-//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            }
-//        } else {
-//            if region != .anger {
-//                region = .anger
-//            }
-//            if !angerPlayer.isPlaying {
-//                angerPlayer.play()
-//                angerPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            }
-//        }
+        JoyLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        SadLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        AngerLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         
         stateMachine.update(deltaTime: deltaTime)
     }

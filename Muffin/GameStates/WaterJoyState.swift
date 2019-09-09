@@ -28,7 +28,7 @@ class WaterJoyState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 0.8
+        SFX.volume = 0.5
         SFX.prepareToPlay()
         super.init()
     }
@@ -45,20 +45,23 @@ class WaterJoyState: GKState {
         node.physicsBody!.linearDamping = 1
         move.water = true
         move.ground = false
-        SFX.play()
-        move.joyJump()
-        //scene.zoom()
+        
         node.removeAllActions()
-        // animation
-        scene.stateMachine.enter(FloatingUpState.self)
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Fly, timePerFrame: 0.015, resize: true, restore: true)), withKey: "joyGoingUp")
+        node.run(SKAction.sequence([
+            .run {
+                self.node.physicsBody?.velocity.dy = 0
+                },
+            .animate(with: Animations.shared.SwimActionStart, timePerFrame: 0.02, resize: true, restore: true),
+            .run {
+                self.SFX.play()
+                self.scene.callLightFX("Joy")
+                self.move.joyJump()
+                self.scene.stateMachine.enter(FloatingUpState.self)
+                }
+            ]))
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == FloatingUpState.self) || (stateClass == FloatingOnlyState.self) || (stateClass == JoyGoingUpState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        
     }
 }

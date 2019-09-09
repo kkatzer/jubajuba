@@ -9,16 +9,28 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class BoostingDownState: GKState {
     unowned let scene: GameScene
     unowned let node: SKSpriteNode
     unowned let move: MovementComponent
+    private var SFX: AVAudioPlayer!
     
     init(scene: SKScene, player: PlayerEntity) {
         self.scene = scene as! GameScene
         self.node = player.spriteComponent.node
         self.move = player.movementComponent
+        
+        do {
+            SFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "BoostDown", withExtension: "wav")!)
+        } catch {
+            print("Error: Could not load sound file.")
+        }
+        SFX.numberOfLoops = 0
+        SFX.volume = 0.9
+        SFX.prepareToPlay()
+        
         super.init()
     }
     
@@ -38,16 +50,16 @@ class BoostingDownState: GKState {
         move.water = false
         move.ground = false
         move.sink()
-        node.removeAllActions()
-        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.02, resize: true, restore: true)), withKey: "heavy")
+        scene.callLightFX("Sad")
         
+        node.removeAllActions()
+        SFX.play()
+        
+        node.run(SKAction.repeatForever(SKAction.animate(with: Animations.shared.Heavy, timePerFrame: 0.02, resize: true, restore: true)), withKey: "heavy")
+        // falling?
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == PlayingState.self) || (stateClass == WaterSadState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        
+        return (stateClass == PlayingState.self) || (stateClass == SinkingState.self)
     }
 }
