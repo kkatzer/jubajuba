@@ -28,7 +28,7 @@ class WaterSadState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 1.0
+        SFX.volume = 0.5
         SFX.prepareToPlay()
         
         super.init()
@@ -47,6 +47,7 @@ class WaterSadState: GKState {
         move.water = true
         move.ground = false
         move.sink()
+        scene.callLightFX("Sad")
         SFX.play()
         node.removeAllActions()
         

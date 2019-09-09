@@ -44,7 +44,7 @@ class MovementComponent: GKComponent {
             print("Error: Could not load sound file.")
         }
         jumpSFX.numberOfLoops = 0
-        jumpSFX.volume = 1.0
+        jumpSFX.volume = 0.4
         jumpSFX.prepareToPlay()
         
         do {
@@ -53,7 +53,7 @@ class MovementComponent: GKComponent {
             print("Error: Could not load sound file.")
         }
         stepsSFX.numberOfLoops = -1
-        stepsSFX.volume = 1.0
+        stepsSFX.volume = 0.3
         stepsSFX.prepareToPlay()
         super.init()
         setUp(entity)

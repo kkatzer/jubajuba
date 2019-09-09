@@ -29,7 +29,7 @@ class JoyGoingUpState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 1.0
+        SFX.volume = 0.9
         SFX.prepareToPlay()
         
         super.init()
@@ -47,6 +47,7 @@ class JoyGoingUpState: GKState {
         node.physicsBody?.linearDamping = 0
         move.water = false
         move.ground = false
+        scene.callLightFX("Joy")
         move.joyJump()
         
         node.removeAllActions()

@@ -28,7 +28,7 @@ class BoostingDownState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 1.0
+        SFX.volume = 0.9
         SFX.prepareToPlay()
         
         super.init()
@@ -50,6 +50,8 @@ class BoostingDownState: GKState {
         move.water = false
         move.ground = false
         move.sink()
+        scene.callLightFX("Sad")
+        
         node.removeAllActions()
         SFX.play()
         

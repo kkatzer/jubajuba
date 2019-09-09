@@ -41,8 +41,6 @@
 		561920D2231FE74400E86F44 /* WaterSadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D1231FE74400E86F44 /* WaterSadState.swift */; };
 		561920D4231FE77200E86F44 /* WaterDashState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D3231FE77200E86F44 /* WaterDashState.swift */; };
 		561920D6231FE79000E86F44 /* DashingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561920D5231FE79000E86F44 /* DashingState.swift */; };
-		5620399B2325A12F00FAF85E /* Bokeh.sks in Resources */ = {isa = PBXBuildFile; fileRef = 562039992325A12F00FAF85E /* Bokeh.sks */; };
-		5620399C2325A12F00FAF85E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5620399A2325A12F00FAF85E /* Assets.xcassets */; };
 		5620C0A22323F85100BCA21D /* GameSceneSad.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5620C0A12323F85100BCA21D /* GameSceneSad.sks */; };
 		5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */; };
 		562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF45C230AE68B00D0838B /* SpriteComponent.swift */; };
@@ -52,6 +50,9 @@
 		562FF488230AE68B00D0838B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF462230AE68B00D0838B /* GameScene.swift */; };
 		562FF489230AE68B00D0838B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FF464230AE68B00D0838B /* GameViewController.swift */; };
 		5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5642ADFB230F1AFF0065FBC0 /* Personagem.png */; };
+		565FF1F32325A2E100DB22F3 /* Magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = 565FF1F12325A2E100DB22F3 /* Magic.sks */; };
+		565FF1F42325A2E100DB22F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 565FF1F22325A2E100DB22F3 /* Assets.xcassets */; };
+		565FF1F62325A35600DB22F3 /* Bokeh.sks in Resources */ = {isa = PBXBuildFile; fileRef = 565FF1F52325A35600DB22F3 /* Bokeh.sks */; };
 		56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56741CFF230D89F6000393A5 /* CGPointExtensions.swift */; };
 		56B5AECD232482C900F25B74 /* SwimActionStart.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 56B5AECC232482C900F25B74 /* SwimActionStart.atlas */; };
 		56F86653232416E300AC468A /* GameSceneAnger.sks in Resources */ = {isa = PBXBuildFile; fileRef = 56F86652232416E300AC468A /* GameSceneAnger.sks */; };
@@ -109,8 +110,6 @@
 		561920D1231FE74400E86F44 /* WaterSadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterSadState.swift; sourceTree = "<group>"; };
 		561920D3231FE77200E86F44 /* WaterDashState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDashState.swift; sourceTree = "<group>"; };
 		561920D5231FE79000E86F44 /* DashingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashingState.swift; sourceTree = "<group>"; };
-		562039992325A12F00FAF85E /* Bokeh.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bokeh.sks; sourceTree = "<group>"; };
-		5620399A2325A12F00FAF85E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5620C0A12323F85100BCA21D /* GameSceneSad.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneSad.sks; sourceTree = "<group>"; };
 		5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneJoy.sks; sourceTree = "<group>"; };
 		562FF45C230AE68B00D0838B /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
@@ -120,6 +119,9 @@
 		562FF462230AE68B00D0838B /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		562FF464230AE68B00D0838B /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		5642ADFB230F1AFF0065FBC0 /* Personagem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Personagem.png; sourceTree = "<group>"; };
+		565FF1F12325A2E100DB22F3 /* Magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Magic.sks; sourceTree = "<group>"; };
+		565FF1F22325A2E100DB22F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		565FF1F52325A35600DB22F3 /* Bokeh.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bokeh.sks; sourceTree = "<group>"; };
 		56741CFF230D89F6000393A5 /* CGPointExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtensions.swift; path = Muffin/CGPointExtensions.swift; sourceTree = SOURCE_ROOT; };
 		56B5AECC232482C900F25B74 /* SwimActionStart.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SwimActionStart.atlas; sourceTree = "<group>"; };
 		56F86652232416E300AC468A /* GameSceneAnger.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneAnger.sks; sourceTree = "<group>"; };
@@ -237,8 +239,9 @@
 		5620399823259EF000FAF85E /* VFX */ = {
 			isa = PBXGroup;
 			children = (
-				562039992325A12F00FAF85E /* Bokeh.sks */,
-				5620399A2325A12F00FAF85E /* Assets.xcassets */,
+				565FF1F12325A2E100DB22F3 /* Magic.sks */,
+				565FF1F22325A2E100DB22F3 /* Assets.xcassets */,
+				565FF1F52325A35600DB22F3 /* Bokeh.sks */,
 			);
 			path = VFX;
 			sourceTree = "<group>";
@@ -384,11 +387,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5620399B2325A12F00FAF85E /* Bokeh.sks in Resources */,
 				64599C5D232484F7000FC978 /* CutsceneAnger.mp4 in Resources */,
 				64599C5E232484F7000FC978 /* CutsceneJoy.mp4 in Resources */,
 				64599C5F232484F7000FC978 /* CutsceneSadness.mp4 in Resources */,
 				0D00B7182324370F00C5C4D4 /* Anger.wav in Resources */,
+				565FF1F32325A2E100DB22F3 /* Magic.sks in Resources */,
 				0D00B71A2324370F00C5C4D4 /* Sadness.wav in Resources */,
 				1F37A8622324070100CFAF46 /* Splash.wav in Resources */,
 				1F37A8602323FEC200CFAF46 /* Dash.wav in Resources */,
@@ -398,7 +401,8 @@
 				6412B6E1232031E2005DF78B /* Fly.atlas in Resources */,
 				5642ADFC230F1AFF0065FBC0 /* Personagem.png in Resources */,
 				6412B6DC232031E1005DF78B /* Walk.atlas in Resources */,
-				5620399C2325A12F00FAF85E /* Assets.xcassets in Resources */,
+				565FF1F62325A35600DB22F3 /* Bokeh.sks in Resources */,
+				565FF1F42325A2E100DB22F3 /* Assets.xcassets in Resources */,
 				562FF486230AE68B00D0838B /* GameScene.sks in Resources */,
 				5620C0A62323F9CB00BCA21D /* GameSceneJoy.sks in Resources */,
 				0D03ADE023245F0300FBF9AC /* Idle.atlas in Resources */,

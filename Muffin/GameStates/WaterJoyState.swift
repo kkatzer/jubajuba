@@ -28,7 +28,7 @@ class WaterJoyState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 0.8
+        SFX.volume = 0.5
         SFX.prepareToPlay()
         super.init()
     }
@@ -54,6 +54,7 @@ class WaterJoyState: GKState {
             .animate(with: Animations.shared.SwimActionStart, timePerFrame: 0.02, resize: true, restore: true),
             .run {
                 self.SFX.play()
+                self.scene.callLightFX("Joy")
                 self.move.joyJump()
                 self.scene.stateMachine.enter(FloatingUpState.self)
                 }

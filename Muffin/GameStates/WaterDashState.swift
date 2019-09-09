@@ -29,7 +29,7 @@ class WaterDashState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 0.2
+        SFX.volume = 0.5
         SFX.prepareToPlay()
         
         super.init()
@@ -47,6 +47,8 @@ class WaterDashState: GKState {
         move.water = true
         move.ground = false
         move.dash(left: self.left)
+        scene.callLightFX("Anger")
+
         SFX.play()
         node.removeAllActions()
         

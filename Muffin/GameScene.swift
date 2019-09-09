@@ -107,6 +107,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     private var lastVelocityYStamp: CGFloat!
     private var secondToLastVelocityYStamp: CGFloat!
+    
+    var JoyLight: SKSpriteNode!
+    var SadLight: SKSpriteNode!
+    var AngerLight: SKSpriteNode!
         
 //    private var region: Type? {
 //        didSet {
@@ -197,40 +201,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func setUpLightFX() {
-        for i in 1...4 {
-            let emitterNode = SKEmitterNode()
-            switch i {
-            case 1:
-                emitterNode.position = CGPoint(x: -0.5*camera!.frame.size.width, y: -0.5*camera!.frame.size.height)
-            case 2:
-                emitterNode.position = CGPoint(x: 0.5*camera!.frame.size.width, y: -0.5*camera!.frame.size.height)
-            case 3:
-                emitterNode.position = CGPoint(x: -0.5*camera!.frame.size.width, y: 0.5*camera!.frame.size.height)
-            case 4:
-                emitterNode.position = CGPoint(x: 0.5*camera!.frame.size.width, y: 0.5*camera!.frame.size.height)
-            default:
-                break
-            }
-            emitterNode.zPosition = 15
-            camera?.addChild(emitterNode)
-        }
-        
-        //turnOffLightFX(duration: 0.0)
+        JoyLight = SKSpriteNode(color: #colorLiteral(red: 1, green: 0.8562885523, blue: 0.000872995588, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        JoyLight.alpha = 0.0
+        JoyLight.zPosition = 50
+        addChild(JoyLight)
+        SadLight = SKSpriteNode(color: #colorLiteral(red: 0.410720408, green: 0.6092639565, blue: 0.7631528974, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        SadLight.alpha = 0.0
+        SadLight.zPosition = 50
+        addChild(SadLight)
+        AngerLight = SKSpriteNode(color: #colorLiteral(red: 0.826115787, green: 0.3553501666, blue: 0.4102210701, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        AngerLight.alpha = 0.0
+        AngerLight.zPosition = 50
+        addChild(AngerLight)
     }
     
-    func turnOnLightFX(_ color: UIColor, _ time: TimeInterval) {
-        for node in camera!.children {
-            let lightNode = node as! SKLightNode
-            lightNode.lightColor = color
-            lightNode.run(SKAction.scale(to: 1, duration: time))
-        }
-    }
-    
-    func turnOffLightFX(duration time: TimeInterval) {
-        for node in camera!.children {
-            let lightNode = node as! SKLightNode
-            lightNode.isEnabled = false
-            lightNode.run(SKAction.scale(to: 0, duration: time))
+    func callLightFX(_ type: String) {
+        switch type {
+        case "Joy":
+            JoyLight.run(SKAction.sequence([
+                .fadeAlpha(to: 0.15, duration: 0.6),
+                .fadeAlpha(to: 0, duration: 0.6)
+                ]))
+        case "Sad":
+            SadLight.run(SKAction.sequence([
+                .fadeAlpha(to: 0.44, duration: 0.6),
+                .fadeAlpha(to: 0, duration: 0.6)
+                ]))
+        case "Anger":
+            AngerLight.run(SKAction.sequence([
+                .fadeAlpha(to: 0.2, duration: 0.23),
+                .fadeAlpha(to: 0, duration: 0.23)
+                ]))
+        default:
+            break
         }
     }
     
@@ -473,8 +476,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func setUpRock() {
-//        rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
-//        moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+        if (self.childNode(withName: "rock") as? SKSpriteNode) != nil {
+            rock = RockEntity(node: self.childNode(withName: "rock") as! SKSpriteNode, scene: self, breakable: true)
+        }
+        if (self.childNode(withName: "moveRock") as? SKSpriteNode) != nil {
+            moveRock = RockEntity(node: self.childNode(withName: "moveRock") as! SKSpriteNode, scene: self, breakable: false)
+        }
     }
     
     func setUpLighting() {
@@ -644,6 +651,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             self.anger.setIsHidden(!levelConfig.angerEnabled)
         }
         
+        JoyLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        SadLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
+        AngerLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         
 //        if player.spriteComponent.node.position.x < 3150 {
 //            if region != .joy {

@@ -37,8 +37,12 @@ class RockEntity: GKEntity {
     }
     
     func setUpPhysics() {
-        self.spriteComponent.node.zPosition = Layer.player.rawValue
-        let body = self.spriteComponent.node.physicsBody
+        let node = spriteComponent.node
+        node.zPosition = Layer.player.rawValue
+        node.normalTexture = node.texture!.generatingNormalMap(withSmoothness: 0.55, contrast: 0.3)
+        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: CGSize(width: 0.7*node.texture!.size().width, height: 0.62*node.texture!.size().height))
+        
+        let body = node.physicsBody
         body?.restitution = 0.2
         body?.categoryBitMask = PhysicsCategory.Rock
         body?.contactTestBitMask = PhysicsCategory.Player
