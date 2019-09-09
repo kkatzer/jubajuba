@@ -97,51 +97,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var moveRock: RockEntity!
     var barrierLeft: SKSpriteNode!
     var barrierRight: SKSpriteNode!
+    var sceneName: String!
     
     private var joyPlayer: AVAudioPlayer!
     private var sadnessPlayer: AVAudioPlayer!
     private var angerPlayer: AVAudioPlayer!
-        
-//    private var region: Type? {
-//        didSet {
-//            switch region {
-//            case .joy?:
-//                if sadnessPlayer.isPlaying {
-//                    sadnessPlayer.setVolume(0, fadeDuration: 1.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                        self.sadnessPlayer.stop()
-//                    }
-//                }
-//                joyPlayer.play()
-//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            case .sadness?:
-//                if joyPlayer.isPlaying {
-//                    joyPlayer.setVolume(0, fadeDuration: 2.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                        self.joyPlayer.stop()
-//                    }
-//                } else if angerPlayer.isPlaying {
-//                    angerPlayer.setVolume(0, fadeDuration: 1.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                        self.angerPlayer.stop()
-//                    }
-//                }
-//                sadnessPlayer.play()
-//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            case .anger?:
-//                if sadnessPlayer.isPlaying {
-//                    sadnessPlayer.setVolume(0, fadeDuration: 2.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                        self.sadnessPlayer.stop()
-//                    }
-//                }
-//                angerPlayer.play()
-//                angerPlayer.setVolume(1.5, fadeDuration: 1.0)
-//            default:
-//                print("Error: Could not locate player")
-//            }
-//        }
-//    }
+    
+    var musicPlayer: AVAudioPlayer!
     
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         PlayingState(scene: self, player: self.player),
@@ -534,35 +496,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func setUpMusic() {
         //Joy
         let joyURL = Bundle.main.url(forResource: "Joy", withExtension: "wav")!
-        do {
-            joyPlayer =  try AVAudioPlayer(contentsOf: joyURL)
-        } catch {
-            print("Error: Could not load sound file.")
-        }
-        joyPlayer.numberOfLoops = -1
-        joyPlayer.volume = 0.0
-        joyPlayer.prepareToPlay()
         
+        if sceneName == "GameSceneJoy"{
+            print("entrou no gamescenejoy")
+            do {
+                musicPlayer =  try AVAudioPlayer(contentsOf: joyURL)
+            } catch {
+                print("Error: Could not load sound file.")
+            }
+            musicPlayer.numberOfLoops = -1
+            musicPlayer.volume = 1
+            musicPlayer.play()
+            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+        }
         //Sadness
-        do {
-            sadnessPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Sadness", withExtension: "wav")!)
-        } catch {
-            print("Error: Could not load sound file.")
-        }
-        sadnessPlayer.numberOfLoops = -1
-        sadnessPlayer.volume = 0.0
-        sadnessPlayer.prepareToPlay()
         
-        //Anger
-        do {
-            angerPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Anger", withExtension: "wav")!)
-        } catch {
-            print("Error: Could not load sound file.")
+        if sceneName == "GameSceneSad" {
+            do {
+                musicPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Sadness", withExtension: "wav")!)
+            } catch {
+                print("Error: Could not load sound file.")
+            }
+            musicPlayer.numberOfLoops = -1
+            musicPlayer.volume = 1
+            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
         }
-        angerPlayer.numberOfLoops = -1
-        angerPlayer.volume = 0.0
-        angerPlayer.prepareToPlay()
+        //Anger
+        
+        if sceneName == "GameSceneAnger" {
+            do {
+                musicPlayer =  try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Anger", withExtension: "wav")!)
+            } catch {
+                print("Error: Could not load sound file.")
+            }
+            musicPlayer.numberOfLoops = -1
+            musicPlayer.volume = 1
+            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+        }
     }
+    
+    
+    func playMusic() {
+        musicPlayer.play()
+        
+    }
+    
+    func stopMusic() {
+        musicPlayer.stop()
+    }
+    
     
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime == 0 {
