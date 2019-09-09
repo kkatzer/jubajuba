@@ -53,6 +53,7 @@ class GameViewController: UIViewController {
         playerLayer.videoGravity = .resizeAspectFill
         self.view.layer.addSublayer(playerLayer)
         player.play()
+        sceneNode.musicPlayer.stop()
     }
     
     @objc func playerDidFinishPlaying(note: NSNotification) {
@@ -72,12 +73,14 @@ class GameViewController: UIViewController {
             }
         }
         playerLayer.removeFromSuperlayer()
+        sceneNode.musicPlayer.play()
     }
     
     func loadScene(fileNamed name: String) {
         if let scene = GKScene(fileNamed: name) {
             sceneNode = scene.rootNode as! GameScene?
             sceneNode.scaleMode = .aspectFill
+            sceneNode.sceneName = name
             sceneNode.gameViewDelegate = self
             sceneNode.levelConfigurator = self
             
@@ -106,11 +109,14 @@ extension GameViewController: TutorialView {
         switch orb {
         case .Joy:
             playVideo(named: "CutsceneJoy")
+            sceneNode.sceneName = "CutsceneJoy"
         case .Sadness:
             playVideo(named: "CutsceneSadness")
+            sceneNode.sceneName = "CutsceneSadness"
             loadSceneWithDelay(fileNamed: "GameSceneSad")
         case .Anger:
             playVideo(named: "CutsceneAnger")
+            sceneNode.sceneName = "CutsceneAnger"
             loadSceneWithDelay(fileNamed: "GameSceneAnger")
         }
     }
