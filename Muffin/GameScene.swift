@@ -113,47 +113,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var JoyLight: SKSpriteNode!
     var SadLight: SKSpriteNode!
     var AngerLight: SKSpriteNode!
-        
-//    private var region: Type? {
-//        didSet {
-//            switch region {
-//            case .joy?:
-//                if sadnessPlayer.isPlaying {
-//                    sadnessPlayer.setVolume(0, fadeDuration: 1.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                        self.sadnessPlayer.stop()
-//                    }
-//                }
-//                joyPlayer.play()
-//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            case .sadness?:
-//                if joyPlayer.isPlaying {
-//                    joyPlayer.setVolume(0, fadeDuration: 2.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                        self.joyPlayer.stop()
-//                    }
-//                } else if angerPlayer.isPlaying {
-//                    angerPlayer.setVolume(0, fadeDuration: 1.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                        self.angerPlayer.stop()
-//                    }
-//                }
-//                sadnessPlayer.play()
-//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            case .anger?:
-//                if sadnessPlayer.isPlaying {
-//                    sadnessPlayer.setVolume(0, fadeDuration: 2.0)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                        self.sadnessPlayer.stop()
-//                    }
-//                }
-//                angerPlayer.play()
-//                angerPlayer.setVolume(1.5, fadeDuration: 1.0)
-//            default:
-//                print("Error: Could not locate player")
-//            }
-//        }
-//    }
     
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         PlayingState(scene: self, player: self.player),
@@ -226,7 +185,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 ]))
         case "Sad":
             SadLight.run(SKAction.sequence([
-                .fadeAlpha(to: 0.44, duration: 0.6),
+                .fadeAlpha(to: 0.42, duration: 0.6),
                 .fadeAlpha(to: 0, duration: 0.6)
                 ]))
         case "Anger":
@@ -600,9 +559,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 print("Error: Could not load sound file.")
             }
             musicPlayer.numberOfLoops = -1
-            musicPlayer.volume = 1
             musicPlayer.play()
-            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+            musicPlayer.volume = 0
+            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
         }
         //Sadness
         
@@ -613,8 +572,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 print("Error: Could not load sound file.")
             }
             musicPlayer.numberOfLoops = -1
-            musicPlayer.volume = 1
-            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+            musicPlayer.volume = 0
+            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
         }
         //Anger
         
@@ -625,18 +584,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 print("Error: Could not load sound file.")
             }
             musicPlayer.numberOfLoops = -1
-            musicPlayer.volume = 1
-            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
+            musicPlayer.volume = 0
+            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
         }
     }
     
     
     func playMusic() {
+        musicPlayer.volume = 0
         musicPlayer.play()
-        
+        musicPlayer.setVolume(0.2, fadeDuration: 2.0)
     }
     
     func stopMusic() {
+        //musicPlayer.setVolume(0, fadeDuration: 2)
         musicPlayer.stop()
     }
     
@@ -677,45 +638,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         SadLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         AngerLight.position = player.spriteComponent.node.position + CGPoint(x: 0, y: frame.size.height/6)
         
-//        if player.spriteComponent.node.position.x < 3150 {
-//            if region != .joy {
-//                region = .joy
-//            }
-//            if !joyPlayer.isPlaying {
-//                joyPlayer.play()
-//                joyPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            }
-//        } else if player.spriteComponent.node.position.x < 4870 {
-//            if region != .sadness {
-//                region = .sadness
-//            }
-//            if !sadnessPlayer.isPlaying {
-//                sadnessPlayer.play()
-//                sadnessPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            }
-//        } else {
-//            if region != .anger {
-//                region = .anger
-//            }
-//            if !angerPlayer.isPlaying {
-//                angerPlayer.play()
-//                angerPlayer.setVolume(1.5, fadeDuration: 2.0)
-//            }
-//        }
-        
         stateMachine.update(deltaTime: deltaTime)
-        
-//        let fps = 20.0
-//        let animFrames = Animations.shared.Idle
-//        var normals = [SKTexture]()
-//        for texture in animFrames {
-//            normals.append(texture.generatingNormalMap(withSmoothness: 0.55, contrast: 0.3))
-//        }
-//        let anim = SKAction.customAction(withDuration: 1.0, actionBlock: { node, time in
-//            let index = Int((fps * Double(time))) % animFrames.count
-//            (node as! SKSpriteNode).normalTexture = normals[index]
-//            (node as! SKSpriteNode).texture = animFrames[index]
-//        })
-//        player.spriteComponent.node.run(SKAction.repeatForever(anim));
     }
 }
