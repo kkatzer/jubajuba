@@ -507,6 +507,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             musicPlayer.numberOfLoops = -1
             musicPlayer.volume = 1
             musicPlayer.play()
+            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
         }
         //Sadness
         
@@ -518,6 +519,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             musicPlayer.numberOfLoops = -1
             musicPlayer.volume = 1
+            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
         }
         //Anger
         
@@ -529,6 +531,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             musicPlayer.numberOfLoops = -1
             musicPlayer.volume = 1
+            musicPlayer.setVolume(1.5, fadeDuration: 2.0)
         }
     }
     
