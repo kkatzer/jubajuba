@@ -44,7 +44,7 @@ class MovementComponent: GKComponent {
             print("Error: Could not load sound file.")
         }
         jumpSFX.numberOfLoops = 0
-        jumpSFX.volume = 1.0
+        jumpSFX.volume = 0.4
         jumpSFX.prepareToPlay()
         
         do {
@@ -53,7 +53,7 @@ class MovementComponent: GKComponent {
             print("Error: Could not load sound file.")
         }
         stepsSFX.numberOfLoops = -1
-        stepsSFX.volume = 1.0
+        stepsSFX.volume = 0.3
         stepsSFX.prepareToPlay()
         super.init()
         setUp(entity)
@@ -79,7 +79,7 @@ class MovementComponent: GKComponent {
     }
     
     func joyJump() {
-        nodeBody.velocity.dy = water ? 0.5*joyJumpVelocity : joyJumpVelocity
+        nodeBody.velocity.dy = water ? 0.25*joyJumpVelocity : joyJumpVelocity
     }
     
     func sink() {
@@ -105,6 +105,10 @@ class MovementComponent: GKComponent {
         moveToTheLeft(false)
         moveToTheRight(false)
         nodeBody.velocity.dx /= slowStopMultiplier
+    }
+    
+    func stopDash() {
+        nodeBody.velocity.dx /= water ? 0.3*slowStopMultiplier : 0.5*slowStopMultiplier
     }
     
     override func update(deltaTime seconds: TimeInterval) {

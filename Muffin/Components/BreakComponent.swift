@@ -24,7 +24,7 @@ class BreakComponent: GKComponent {
         self.scene = scene
         
         do {
-            SFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "StoneBreaking", withExtension: "wav")!)
+            SFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Stone Breaking", withExtension: "wav")!)
         } catch {
             print("Error: Could not load sound file.")
         }

@@ -29,7 +29,7 @@ class DashingState: GKState {
             print("Error: Could not load sound file.")
         }
         SFX.numberOfLoops = 0
-        SFX.volume = 1.0
+        SFX.volume = 0.9
         SFX.prepareToPlay()
         
         super.init()
@@ -37,7 +37,7 @@ class DashingState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         scene.tapRec.isEnabled = false
-        scene.longPressRec.isEnabled = false
+        scene.longPressRec.isEnabled = true
         scene.swipeUpRec.isEnabled = false
         scene.swipeDownRec.isEnabled = false
         scene.swipeLeftRec.isEnabled = false
@@ -45,8 +45,18 @@ class DashingState: GKState {
         move.water = false
         move.ground = false
         move.dash(left: self.left)
+        scene.callLightFX("Anger")
+        
         node.removeAllActions()
-        node.run(SKAction.animate(with: Animations.shared.Dash, timePerFrame: 0.02, resize: true, restore: true))
+        let sequence = SKAction.sequence([
+            .animate(with: Animations.shared.Dash, timePerFrame: 0.02, resize: true, restore: true),
+            .run {
+                self.move.stopDash()
+                self.scene.stateMachine.enter(PlayingState.self)
+            }
+            ])
+        node.run(sequence)
+        
         if (left) {
             node.xScale = abs(node.xScale) * -1.0
         } else {
@@ -57,12 +67,5 @@ class DashingState: GKState {
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return (stateClass == PlayingState.self) || (stateClass == SinkingState.self)
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        if abs((node.physicsBody?.velocity.dx)!) <= 150 {
-            move.stop()
-            scene.stateMachine.enter(PlayingState.self)
-        }
     }
 }
