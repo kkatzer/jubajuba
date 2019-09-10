@@ -13,6 +13,7 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
+    @IBOutlet weak var finalImage: UIImageView!
     var sceneNode: GameScene!
     var playerLayer: AVPlayerLayer!
     var levelConfig = LevelConfiguration()
@@ -125,5 +126,12 @@ extension GameViewController: TutorialView {
 extension GameViewController: LevelConfigurator {
     func getCurrentConfiguration() -> LevelConfiguration {
         return levelConfig
+    }
+    
+    func showImage() {
+        finalImage.isHidden = false
+        UIView.animate(withDuration: 1.5, animations: {
+            self.finalImage.alpha = 1
+        })
     }
 }
