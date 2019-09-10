@@ -71,6 +71,7 @@
 		64599C5D232484F7000FC978 /* CutsceneAnger.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5C2324770E000FC978 /* CutsceneAnger.mp4 */; };
 		64599C5E232484F7000FC978 /* CutsceneJoy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5A2324770D000FC978 /* CutsceneJoy.mp4 */; };
 		64599C5F232484F7000FC978 /* CutsceneSadness.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */; };
+		64F6BE692327E1CF00E86E85 /* TutorialRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6BE682327E1CF00E86E85 /* TutorialRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +141,7 @@
 		64599C5A2324770D000FC978 /* CutsceneJoy.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneJoy.mp4; sourceTree = "<group>"; };
 		64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneSadness.mp4; sourceTree = "<group>"; };
 		64599C5C2324770E000FC978 /* CutsceneAnger.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneAnger.mp4; sourceTree = "<group>"; };
+		64F6BE682327E1CF00E86E85 /* TutorialRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 		1FE4088D2305A2CD006331CC /* Muffin */ = {
 			isa = PBXGroup;
 			children = (
+				64F6BE672327E1A500E86E85 /* Repository */,
 				6412B6E5232031EF005DF78B /* Utils */,
 				6412B6CE232031D4005DF78B /* Sprites */,
 				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
@@ -329,6 +332,14 @@
 			path = Cutscenes;
 			sourceTree = "<group>";
 		};
+		64F6BE672327E1A500E86E85 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				64F6BE682327E1CF00E86E85 /* TutorialRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -445,6 +456,7 @@
 				1F59B26623181400004A56BC /* BreakComponent.swift in Sources */,
 				561920D0231FE72400E86F44 /* WaterJoyState.swift in Sources */,
 				561920D6231FE79000E86F44 /* DashingState.swift in Sources */,
+				64F6BE692327E1CF00E86E85 /* TutorialRepository.swift in Sources */,
 				561920CC231FE3AF00E86F44 /* SinkingState.swift in Sources */,
 				1FEE6457230EB73F0082DFB0 /* OrbEntity.swift in Sources */,
 				561920D4231FE77200E86F44 /* WaterDashState.swift in Sources */,
@@ -607,7 +619,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5MSP4455P9;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -625,7 +637,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5MSP4455P9;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

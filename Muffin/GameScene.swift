@@ -13,6 +13,7 @@ import AVFoundation
 protocol TutorialView: class {
     func displayCutscene(forOrb orb: Orb)
     func showImage()
+    func sceneDidSetup()
 }
 
 protocol LevelConfigurator: class {
@@ -23,6 +24,24 @@ class LevelConfiguration {
     var sadEnabled = false
     var joyEnabled = false
     var angerEnabled = false
+    
+    public init() {
+        
+    }
+    
+    public func getTutorialConfiguration(forOrb orb: Orb) -> LevelConfiguration {
+        let config = LevelConfiguration()
+        switch orb {
+        case .Sadness:
+            config.joyEnabled = true
+        case .Anger:
+            config.joyEnabled = true
+            config.sadEnabled = true
+        default:
+            break
+        }
+        return config
+    }
 }
 
 enum Orb {
@@ -161,6 +180,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpMusic()
         
         setUpLightFX()
+        
+        gameViewDelegate?.sceneDidSetup()
     }
     
     func setUpLightFX() {

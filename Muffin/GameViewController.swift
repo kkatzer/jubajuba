@@ -13,15 +13,21 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
+    @IBOutlet weak var cutsceneView: UIView!
+    @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var finalImage: UIImageView!
+    @IBOutlet weak var skipButton: UIButton!
+    
     var sceneNode: GameScene!
     var playerLayer: AVPlayerLayer!
     var levelConfig = LevelConfiguration()
     var lastPlayedCutscene: Orb?
+    var player: AVPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        skipButton.isHidden = true
         loadScene(fileNamed: "GameSceneJoy")
         
         // To do:
@@ -40,21 +46,53 @@ class GameViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func playVideo(named: String) {        
-        guard let url = Bundle.main.url(forResource: "\(named)", withExtension:"mp4") else {
-            debugPrint("\(named).mp4 not found")
+    @IBAction func skipCutscene(_ sender: Any) {
+        if let item = player?.currentItem {
+            skipButton.isHidden = true
+            player?.seek(to: item.duration)
+        }
+    }
+    
+    
+    func playVideo(forOrb orb: Orb) {
+        lastPlayedCutscene = orb
+        
+        var name = ""
+        
+        switch orb {
+        case .Joy:
+            name =  "CutsceneJoy"
+        case .Sadness:
+            name = "CutsceneSadness"
+            loadSceneWithDelay(fileNamed: "GameSceneSad")
+        case .Anger:
+            name = "CutsceneAnger"
+            loadSceneWithDelay(fileNamed: "GameSceneAnger")
+        }
+        
+        guard let url = Bundle.main.url(forResource: "\(name)", withExtension:"mp4") else {
+            debugPrint("\(name).mp4 not found")
             return
         }
+        
         let item = AVPlayerItem(url: url)
         NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying(note:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: item)
-        let player = AVPlayer(playerItem: item)
         
+        player = AVPlayer(playerItem: item)
+        player?.preventsDisplaySleepDuringVideoPlayback = true
+                
         playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = self.view.bounds
-        playerLayer.videoGravity = .resizeAspectFill
-        self.view.layer.addSublayer(playerLayer)
-        player.play()
+        playerLayer.frame = videoView.bounds
+        videoView.layer.addSublayer(playerLayer)
+        
+        cutsceneView.isHidden = false
+        player?.play()
         sceneNode.musicPlayer.stop()
+        
+        if orb == Orb.Joy {
+            self.skipButton.backgroundColor = UIColor.clear
+            self.skipButton.isHidden = false
+        }
     }
     
     @objc func playerDidFinishPlaying(note: NSNotification) {
@@ -73,7 +111,10 @@ class GameViewController: UIViewController {
                 levelConfig.angerEnabled = true
             }
         }
+        
         playerLayer.removeFromSuperlayer()
+        cutsceneView.isHidden = true
+        skipButton.isHidden = true
         sceneNode.musicPlayer.play()
     }
     
@@ -98,7 +139,7 @@ class GameViewController: UIViewController {
     }
     
     func loadSceneWithDelay(fileNamed name: String) {
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {timer in
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {timer in
             self.loadScene(fileNamed: name)
         })
     }
@@ -106,20 +147,7 @@ class GameViewController: UIViewController {
 
 extension GameViewController: TutorialView {
     func displayCutscene(forOrb orb: Orb) {
-        lastPlayedCutscene = orb
-        switch orb {
-        case .Joy:
-            playVideo(named: "CutsceneJoy")
-            sceneNode.sceneName = "CutsceneJoy"
-        case .Sadness:
-            playVideo(named: "CutsceneSadness")
-            sceneNode.sceneName = "CutsceneSadness"
-            loadSceneWithDelay(fileNamed: "GameSceneSad")
-        case .Anger:
-            playVideo(named: "CutsceneAnger")
-            sceneNode.sceneName = "CutsceneAnger"
-            loadSceneWithDelay(fileNamed: "GameSceneAnger")
-        }
+        playVideo(forOrb: orb)
     }
 }
 
@@ -133,5 +161,11 @@ extension GameViewController: LevelConfigurator {
         UIView.animate(withDuration: 1.5, animations: {
             self.finalImage.alpha = 1
         })
+    }
+    
+    func sceneDidSetup() {
+        if player?.rate != 0 {
+            skipButton.isHidden = false
+        }
     }
 }
