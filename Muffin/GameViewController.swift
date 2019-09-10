@@ -18,20 +18,31 @@ class GameViewController: UIViewController {
     @IBOutlet weak var finalImage: UIImageView!
     @IBOutlet weak var skipButton: UIButton!
     
+    let tutorialRepository = TutorialRepository.shared
+    
     var sceneNode: GameScene!
     var playerLayer: AVPlayerLayer!
     var levelConfig = LevelConfiguration()
     var lastPlayedCutscene: Orb?
     var player: AVPlayer?
+    
+    let gameScenes = [
+        Orb.Joy: "GameSceneJoy",
+        Orb.Sadness: "GameSceneSad",
+        Orb.Anger: "GameSceneAnger"
+    ]
+    
+    let gameCutscenes = [
+        Orb.Joy: "CutsceneJoy",
+        Orb.Sadness: "CutsceneSadness",
+        Orb.Anger: "CutsceneAnger"
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         skipButton.isHidden = true
-        loadScene(fileNamed: "GameSceneJoy")
-        
-        // To do:
-        // allow choice of which orbs to debug with
+        loadScene(forOrb: .Joy)
     }
     
     override var shouldAutorotate: Bool {
@@ -57,17 +68,13 @@ class GameViewController: UIViewController {
     func playVideo(forOrb orb: Orb) {
         lastPlayedCutscene = orb
         
-        var name = ""
+        guard let name = gameCutscenes[orb] else {
+            print("no gameScene registered at the gamescene dictionary for orb \(orb)")
+            return
+        }
         
-        switch orb {
-        case .Joy:
-            name =  "CutsceneJoy"
-        case .Sadness:
-            name = "CutsceneSadness"
-            loadSceneWithDelay(fileNamed: "GameSceneSad")
-        case .Anger:
-            name = "CutsceneAnger"
-            loadSceneWithDelay(fileNamed: "GameSceneAnger")
+        if orb != .Joy {
+            loadSceneWithDelay(forOrb: orb)
         }
         
         guard let url = Bundle.main.url(forResource: "\(name)", withExtension:"mp4") else {
@@ -89,7 +96,7 @@ class GameViewController: UIViewController {
         player?.play()
         sceneNode.musicPlayer.stop()
         
-        if orb == Orb.Joy {
+        if orb == Orb.Joy && tutorialRepository.isCheckpointCompleted(forOrb: orb) {
             self.skipButton.backgroundColor = UIColor.clear
             self.skipButton.isHidden = false
         }
@@ -99,17 +106,8 @@ class GameViewController: UIViewController {
         sceneNode.isPaused = false
 
         if let orb = lastPlayedCutscene {
-            switch orb {
-            case .Joy:
-                levelConfig.joyEnabled = true
-            case .Sadness:
-                levelConfig.joyEnabled = true
-                levelConfig.sadEnabled = true
-            case .Anger:
-                levelConfig.joyEnabled = true
-                levelConfig.sadEnabled = true
-                levelConfig.angerEnabled = true
-            }
+            levelConfig = tutorialRepository.getTutorialLevelConfiguration(forOrb: orb)
+            tutorialRepository.setCheckPointCompleted(forOrb: orb)
         }
         
         playerLayer.removeFromSuperlayer()
@@ -118,29 +116,33 @@ class GameViewController: UIViewController {
         sceneNode.musicPlayer.play()
     }
     
-    func loadScene(fileNamed name: String) {
-        if let scene = GKScene(fileNamed: name) {
-            sceneNode = scene.rootNode as! GameScene?
-            sceneNode.scaleMode = .aspectFill
-            sceneNode.sceneName = name
-            sceneNode.gameViewDelegate = self
-            sceneNode.levelConfigurator = self
-            
-            if let view = self.view as! SKView? {
-                view.presentScene(sceneNode)
+    func loadScene(forOrb orb: Orb) {
+        levelConfig = tutorialRepository.getTutorialLevelConfiguration(forOrb: orb)
+        
+        if let name = gameScenes[orb] {
+            if let scene = GKScene(fileNamed: name) {
+                sceneNode = scene.rootNode as! GameScene?
+                sceneNode.scaleMode = .aspectFill
+                sceneNode.sceneName = name
+                sceneNode.gameViewDelegate = self
+                sceneNode.levelConfigurator = self
                 
-                view.ignoresSiblingOrder = true
-                
-                view.showsFPS = false
-                view.showsPhysics = false
-                view.showsNodeCount = false
+                if let view = self.view as! SKView? {
+                    view.presentScene(sceneNode)
+                    
+                    view.ignoresSiblingOrder = true
+                    
+                    view.showsFPS = false
+                    view.showsPhysics = false
+                    view.showsNodeCount = false
+                }
             }
         }
     }
     
-    func loadSceneWithDelay(fileNamed name: String) {
+    func loadSceneWithDelay(forOrb orb: Orb) {
         Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {timer in
-            self.loadScene(fileNamed: name)
+            self.loadScene(forOrb: orb)
         })
     }
 }
@@ -164,8 +166,10 @@ extension GameViewController: LevelConfigurator {
     }
     
     func sceneDidSetup() {
-        if player?.rate != 0 {
-            skipButton.isHidden = false
+        if let orb = lastPlayedCutscene {
+            if player?.rate != 0 && tutorialRepository.isCheckpointCompleted(forOrb: orb) {
+                skipButton.isHidden = false
+            }
         }
     }
 }

@@ -20,36 +20,6 @@ protocol LevelConfigurator: class {
     func getCurrentConfiguration() -> LevelConfiguration
 }
 
-class LevelConfiguration {
-    var sadEnabled = false
-    var joyEnabled = false
-    var angerEnabled = false
-    
-    public init() {
-        
-    }
-    
-    public func getTutorialConfiguration(forOrb orb: Orb) -> LevelConfiguration {
-        let config = LevelConfiguration()
-        switch orb {
-        case .Sadness:
-            config.joyEnabled = true
-        case .Anger:
-            config.joyEnabled = true
-            config.sadEnabled = true
-        default:
-            break
-        }
-        return config
-    }
-}
-
-enum Orb {
-    case Joy
-    case Sadness
-    case Anger
-}
-
 enum Layer: CGFloat {
     // background < 0
     case player = 0
