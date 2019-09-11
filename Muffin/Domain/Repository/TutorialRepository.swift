@@ -34,11 +34,12 @@ class TutorialRepository {
         return false
     }
     
-    func getTutorialLevelConfiguration(forOrb orb: Orb) -> LevelConfiguration {
+    func getTutorialLevelConfiguration(forOrb orb: Orb, isFirst: Bool) -> LevelConfiguration {
+        let levelConfig = LevelConfiguration()
         
-         let levelConfig = LevelConfiguration(joyEnabled: isCheckpointCompleted(forOrb: Orb.Joy),
-                                              sadEnabled: isCheckpointCompleted(forOrb: Orb.Sadness),
-                                              angerEnabled: isCheckpointCompleted(forOrb: Orb.Anger))
+        if orb == .Joy && !isFirst {
+            levelConfig.joyEnabled = true
+        }
         
         if orb == .Sadness || orb == .Anger {
             levelConfig.joyEnabled = true

@@ -116,7 +116,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         WaterJoyState(scene: self, player: self.player),
         WaterSadState(scene: self, player: self.player),
         WaterDashState(scene: self, player: self.player),
-        DashingState(scene: self, player: self.player)
+        DashingState(scene: self, player: self.player),
+        PausedState(scene: self, player: self.player)
         ])
     
     override func didMove(to view: SKView) {
@@ -510,7 +511,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if other.categoryBitMask == PhysicsCategory.OrbHitbox {
-            player.movementComponent.stop()
+            stateMachine.enter(PausedState.self)
             other.node?.removeFromParent()
             if let orbSprite = self.childNode(withName: "JoySprite") as? SKSpriteNode {
                 self.gameViewDelegate?.displayCutscene(forOrb: Orb.Joy)
@@ -587,7 +588,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             musicPlayer.numberOfLoops = -1
             musicPlayer.volume = 0
-            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
+            musicPlayer.setVolume(0.2, fadeDuration: 3.0)
         }
     }
     
@@ -595,24 +596,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func playMusic() {
         musicPlayer.volume = 0
         musicPlayer.play()
-        musicPlayer.setVolume(0.2, fadeDuration: 2.0)
+        musicPlayer.setVolume(0.2, fadeDuration: 3.0)
     }
     
     func stopMusic() {
-        //musicPlayer.setVolume(0, fadeDuration: 2)
-        musicPlayer.stop()
+        musicPlayer.setVolume(0, fadeDuration: 2)
+    }
+    
+    func unpauseGame() {
+        stateMachine.enter(PlayingState.self)
     }
     
     func displayEndImage() {
-        stopMusic()
-        tapRec.isEnabled = false
-        longPressRec.isEnabled = false
-        swipeUpRec.isEnabled = false
-        swipeDownRec.isEnabled = false
-        swipeLeftRec.isEnabled = false
-        swipeRightRec.isEnabled = false
-        
-        // call display
+        stateMachine.enter(PausedState.self)
         gameViewDelegate?.showImage()
     }
     
