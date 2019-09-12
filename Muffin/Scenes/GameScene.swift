@@ -12,22 +12,12 @@ import AVFoundation
 
 protocol TutorialView: class {
     func displayCutscene(forOrb orb: Orb)
+    func showImage()
+    func sceneDidSetup()
 }
 
 protocol LevelConfigurator: class {
     func getCurrentConfiguration() -> LevelConfiguration
-}
-
-class LevelConfiguration {
-    var sadEnabled = false
-    var joyEnabled = false
-    var angerEnabled = false
-}
-
-enum Orb {
-    case Joy
-    case Sadness
-    case Anger
 }
 
 enum Layer: CGFloat {
@@ -44,6 +34,7 @@ struct PhysicsCategory {
     static let Ground: UInt32 = 0b100
     static let Rock: UInt32 = 0b1000
     static let OrbHitbox: UInt32 = 0b11
+    static let LastBox: UInt32 = 0b111
 }
 
 class Animations {
@@ -125,7 +116,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         WaterJoyState(scene: self, player: self.player),
         WaterSadState(scene: self, player: self.player),
         WaterDashState(scene: self, player: self.player),
-        DashingState(scene: self, player: self.player)
+        DashingState(scene: self, player: self.player),
+        PausedState(scene: self, player: self.player)
         ])
     
     override func didMove(to view: SKView) {
@@ -159,18 +151,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpMusic()
         
         setUpLightFX()
+        
+        gameViewDelegate?.sceneDidSetup()
     }
     
     func setUpLightFX() {
-        JoyLight = SKSpriteNode(color: #colorLiteral(red: 1, green: 0.8562885523, blue: 0.000872995588, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        JoyLight = SKSpriteNode(color: #colorLiteral(red: 1, green: 0.8562885523, blue: 0.000872995588, alpha: 1), size: CGSize(width: 2000, height: 1000))
         JoyLight.alpha = 0.0
         JoyLight.zPosition = 50
         addChild(JoyLight)
-        SadLight = SKSpriteNode(color: #colorLiteral(red: 0.410720408, green: 0.6092639565, blue: 0.7631528974, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        SadLight = SKSpriteNode(color: #colorLiteral(red: 0.410720408, green: 0.6092639565, blue: 0.7631528974, alpha: 1), size: CGSize(width: 2000, height: 1000))
         SadLight.alpha = 0.0
         SadLight.zPosition = 50
         addChild(SadLight)
-        AngerLight = SKSpriteNode(color: #colorLiteral(red: 0.826115787, green: 0.3553501666, blue: 0.4102210701, alpha: 1), size: CGSize(width: 1000, height: 1000))
+        AngerLight = SKSpriteNode(color: #colorLiteral(red: 0.826115787, green: 0.3553501666, blue: 0.4102210701, alpha: 1), size: CGSize(width: 2000, height: 1000))
         AngerLight.alpha = 0.0
         AngerLight.zPosition = 50
         addChild(AngerLight)
@@ -389,6 +383,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         setUpPlayerContactNodes(barrierLeft, tree: true)
         barrierRight = self.childNode(withName: "barrierRight") as? SKSpriteNode
         setUpPlayerContactNodes(barrierRight, tree: true)
+        
+        if sceneName == "GameSceneAnger" {
+            barrierRight.physicsBody?.categoryBitMask = PhysicsCategory.LastBox
+            barrierRight.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        }
     }
     
     func setUpOrbs() {
@@ -514,7 +513,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if other.categoryBitMask == PhysicsCategory.OrbHitbox {
-            player.movementComponent.stop()
+            stateMachine.enter(PausedState.self)
             other.node?.removeFromParent()
             if let orbSprite = self.childNode(withName: "JoySprite") as? SKSpriteNode {
                 self.gameViewDelegate?.displayCutscene(forOrb: Orb.Joy)
@@ -526,6 +525,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 self.gameViewDelegate?.displayCutscene(forOrb: Orb.Anger)
                 orbSprite.removeFromParent()
             }
+        }
+        
+        if other.categoryBitMask == PhysicsCategory.LastBox && sceneName == "GameSceneAnger" {
+            displayEndImage()
         }
     }
     
@@ -587,7 +590,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             musicPlayer.numberOfLoops = -1
             musicPlayer.volume = 0
-            musicPlayer.setVolume(0.2, fadeDuration: 2.0)
+            musicPlayer.setVolume(0.2, fadeDuration: 3.0)
         }
     }
     
@@ -595,14 +598,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func playMusic() {
         musicPlayer.volume = 0
         musicPlayer.play()
-        musicPlayer.setVolume(0.2, fadeDuration: 2.0)
+        musicPlayer.setVolume(0.2, fadeDuration: 3.0)
     }
     
     func stopMusic() {
-        //musicPlayer.setVolume(0, fadeDuration: 2)
-        musicPlayer.stop()
+        musicPlayer.setVolume(0, fadeDuration: 2)
     }
     
+    func unpauseGame() {
+        stateMachine.enter(PlayingState.self)
+    }
+    
+    func displayEndImage() {
+        stateMachine.enter(PausedState.self)
+        gameViewDelegate?.showImage()
+    }
     
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime == 0 {

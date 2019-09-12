@@ -44,6 +44,6 @@ class JoyGlidingState: GKState {
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return (stateClass == PlayingState.self) || (stateClass == SinkingState.self) || (stateClass == BoostingDownState.self)
+        return (stateClass == PlayingState.self) || (stateClass == SinkingState.self) || (stateClass == BoostingDownState.self) || (stateClass == PausedState.self)
     }
 }
