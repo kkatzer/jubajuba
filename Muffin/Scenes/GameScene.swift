@@ -306,34 +306,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         tapRec.addTarget(self, action: #selector(jump))
         tapRec.delegate = self
         self.view!.addGestureRecognizer(tapRec)
-        
+
         longPressRec.addTarget(self, action: #selector(walk))
         longPressRec.delegate = self
         longPressRec.minimumPressDuration = 0.1
-        
+
         self.view!.addGestureRecognizer(longPressRec)
-        
+
         swipeUpRec.addTarget(self, action: #selector(jumpUp))
         swipeUpRec.delegate = self
         swipeUpRec.direction = .up
         self.view!.addGestureRecognizer(swipeUpRec)
-        
+
         swipeDownRec.addTarget(self, action: #selector(sink))
         swipeDownRec.delegate = self
         swipeDownRec.direction = .down
         self.view!.addGestureRecognizer(swipeDownRec)
-        
+
         swipeLeftRec.addTarget(self, action: #selector(leftDash))
         swipeLeftRec.direction = .left
         self.view!.addGestureRecognizer(swipeLeftRec)
-        
+
         swipeRightRec.addTarget(self, action: #selector(rightDash))
         swipeRightRec.direction = .right
         self.view!.addGestureRecognizer(swipeRightRec)
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer.location(ofTouch: 0, in: self.view) == otherGestureRecognizer.location(ofTouch: 0, in: self.view) {
+//        if gestureRecognizer.location(ofTouch: 0, in: self.view) == otherGestureRecognizer.location(ofTouch: 0, in: self.view) {
+//            return false
+//        }
+        if gestureRecognizer.location(in: self.view) == otherGestureRecognizer.location(in: self.view) {
             return false
         }
         if gestureRecognizer is UILongPressGestureRecognizer || otherGestureRecognizer is UILongPressGestureRecognizer {
@@ -350,10 +353,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func setUpPlayerContactNodes(_ node: SKSpriteNode, tree: Bool) {
-        if node.texture == nil {
-            node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
-        } else {
-            node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
+        if node.name != "SKRoundNode" {
+            if node.texture == nil {
+                node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+            } else {
+                node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
+            }
         }
         
         let body = node.physicsBody
