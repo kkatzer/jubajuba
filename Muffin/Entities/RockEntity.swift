@@ -46,13 +46,8 @@ class RockEntity: GKEntity {
         body?.restitution = 0.2
         body?.categoryBitMask = PhysicsCategory.Rock
         body?.contactTestBitMask = PhysicsCategory.Player
-        body?.affectedByGravity = true
+        body?.affectedByGravity = false
         body?.allowsRotation = false
-        body?.isDynamic = true
-        if (!breakable) {
-            body?.pinned = false
-        } else {
-            body?.pinned = true
-        }
+        body?.isDynamic = false
     }
 }
