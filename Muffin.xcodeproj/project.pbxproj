@@ -71,6 +71,11 @@
 		64599C5D232484F7000FC978 /* CutsceneAnger.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5C2324770E000FC978 /* CutsceneAnger.mp4 */; };
 		64599C5E232484F7000FC978 /* CutsceneJoy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5A2324770D000FC978 /* CutsceneJoy.mp4 */; };
 		64599C5F232484F7000FC978 /* CutsceneSadness.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */; };
+		64BEE9842329221A00D3DDBC /* PausedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BEE9832329221A00D3DDBC /* PausedState.swift */; };
+		64F6BE692327E1CF00E86E85 /* TutorialRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6BE682327E1CF00E86E85 /* TutorialRepository.swift */; };
+		64F6BE6C23282A0800E86E85 /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6BE6B23282A0800E86E85 /* Configurations.swift */; };
+		64F6BE6F23282AD700E86E85 /* enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6BE6E23282AD700E86E85 /* enumerations.swift */; };
+		64F6BE732328872900E86E85 /* CutsceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6BE722328872900E86E85 /* CutsceneViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +145,11 @@
 		64599C5A2324770D000FC978 /* CutsceneJoy.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneJoy.mp4; sourceTree = "<group>"; };
 		64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneSadness.mp4; sourceTree = "<group>"; };
 		64599C5C2324770E000FC978 /* CutsceneAnger.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = CutsceneAnger.mp4; sourceTree = "<group>"; };
+		64BEE9832329221A00D3DDBC /* PausedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PausedState.swift; sourceTree = "<group>"; };
+		64F6BE682327E1CF00E86E85 /* TutorialRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialRepository.swift; sourceTree = "<group>"; };
+		64F6BE6B23282A0800E86E85 /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
+		64F6BE6E23282AD700E86E85 /* enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = enumerations.swift; sourceTree = "<group>"; };
+		64F6BE722328872900E86E85 /* CutsceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutsceneViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,18 +209,17 @@
 		1FE4088D2305A2CD006331CC /* Muffin */ = {
 			isa = PBXGroup;
 			children = (
+				64F6BE71232886FA00E86E85 /* Controllers */,
+				64F6BE70232886DD00E86E85 /* Storyboards */,
+				64F6BE6D23282A1900E86E85 /* Domain */,
 				6412B6E5232031EF005DF78B /* Utils */,
 				6412B6CE232031D4005DF78B /* Sprites */,
-				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
 				560C1C62231E8990002B820A /* GameStates */,
 				562FF45B230AE68B00D0838B /* Components */,
 				562FF460230AE68B00D0838B /* Entities */,
-				562FF462230AE68B00D0838B /* GameScene.swift */,
-				562FF464230AE68B00D0838B /* GameViewController.swift */,
 				562FF45E230AE68B00D0838B /* Scenes */,
-				1FE408982305A2CD006331CC /* Main.storyboard */,
 				1FE4089B2305A2CF006331CC /* Assets.xcassets */,
-				1FE4089D2305A2CF006331CC /* LaunchScreen.storyboard */,
+				1FE4088E2305A2CD006331CC /* AppDelegate.swift */,
 				1FE408A02305A2CF006331CC /* Info.plist */,
 				56741CFF230D89F6000393A5 /* CGPointExtensions.swift */,
 				562FF465230AE68B00D0838B /* Resources */,
@@ -232,6 +241,7 @@
 				561920D1231FE74400E86F44 /* WaterSadState.swift */,
 				561920D3231FE77200E86F44 /* WaterDashState.swift */,
 				561920D5231FE79000E86F44 /* DashingState.swift */,
+				64BEE9832329221A00D3DDBC /* PausedState.swift */,
 			);
 			path = GameStates;
 			sourceTree = "<group>";
@@ -260,6 +270,7 @@
 		562FF45E230AE68B00D0838B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				562FF462230AE68B00D0838B /* GameScene.swift */,
 				562FF45F230AE68B00D0838B /* GameScene.sks */,
 				5620C0A52323F9CB00BCA21D /* GameSceneJoy.sks */,
 				5620C0A12323F85100BCA21D /* GameSceneSad.sks */,
@@ -327,6 +338,42 @@
 				64599C5B2324770E000FC978 /* CutsceneSadness.mp4 */,
 			);
 			path = Cutscenes;
+			sourceTree = "<group>";
+		};
+		64F6BE672327E1A500E86E85 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				64F6BE682327E1CF00E86E85 /* TutorialRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		64F6BE6D23282A1900E86E85 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				64F6BE6B23282A0800E86E85 /* Configurations.swift */,
+				64F6BE6E23282AD700E86E85 /* enumerations.swift */,
+				64F6BE672327E1A500E86E85 /* Repository */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		64F6BE70232886DD00E86E85 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1FE408982305A2CD006331CC /* Main.storyboard */,
+				1FE4089D2305A2CF006331CC /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		64F6BE71232886FA00E86E85 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				562FF464230AE68B00D0838B /* GameViewController.swift */,
+				64F6BE722328872900E86E85 /* CutsceneViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,11 +487,13 @@
 			files = (
 				1FEE6458230EB7420082DFB0 /* OrbComponent.swift in Sources */,
 				560C1C68231E916F002B820A /* JoyGlidingState.swift in Sources */,
+				64F6BE6C23282A0800E86E85 /* Configurations.swift in Sources */,
 				562FF488230AE68B00D0838B /* GameScene.swift in Sources */,
 				562FF484230AE68B00D0838B /* SpriteComponent.swift in Sources */,
 				1F59B26623181400004A56BC /* BreakComponent.swift in Sources */,
 				561920D0231FE72400E86F44 /* WaterJoyState.swift in Sources */,
 				561920D6231FE79000E86F44 /* DashingState.swift in Sources */,
+				64F6BE692327E1CF00E86E85 /* TutorialRepository.swift in Sources */,
 				561920CC231FE3AF00E86F44 /* SinkingState.swift in Sources */,
 				1FEE6457230EB73F0082DFB0 /* OrbEntity.swift in Sources */,
 				561920D4231FE77200E86F44 /* WaterDashState.swift in Sources */,
@@ -452,11 +501,14 @@
 				1F59B2642318134C004A56BC /* RockEntity.swift in Sources */,
 				56741D00230D89F6000393A5 /* CGPointExtensions.swift in Sources */,
 				561920D2231FE74400E86F44 /* WaterSadState.swift in Sources */,
+				64F6BE732328872900E86E85 /* CutsceneViewController.swift in Sources */,
 				6412B6E723203225005DF78B /* AssetsUtil.swift in Sources */,
 				560C1C66231E9133002B820A /* JoyGoingUpState.swift in Sources */,
 				1FE4088F2305A2CD006331CC /* AppDelegate.swift in Sources */,
 				561920CA231FDACF00E86F44 /* BoostingDownState.swift in Sources */,
 				562FF489230AE68B00D0838B /* GameViewController.swift in Sources */,
+				64BEE9842329221A00D3DDBC /* PausedState.swift in Sources */,
+				64F6BE6F23282AD700E86E85 /* enumerations.swift in Sources */,
 				562FF487230AE68B00D0838B /* PlayerEntity.swift in Sources */,
 				0D49E38823214E06009AE94E /* FloatingOnlyState.swift in Sources */,
 				560C1C64231E89B3002B820A /* PlayingState.swift in Sources */,
@@ -607,7 +659,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5MSP4455P9;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -625,7 +677,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5MSP4455P9;
+				DEVELOPMENT_TEAM = UDGF2JUP82;
 				INFOPLIST_FILE = Muffin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
