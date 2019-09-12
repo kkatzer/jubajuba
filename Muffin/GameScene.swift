@@ -356,10 +356,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func setUpPlayerContactNodes(_ node: SKSpriteNode, tree: Bool) {
-        if node.texture == nil {
-            node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
-        } else {
-            node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
+        if node.name != "SKRoundNode" {
+            if node.texture == nil {
+                node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+            } else {
+                node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.texture!.size())
+            }
         }
         
         let body = node.physicsBody
