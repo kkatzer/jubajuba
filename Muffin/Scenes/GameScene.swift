@@ -336,6 +336,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
 //        if gestureRecognizer.location(ofTouch: 0, in: self.view) == otherGestureRecognizer.location(ofTouch: 0, in: self.view) {
 //            return false
 //        }
+        if gestureRecognizer.location(in: self.view) == otherGestureRecognizer.location(in: self.view) {
+            return false
+        }
         if gestureRecognizer is UILongPressGestureRecognizer || otherGestureRecognizer is UILongPressGestureRecognizer {
             return true
         }

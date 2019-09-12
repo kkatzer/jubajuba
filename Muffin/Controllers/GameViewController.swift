@@ -78,22 +78,20 @@ class GameViewController: UIViewController {
                                                                        isFirst: lastPlayedCutscene == nil)
         
         if let name = gameScenes[orb] {
-            if let scene = GKScene(fileNamed: name) {
-                sceneNode = scene.rootNode as! GameScene?
-                sceneNode.scaleMode = .aspectFill
-                sceneNode.sceneName = name
-                sceneNode.gameViewDelegate = self
-                sceneNode.levelConfigurator = self
+            sceneNode = GameScene(fileNamed: name)
+            sceneNode.scaleMode = .aspectFill
+            sceneNode.sceneName = name
+            sceneNode.gameViewDelegate = self
+            sceneNode.levelConfigurator = self
+            
+            if let view = self.view as! SKView? {
+                view.presentScene(sceneNode)
                 
-                if let view = self.view as! SKView? {
-                    view.presentScene(sceneNode)
-                    
-                    view.ignoresSiblingOrder = true
-                    
-                    view.showsFPS = false
-                    view.showsPhysics = false
-                    view.showsNodeCount = false
-                }
+                view.ignoresSiblingOrder = true
+                
+                view.showsFPS = false
+                view.showsPhysics = false
+                view.showsNodeCount = false
             }
         }
     }
