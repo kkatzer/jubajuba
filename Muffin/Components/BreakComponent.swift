@@ -18,10 +18,17 @@ class BreakComponent: GKComponent {
     let scene: GameScene!
     var SFX: AVAudioPlayer!
     
+    private let emitter = SKEmitterNode(fileNamed: "RockExplosion")
+    
     init(entity: RockEntity, scene: GameScene, breakable: Bool) {
-        self.spriteComponent = entity.component(ofType: SpriteComponent.self)! // pointer to the sprite component
+        self.spriteComponent = entity.component(ofType: SpriteComponent.self)!
         self.breakable = breakable
         self.scene = scene
+        self.emitter?.zPosition = Layer.player.rawValue
+        self.emitter?.position = spriteComponent.node.position
+        emitter?.isHidden = true
+        self.scene.addChild(emitter!)
+
         
         do {
             SFX = try AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "Stone Breaking", withExtension: "wav")!)
@@ -44,6 +51,10 @@ class BreakComponent: GKComponent {
         if (breakable && scene.stateMachine.currentState is DashingState) {
             SFX.play()
             spriteComponent.node.removeFromParent()
+            emitter?.isHidden = false
+            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: {timer in
+                self.emitter?.removeFromParent()
+            })
         }
     }
 }
