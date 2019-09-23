@@ -387,6 +387,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         barrierRight = self.childNode(withName: "barrierRight") as? SKSpriteNode
         setUpPlayerContactNodes(barrierRight, tree: true)
         
+        if let mushroomHitboxNode = ground.childNode(withName: "mushroomHitbox") {
+            mushroomHitboxNode.enumerateChildNodes(withName: "SKRoundNode") { (node, stop) in
+                self.setUpPlayerContactNodes(node as! SKSpriteNode, tree: false)
+                }
+            }
+        
         if sceneName == "GameSceneAnger" {
             barrierRight.physicsBody?.categoryBitMask = PhysicsCategory.LastBox
             barrierRight.physicsBody?.contactTestBitMask = PhysicsCategory.Player
